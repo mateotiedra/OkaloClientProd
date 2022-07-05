@@ -59,10 +59,9 @@ let theme = createTheme({
       defaultProps: {
         disableRipple: true,
         disableElevation: true,
-        textTransform: 'none',
       },
       styleOverrides: {
-        root: { textTransform: 'none', padding: '12px 0' },
+        root: { textTransform: 'none', padding: '12px 36px' },
       },
     },
     MuiTextField: {
