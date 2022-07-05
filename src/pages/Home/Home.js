@@ -2,7 +2,6 @@ import React from 'react';
 
 //import { HashLink as RouterLink } from 'react-router-hash-link';
 import { Typography, Box, TextField, Container, Button } from '@mui/material';
-import InputUnstyled from '@mui/base/InputUnstyled';
 
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
@@ -83,14 +82,14 @@ function CTASection() {
         variant='outlined'
         sx={{ width: '100%' }}
         inputProps={{
-          sx: { fontSize: { xs: 18, sm: 25, md: 30 } },
+          sx: { fontSize: { xs: 18, sm: 25, md: 25 } },
         }}
       />
       <Button
         placeholder='Chercher un livre, un auteur, ...'
         variant='contained'
         fullWidth
-        sx={{ fontSize: { xs: 18, sm: 25, md: 30 }, mt: 3 }}
+        sx={{ fontSize: { xs: 18, sm: 25, md: 25 }, mt: 3 }}
       >
         Mettre un livre en vente
       </Button>

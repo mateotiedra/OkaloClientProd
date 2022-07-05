@@ -3,7 +3,7 @@ import { Box, Container, Typography } from '@mui/material';
 
 import SectionDivider from '../SectionDivider/SectionDivider';
 
-function Footer() {
+function Footer({ push = true }) {
   return (
     <>
       <Box
@@ -11,7 +11,7 @@ function Footer() {
         sx={{
           py: 6,
           px: 2,
-          mt: 'auto',
+          mt: push ? 'auto' : 0,
         }}
       >
         <Container

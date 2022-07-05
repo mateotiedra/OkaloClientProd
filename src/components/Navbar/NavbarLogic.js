@@ -5,8 +5,6 @@ import { useLocation } from 'react-router-dom';
 const NavbarLogic = () => {
   let { pathname } = useLocation();
 
-  console.log(pathname);
-
   const navLinksObj = [
     {
       text: 'Acceuil',
@@ -28,7 +26,7 @@ const NavbarLogic = () => {
     },
     {
       text: 'Annonces',
-      to: '/user',
+      to: '/user/u',
       icon: <HiUser />,
       current: pathname.includes('/user'),
     },

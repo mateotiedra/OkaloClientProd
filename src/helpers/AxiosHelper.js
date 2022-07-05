@@ -1,24 +1,23 @@
 const AxiosConfig = (axios) => {
-  /* const setInterceptors = () => {
+  const setInterceptors = (setErrorCode) => {
     axios.interceptors.response.use(
-      function (response) {
-        // Any status code that lie within the range of 2xx cause this function to trigger
-        // Do something with response data
+      function (res) {
+        console.log(res.status);
 
-        return response;
+        setErrorCode(res.status);
+        return res;
       },
       function (err) {
-
+        console.log(err);
+        console.log(!err.response, err.response.status >= 500);
         if (!err.response || err.response.status >= 500) {
-          history.replace(history.location.pathname, {
-            errorStatusCode: 500,
-          });
+          setErrorCode(500);
         } else {
           return Promise.reject(err);
         }
       }
     );
-  }; */
+  };
 
   const errorCodeEquals = (err, statusCode) => {
     return (
@@ -34,7 +33,7 @@ const AxiosConfig = (axios) => {
     return NaN;
   };
 
-  return { /* setInterceptors ,*/ errorCodeEquals, getStatusCode };
+  return { setInterceptors, errorCodeEquals, getStatusCode };
 };
 
 export default AxiosConfig;

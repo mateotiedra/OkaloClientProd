@@ -25,10 +25,10 @@ const AuthLogic = ({ startingMode }) => {
 
   const switchLoginMode = () => {
     loginMode
-      ? navigate('/membre/inscription', {
+      ? navigate('/register', {
           replace: true,
         })
-      : navigate('/membre/connexion', {
+      : navigate('/login', {
           replace: true,
         });
 
@@ -36,20 +36,22 @@ const AuthLogic = ({ startingMode }) => {
   };
 
   useLoadPage(() => {
-    axios
-      .get(API_ORIGIN + '/user/u', {
-        headers: {
-          'x-access-token': localStorage.getItem('accessToken'),
-        },
-      })
-      .then(() => {
-        navigate('/membre', { replace: true });
-      })
-      .catch((err) => {
-        if (getStatusCode(err) === 401) {
-          localStorage.removeItem('accessToken');
-        }
-      });
+    const accessToken = localStorage.getItem('x-access-token');
+    accessToken &&
+      axios
+        .get(API_ORIGIN + '/user/u', {
+          headers: {
+            'x-access-token': accessToken,
+          },
+        })
+        .then(() => {
+          navigate('/membre', { replace: true });
+        })
+        .catch((err) => {
+          if (getStatusCode(err) === 401) {
+            localStorage.removeItem('accessToken');
+          }
+        });
   });
 
   const onSubmit = (login) => (formData) => {
@@ -84,7 +86,7 @@ const AuthLogic = ({ startingMode }) => {
               message: 'Adresse déjà utilisée par un autre compte',
             });
           } else {
-            console.log('fdsfdsafdsafdsafsda');
+            //console.log('fdsfdsafdsafdsafsda');
           }
         }
         setPageStatus('active');

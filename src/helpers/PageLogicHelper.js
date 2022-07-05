@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import axios from 'axios';
 
 import AppConfig from '../config/AppConfig';
 import AxiosHelper from './AxiosHelper';
+import ErrorHandlerContext from '../ErrorHandler/ErrorHandlerContext';
 
 const PageLogic = () => {
   const { API_ORIGIN } = AppConfig();
-  const { getStatusCode } = AxiosHelper(axios);
+  const { getStatusCode, setInterceptors } = AxiosHelper(axios);
+  const { setErrorCode } = useContext(ErrorHandlerContext);
   let navigate = useNavigate();
   let params = useParams();
 
@@ -17,6 +19,7 @@ const PageLogic = () => {
 
   const useLoadPage = (actionIn, options) => {
     useEffect(() => {
+      setInterceptors(setErrorCode);
       const { actionOut, allowedRoles, setUserData, musFetchUserData } =
         options || {};
       if (!hasFetchedData.current) {

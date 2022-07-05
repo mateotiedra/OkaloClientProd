@@ -7,7 +7,7 @@ import {
   InputLabel,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { HiEye, HiEyeOff } from 'react-icons/hi';
 
 const PasswordField = ({
   required,
@@ -47,7 +47,7 @@ const PasswordField = ({
               onMouseDown={handleMouseDownPassword}
               edge='end'
             >
-              {showPassword ? <FiEyeOff /> : <FiEye />}
+              {showPassword ? <HiEyeOff /> : <HiEye />}
             </IconButton>
           </InputAdornment>
         }

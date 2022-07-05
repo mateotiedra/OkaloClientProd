@@ -1,19 +1,19 @@
-import { Box } from '@mui/material';
+import { Container } from '@mui/material';
 
 function SectionContainer(props) {
   return (
-    <Box
+    <Container
       id={props.id}
       ref={props.ref}
+      maxWidth={props.maxWidth || 'lg'}
       sx={{
         px: { xs: 4, sm: 5, md: 10, lg: 10, ...props.sx },
-        maxWidth: '1300px',
         mx: 'auto',
         ...props.sx,
       }}
     >
       {props.children}
-    </Box>
+    </Container>
   );
 }
 

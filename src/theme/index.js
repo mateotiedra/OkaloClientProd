@@ -26,25 +26,26 @@ let theme = createTheme({
     },
   },
   typography: {
-    h1: {
-      fontFamily: '"Rubik", "Helvetica", "Arial", sans-serif',
-      fontWeight: 600,
-    },
-    h2: {
-      fontFamily: '"Rubik", "Helvetica", "Arial", sans-serif',
-      fontWeight: 500,
-    },
     fontFamily: '"Rubik", "Helvetica", "Arial", sans-serif',
     fontSize: 16,
     fontWeightLight: 300,
-    body1: {
-      fontWeight: 200,
+    h1: {
+      fontWeight: 700,
     },
-    h4: {
-      fontFamily: '"Rubik", "Helvetica", "Arial", sans-serif',
+    h2: {
+      fontWeight: 700,
     },
     h3: {
-      fontFamily: '"Rubik", "Helvetica", "Arial", sans-serif',
+      fontWeight: 700,
+    },
+    h4: {
+      fontWeight: 700,
+    },
+    h5: {
+      fontWeight: 700,
+    },
+    body1: {
+      fontWeight: 500,
     },
   },
 
@@ -64,13 +65,37 @@ let theme = createTheme({
         root: { textTransform: 'none', padding: '12px 0' },
       },
     },
+    MuiTextField: {
+      defaultProps: {
+        variant: 'filled',
+        fullWidth: true,
+      },
+      styleOverrides: {
+        root: {
+          color: darkGrey,
+          fontWeight: 700,
+          input: {
+            color: darkGrey,
+            fontWeight: 500,
+          },
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
           padding: '0 20px',
+          fieldset: {
+            borderColor: darkGrey,
+            borderOpacity: 0.5,
+          },
+        },
+      },
+    },
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
           color: 'text',
-          fontWeight: 700,
-          fontSize: 30,
           fieldset: {
             borderColor: darkGrey,
             borderOpacity: 0.5,
@@ -81,6 +106,7 @@ let theme = createTheme({
     MuiLink: {
       styleOverrides: {
         root: {
+          fontWeight: 500,
           textDecoration: 'none',
           '&:hover': {
             textDecoration: 'underline',

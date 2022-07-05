@@ -1,39 +1,25 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import LoadingButton from '@mui/lab/LoadingButton';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import {
+  Avatar,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  TextField,
+} from '@mui/material';
 
-import { FiUser } from 'react-icons/fi';
+import { HiUser } from 'react-icons/hi';
 
 import FormTextField from '../../components/FormTextField/FormTextField';
 import PasswordField from '../../components/PasswordField/PasswordField';
 import Navbar from '../../components/Navbar/Navbar';
+import SectionContainer from '../../components/SectionContainer/SectionContainer';
+import Footer from '../../components/Footer/Footer';
 
 import AuthLogic from './AuthLogic';
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        CTT Bernex
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// Signin/signup page 'https://cttbernex.ch/membre/connexion'
 export default function Auth({ startingMode }) {
   const { register, errors, onSubmit, pageStatus, loginMode, switchLoginMode } =
     AuthLogic({ startingMode: startingMode });
@@ -41,9 +27,9 @@ export default function Auth({ startingMode }) {
   return (
     <>
       <Navbar coverPage empty />
-      <Container
+      <SectionContainer
         component='main'
-        maxWidth='xs'
+        maxWidth='sm'
         sx={{
           height: '100vh',
           display: 'flex',
@@ -60,20 +46,20 @@ export default function Auth({ startingMode }) {
           }}
         >
           <Avatar sx={{ m: 1 }}>
-            <FiUser />
+            <HiUser />
           </Avatar>
           <Typography component='h1' variant='h5'>
             {loginMode ? 'Connexion' : 'Inscription'}
           </Typography>
-          <Box component='form' onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
-            <FormTextField
-              required
+          <Box component='form' onSubmit={onSubmit} noValidate sx={{ mt: 2 }}>
+            <TextField
               id='email'
               label='Adresse email'
               autoComplete='email'
               autoFocus
-              errors={errors}
-              registration={register('email', {
+              helperText={errors['email'] && errors['email'].message}
+              error={errors['email'] !== undefined}
+              {...register('email', {
                 required: true,
                 pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g,
               })}
@@ -90,12 +76,13 @@ export default function Auth({ startingMode }) {
             <LoadingButton
               variant='contained'
               type='submit'
-              disableElevation
               fullWidth
               sx={{ mt: 3, mb: 2 }}
               loading={pageStatus === 'sending'}
             >
-              {loginMode ? 'Se connecter' : "S'inscrire"}
+              <Typography variant='body1'>
+                {loginMode ? 'Se connecter' : "S'inscrire"}
+              </Typography>
             </LoadingButton>
             <Grid container>
               <Grid item xs>
@@ -111,8 +98,8 @@ export default function Auth({ startingMode }) {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
+        <Footer push={false} />
+      </SectionContainer>
     </>
   );
 }
