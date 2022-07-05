@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Context from './ErrorHandlerContext';
+import Page500 from './pages/Page500/Page500';
 
 function ErrorHandlerWrapper({ children }) {
   const [errorCode, setErrorCode] = useState(200);
-  console.log(errorCode);
 
   return (
     <Context.Provider value={{ errorCode, setErrorCode }}>
-      {children}
+      {errorCode >= 500 ? <Page500 /> : children}
     </Context.Provider>
   );
 }

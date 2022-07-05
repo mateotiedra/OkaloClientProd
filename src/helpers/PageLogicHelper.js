@@ -9,7 +9,8 @@ import ErrorHandlerContext from '../ErrorHandler/ErrorHandlerContext';
 
 const PageLogic = () => {
   const { API_ORIGIN } = AppConfig();
-  const { getStatusCode, setInterceptors } = AxiosHelper(axios);
+  const { getStatusCode, setInterceptors, removeInterceptors } =
+    AxiosHelper(axios);
   const { setErrorCode } = useContext(ErrorHandlerContext);
   let navigate = useNavigate();
   let params = useParams();
@@ -19,19 +20,21 @@ const PageLogic = () => {
 
   const useLoadPage = (actionIn, options) => {
     useEffect(() => {
-      setInterceptors(setErrorCode);
       const { actionOut, allowedRoles, setUserData, musFetchUserData } =
         options || {};
       if (!hasFetchedData.current) {
         hasFetchedData.current = true;
+        setInterceptors(setErrorCode);
         if (allowedRoles || setUserData || musFetchUserData)
           fetchUserData(allowedRoles, setUserData).then((userData) => {
             actionIn && actionIn(userData);
           });
         else actionIn && actionIn();
       }
-
-      if (actionOut) return actionOut;
+      return () => {
+        if (actionOut) return actionOut;
+        //removeInterceptors();
+      };
     }, [actionIn, options]);
   };
 
@@ -87,6 +90,7 @@ const PageLogic = () => {
     navigate,
     useLoadPage,
     params,
+    setErrorCode,
   };
 };
 

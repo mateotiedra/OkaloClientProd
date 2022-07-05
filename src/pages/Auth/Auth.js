@@ -1,18 +1,9 @@
 import * as React from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
-import {
-  Avatar,
-  Link,
-  Grid,
-  Box,
-  Typography,
-  Container,
-  TextField,
-} from '@mui/material';
+import { Avatar, Link, Grid, Box, Typography, TextField } from '@mui/material';
 
 import { HiUser } from 'react-icons/hi';
 
-import FormTextField from '../../components/FormTextField/FormTextField';
 import PasswordField from '../../components/PasswordField/PasswordField';
 import Navbar from '../../components/Navbar/Navbar';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';

@@ -1,14 +1,13 @@
 const AxiosConfig = (axios) => {
-  const setInterceptors = (setErrorCode) => {
-    axios.interceptors.response.use(
-      function (res) {
-        console.log(res.status);
+  let interceptor;
 
+  const setInterceptors = (setErrorCode) => {
+    interceptor = axios.interceptors.response.use(
+      function (res) {
         setErrorCode(res.status);
         return res;
       },
       function (err) {
-        console.log(err);
         console.log(!err.response, err.response.status >= 500);
         if (!err.response || err.response.status >= 500) {
           setErrorCode(500);
@@ -17,6 +16,10 @@ const AxiosConfig = (axios) => {
         }
       }
     );
+  };
+  const removeInterceptors = () => {
+    console.log('remove');
+    axios.interceptors.request.eject(interceptor);
   };
 
   const errorCodeEquals = (err, statusCode) => {
@@ -33,7 +36,12 @@ const AxiosConfig = (axios) => {
     return NaN;
   };
 
-  return { setInterceptors, errorCodeEquals, getStatusCode };
+  return {
+    setInterceptors,
+    removeInterceptors,
+    errorCodeEquals,
+    getStatusCode,
+  };
 };
 
 export default AxiosConfig;

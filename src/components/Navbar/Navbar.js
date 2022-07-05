@@ -19,7 +19,7 @@ import { Box } from '@mui/system';
 import { HashLink as RouterLink } from 'react-router-hash-link';
 import SectionDivider from '../SectionDivider/SectionDivider';
 
-function Navbar({ admin, coverPage, empty }) {
+function Navbar({ admin, coverPage, empty, goHomeAction }) {
   const { navLinksObj, drawerOpened, toggleDrawer } = NavbarLogic(admin);
 
   return (
@@ -57,6 +57,7 @@ function Navbar({ admin, coverPage, empty }) {
             }}
             component={RouterLink}
             to='/'
+            onClick={goHomeAction}
           >
             <Typography
               variant='h4'

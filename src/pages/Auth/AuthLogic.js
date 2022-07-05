@@ -36,7 +36,7 @@ const AuthLogic = ({ startingMode }) => {
   };
 
   useLoadPage(() => {
-    const accessToken = localStorage.getItem('x-access-token');
+    const accessToken = localStorage.getItem('accessToken');
     accessToken &&
       axios
         .get(API_ORIGIN + '/user/u', {
@@ -56,23 +56,35 @@ const AuthLogic = ({ startingMode }) => {
 
   const onSubmit = (login) => (formData) => {
     setPageStatus('sending');
+    console.log(API_ORIGIN + '/auth/' + (login ? 'signin' : 'signup'));
     axios
       .post(API_ORIGIN + '/auth/' + (login ? 'signin' : 'signup'), {
         email: formData.email,
         password: formData.password,
       })
-      .then(({ data }) => {
-        if (login) {
-          localStorage.setItem('accessToken', data.accessToken);
-          navigate('/membre', { replace: true });
-        } else {
-          onSubmit(true)(formData);
+      .then((res) => {
+        if (res.status === 200) {
+          if (login) {
+            localStorage.setItem('accessToken', res.data.accessToken);
+            navigate('/', { replace: true });
+          } else {
+            console.log('email sent');
+            onSubmit(true)(formData);
+          }
+        } else if (res.status === 202) {
+          setError('email', {
+            type: 'custom',
+            message: 'Adresse email pas encore confirmée',
+          });
         }
       })
       .catch((err) => {
         if (login) {
           if (getStatusCode(err) === 404) {
-            setError('email', { type: 'custom', message: 'Adresse inconnue' });
+            setError('email', {
+              type: 'custom',
+              message: 'Adresse email inconnue',
+            });
           } else if (getStatusCode(err) === 403) {
             setError('password', {
               type: 'custom',
@@ -89,6 +101,8 @@ const AuthLogic = ({ startingMode }) => {
             //console.log('fdsfdsafdsafdsafsda');
           }
         }
+      })
+      .finally(() => {
         setPageStatus('active');
       });
   };
