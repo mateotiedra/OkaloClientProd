@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { HiUser, HiSearch, HiPlus, HiHome } from 'react-icons/hi';
 import { useLocation } from 'react-router-dom';
 
@@ -32,13 +31,7 @@ const NavbarLogic = () => {
     },
   ];
 
-  const [drawerOpened, setDrawerOpened] = useState(false);
-
-  const toggleDrawer = (open) => () => {
-    setDrawerOpened(open);
-  };
-
-  return { navLinksObj, drawerOpened, toggleDrawer };
+  return { navLinksObj };
 };
 
 export default NavbarLogic;

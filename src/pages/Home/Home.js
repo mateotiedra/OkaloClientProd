@@ -7,7 +7,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import SectionDivider from '../../components/SectionDivider/SectionDivider';
 
-import HomeLogic from './HomeLogic';
+//import HomeLogic from './HomeLogic';
 
 function TitleSection() {
   return (
@@ -62,7 +62,6 @@ function TitleSection() {
       <Box
         sx={{
           backgroundColor: 'primary.main',
-          width: '100%',
           borderRadius: '10px 0 0 10px',
           position: 'relative',
           height: { xs: '1.2vw', sm: '1.2vw', md: '0.7vw' },

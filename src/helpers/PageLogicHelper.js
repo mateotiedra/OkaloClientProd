@@ -9,8 +9,7 @@ import ErrorHandlerContext from '../ErrorHandler/ErrorHandlerContext';
 
 const PageLogic = () => {
   const { API_ORIGIN } = AppConfig();
-  const { getStatusCode, setInterceptors, removeInterceptors } =
-    AxiosHelper(axios);
+  const { getStatusCode, setInterceptors } = AxiosHelper(axios);
   const { setErrorCode } = useContext(ErrorHandlerContext);
   let navigate = useNavigate();
   let params = useParams();
@@ -33,7 +32,6 @@ const PageLogic = () => {
       }
       return () => {
         if (actionOut) return actionOut;
-        //removeInterceptors();
       };
     }, [actionIn, options]);
   };

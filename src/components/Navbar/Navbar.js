@@ -3,24 +3,13 @@ import React from 'react';
 import NavbarLogic from './NavbarLogic';
 
 import Logo from '../../assets/rsvg/logo.js';
-import {
-  AppBar,
-  Container,
-  IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemText,
-  SwipeableDrawer,
-  Typography,
-} from '@mui/material';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { AppBar, Container, Link, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { HashLink as RouterLink } from 'react-router-hash-link';
 import SectionDivider from '../SectionDivider/SectionDivider';
 
 function Navbar({ admin, coverPage, empty, goHomeAction }) {
-  const { navLinksObj, drawerOpened, toggleDrawer } = NavbarLogic(admin);
+  const { navLinksObj } = NavbarLogic(admin);
 
   return (
     <>
