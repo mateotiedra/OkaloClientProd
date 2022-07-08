@@ -66,6 +66,7 @@ const AuthLogic = ({ startingMode }) => {
       .post(API_ORIGIN + '/auth/' + (login ? 'signin' : 'signup'), {
         email: formData.email,
         password: formData.password,
+        username: formData.username,
       })
       .then((res) => {
         switch (res.status) {

@@ -11,6 +11,23 @@ import Footer from '../../components/Footer/Footer';
 
 import AuthLogic from './AuthLogic';
 
+function RegisterFields({ register, errors }) {
+  return (
+    <>
+      <TextField
+        id='username'
+        label="Nom d'utilisateur"
+        autoFocus
+        helperText={errors['username'] && errors['username'].message}
+        error={errors['username'] !== undefined}
+        {...register('username', {
+          required: true,
+        })}
+      />
+    </>
+  );
+}
+
 export default function Auth({ startingMode }) {
   const { register, errors, onSubmit, pageStatus, loginMode, switchLoginMode } =
     AuthLogic({ startingMode: startingMode });
@@ -42,7 +59,18 @@ export default function Auth({ startingMode }) {
           <Typography component='h1' variant='h5'>
             {loginMode ? 'Connexion' : 'Inscription'}
           </Typography>
-          <Box component='form' onSubmit={onSubmit} noValidate sx={{ mt: 2 }}>
+          <Box
+            component='form'
+            noValidate
+            onSubmit={onSubmit}
+            sx={{
+              mt: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              width: '100%',
+            }}
+          >
             <TextField
               id='email'
               label='Adresse email'
@@ -55,6 +83,9 @@ export default function Auth({ startingMode }) {
                 pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g,
               })}
             />
+            {!loginMode && (
+              <RegisterFields register={register} errors={errors} />
+            )}
             <PasswordField
               required
               id='password'

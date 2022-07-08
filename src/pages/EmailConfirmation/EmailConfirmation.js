@@ -4,9 +4,8 @@ import EmailConfirmationLogic from './EmailConfirmationLogic';
 import AlertPage from '../../components/AlertPage/AlertPage';
 import Loading from '../Loading/Loading';
 
-function EmailConfirmation(props) {
-  const { pageStatus, goToProfile } = EmailConfirmationLogic();
-  console.log(pageStatus);
+function EmailConfirmation() {
+  const { pageStatus, goToProfile, goToNewLink } = EmailConfirmationLogic();
 
   if (pageStatus === 'loading') return <Loading />;
 
@@ -16,7 +15,7 @@ function EmailConfirmation(props) {
         title='Oops.. Lien erroné'
         body='Le lien est erroné ou a expiré. Tu peux réessayer ou en demander un nouveau.'
         error={true}
-        ctaButtons={[{ text: 'Nouveau lien', onclick: goToProfile }]}
+        ctaButtons={[{ text: 'Nouveau lien', onClick: goToNewLink }]}
       />
     );
 
@@ -25,7 +24,7 @@ function EmailConfirmation(props) {
       <AlertPage
         title='Adresse email confirmée'
         body="Ton compte est maintenant finalisé. N'hésite pas à ajouter d'autres moyens de contact afin de faciliter la communication avec tes futurs acheteurs !"
-        ctaButtons={[{ text: 'Accéder à mon profile' }]}
+        ctaButtons={[{ text: 'Accéder à mon profile', onClick: goToProfile }]}
       />
     );
 }

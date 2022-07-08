@@ -32,7 +32,11 @@ const EmailConfirmationLogic = () => {
     navigate('/user/u', { replace: true });
   };
 
-  return { pageStatus, goToProfile };
+  const goToNewLink = () => {
+    navigate('/confirm-email/resend');
+  };
+
+  return { pageStatus, goToProfile, goToNewLink };
 };
 
 export default EmailConfirmationLogic;

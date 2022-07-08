@@ -18,6 +18,7 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
         sx={{
           display: 'flex',
           alignItems: 'center',
+          height: 90,
           backgroundColor: 'background.default',
           position: 'fixed',
           top: 'auto',
@@ -103,7 +104,7 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
             })}
         </Container>
       </AppBar>
-      {!coverPage && <SectionDivider />}
+      {!coverPage && <Box sx={{ height: 90 }} />}
     </>
   );
 }

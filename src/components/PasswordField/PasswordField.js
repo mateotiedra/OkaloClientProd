@@ -31,6 +31,7 @@ const PasswordField = ({
       margin='normal'
       error={errors[id] !== undefined}
       autoFocus={autoFocus}
+      sx={{ my: 0 }}
     >
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <FilledInput
