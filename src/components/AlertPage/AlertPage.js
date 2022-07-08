@@ -45,17 +45,18 @@ function AlertPage({ title, body, ctaButtons, error }) {
             mt: 3,
           }}
         >
-          {ctaButtons.map((button) => {
-            return (
-              <Button
-                variant='contained'
-                onClick={button.onClick}
-                key={button.text}
-              >
-                <Typography variant='body1'>{button.text}</Typography>
-              </Button>
-            );
-          })}
+          {ctaButtons &&
+            ctaButtons.map((button) => {
+              return (
+                <Button
+                  variant='contained'
+                  onClick={button.onClick}
+                  key={button.text}
+                >
+                  <Typography variant='body1'>{button.text}</Typography>
+                </Button>
+              );
+            })}
         </Box>
       </Container>
     </>
