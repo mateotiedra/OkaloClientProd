@@ -8,7 +8,6 @@ function SectionContainer(props) {
       maxWidth={props.maxWidth || 'lg'}
       sx={{
         px: { xs: 4, sm: 5, md: 10, lg: 10, ...props.sx },
-        mx: 'auto',
         ...props.sx,
       }}
     >
