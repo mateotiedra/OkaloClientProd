@@ -53,7 +53,8 @@ const ProfileLogic = (props) => {
       setUserData(user);
       setPageStatus('guest');
     } catch (err) {
-      setPageStatus('not found');
+      if (getStatusCode(err) === 404) setPageStatus('not found');
+      else console.log(err);
     }
   });
 

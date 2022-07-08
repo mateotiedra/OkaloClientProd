@@ -6,7 +6,6 @@ import Logo from '../../assets/rsvg/logo.js';
 import { AppBar, Container, Link, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { HashLink as RouterLink } from 'react-router-hash-link';
-import SectionDivider from '../SectionDivider/SectionDivider';
 
 function Navbar({ admin, coverPage, empty, goHomeAction }) {
   const { navLinksObj } = NavbarLogic(admin);

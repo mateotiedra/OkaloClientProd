@@ -85,6 +85,8 @@ const AuthLogic = ({ startingMode }) => {
               message: 'Adresse email pas encore confirmée',
             });
             break;
+          default:
+            break;
         }
       })
       .catch((err) => {

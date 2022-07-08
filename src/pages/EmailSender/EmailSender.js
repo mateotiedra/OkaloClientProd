@@ -2,7 +2,6 @@ import React from 'react';
 
 import EmailSenderLogic from './EmailSenderLogic';
 import AlertPage from '../../components/AlertPage/AlertPage';
-import Loading from '../Loading/Loading';
 import { Typography, Link, TextField } from '@mui/material';
 
 function EmailSender(props) {

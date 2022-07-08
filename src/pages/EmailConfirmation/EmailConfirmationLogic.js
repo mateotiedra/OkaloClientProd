@@ -7,7 +7,6 @@ const EmailConfirmationLogic = () => {
     axios,
     pageStatus,
     setPageStatus,
-    getStatusCode,
     navigate,
     useLoadPage,
   } = PageLogicHelper();
