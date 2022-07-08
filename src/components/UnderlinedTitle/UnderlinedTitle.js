@@ -11,7 +11,7 @@ function UnderlinedTitle({ children, color = 'primary.main' }) {
           backgroundColor: color,
           width: '100%',
           borderRadius: 10,
-          height: 8,
+          height: 7,
           mb: 2,
         }}
       />

@@ -1,9 +1,7 @@
-import PageLogicHelper from '../../helpers/PageLogicHelper';
+//import PageLogicHelper from '../../helpers/PageLogicHelper';
 
 const HomeLogic = () => {
-  const { useLoadPage } = PageLogicHelper();
-
-  useLoadPage(() => {}, {});
+  //const {  } = PageLogicHelper();
 
   return {};
 };

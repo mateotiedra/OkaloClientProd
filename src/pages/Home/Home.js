@@ -1,6 +1,6 @@
 import React from 'react';
 
-//import { HashLink as RouterLink } from 'react-router-hash-link';
+import { HashLink as RouterLink } from 'react-router-hash-link';
 import { Typography, Box, TextField, Container, Button } from '@mui/material';
 
 import Navbar from '../../components/Navbar/Navbar';
@@ -40,7 +40,7 @@ function TitleSection() {
           width: '100%',
           borderRadius: 10,
           position: 'relative',
-          height: { xs: '1.2vw', sm: '1.2vw', md: '0.7vw' },
+          height: 7,
           right: { xs: '23vw', sm: '23vw', md: '39vw' },
           bottom: { xs: '5vw', sm: '5vw', md: '2.5vw' },
         }}
@@ -64,7 +64,7 @@ function TitleSection() {
           backgroundColor: 'primary.main',
           borderRadius: '10px 0 0 10px',
           position: 'relative',
-          height: { xs: '1.2vw', sm: '1.2vw', md: '0.7vw' },
+          height: 7,
           alignSelf: 'flex-end',
           width: { xs: '91vw', sm: '94vw', md: '74vw' },
         }}
@@ -85,10 +85,11 @@ function CTASection() {
         }}
       />
       <Button
-        placeholder='Chercher un livre, un auteur, ...'
         variant='contained'
         fullWidth
         sx={{ fontSize: { xs: 18, sm: 21, md: 20 }, mt: 3 }}
+        component={RouterLink}
+        to='/new-bid'
       >
         Mettre un livre en vente
       </Button>
@@ -97,7 +98,7 @@ function CTASection() {
 }
 
 function Home() {
-  // const {} = HomeLogic();
+  /* const {  } = HomeLogic();*/
   return (
     <>
       <Navbar coverPage />
