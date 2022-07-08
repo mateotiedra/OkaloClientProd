@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Auth from './pages/Auth/Auth';
 import Profile from './pages/Profile/Profile';
+import EmailConfirmation from './pages/EmailConfirmation/EmailConfirmation';
 import ErrorHandlerWrapper from './ErrorHandler/ErrorHandlerWrapper';
 
 // Manage routing
@@ -15,6 +16,10 @@ function App() {
           <Route path='/' default element={<Home />} />
           <Route path='/login' element={<Auth startingMode='login' />} />
           <Route path='/register' element={<Auth startingMode='register' />} />
+          <Route
+            path='/register/confirm-email/:emailToken'
+            element={<EmailConfirmation />}
+          />
           <Route path='/user/:username' element={<Profile />} />
         </Routes>
       </ErrorHandlerWrapper>
