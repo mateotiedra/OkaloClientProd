@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
@@ -20,6 +21,10 @@ const AuthLogic = ({ startingMode }) => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const { state } = useLocation();
+
+  const destination = state?.destination;
 
   const [loginMode, setLoginMode] = useState(startingMode === 'login');
 
@@ -66,7 +71,7 @@ const AuthLogic = ({ startingMode }) => {
         switch (res.status) {
           case 200:
             localStorage.setItem('accessToken', res.data.accessToken);
-            navigate('/', { replace: true });
+            navigate(destination || '/', { replace: true });
             break;
           case 201:
             navigate('/confirm-email/sent', {

@@ -17,12 +17,22 @@ const ProfileLogic = (props) => {
   //let userData;
 
   useLoadPage(() => {
-    if (username === 'u')
-      localStorage.getItem('accessToken')
-        ? axios.get(API_ORIGIN + '/user/u').then((user) => {
-            console.log(user);
+    if (username === 'u') {
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken) {
+        axios
+          .get(API_ORIGIN + '/user/u', {
+            headers: { 'x-access-token': accessToken },
           })
-        : navigate(`/login`, { replace: true });
+          .then((user) => {
+            console.log(user);
+          });
+      } else
+        navigate(`/login`, {
+          replace: true,
+          state: { destination: '/user/u' },
+        });
+    }
   });
 
   return {};
