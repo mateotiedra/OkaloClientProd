@@ -109,6 +109,7 @@ let theme = createTheme({
           textDecoration: 'none',
           '&:hover': {
             textDecoration: 'underline',
+            cursor: 'pointer',
           },
         },
       },
