@@ -9,6 +9,7 @@ function Page500() {
   return (
     <AlertPage
       title='Oops.. Le serveur a crashé'
+      error
       body={
         <Typography>
           Il semblerait que nos serveurs rencontrent quelques problèmes

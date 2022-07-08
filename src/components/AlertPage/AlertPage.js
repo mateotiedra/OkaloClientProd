@@ -4,7 +4,7 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import AlertPageLogic from './AlertPageLogic';
 import Navbar from '../Navbar/Navbar';
 
-function AlertPage({ title, body, ctaButtons }) {
+function AlertPage({ title, body, ctaButtons, error }) {
   const { goHomeAction } = AlertPageLogic();
 
   return (
@@ -25,7 +25,7 @@ function AlertPage({ title, body, ctaButtons }) {
         </Typography>
         <Box
           sx={{
-            backgroundColor: 'error.main',
+            backgroundColor: error ? 'error.main' : 'primary.main',
             width: '100%',
             borderRadius: 10,
             height: 10,
