@@ -81,14 +81,14 @@ function CTASection() {
         variant='outlined'
         sx={{ width: '100%' }}
         inputProps={{
-          sx: { fontSize: { xs: 18, sm: 25, md: 25 } },
+          sx: { fontSize: { xs: 18, sm: 21, md: 20 } },
         }}
       />
       <Button
         placeholder='Chercher un livre, un auteur, ...'
         variant='contained'
         fullWidth
-        sx={{ fontSize: { xs: 18, sm: 25, md: 25 }, mt: 3 }}
+        sx={{ fontSize: { xs: 18, sm: 21, md: 20 }, mt: 3 }}
       >
         Mettre un livre en vente
       </Button>
