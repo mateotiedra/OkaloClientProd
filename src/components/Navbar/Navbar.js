@@ -35,7 +35,7 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
         >
           <Link
             sx={{
-              display: { xs: 'none', sm: 'flex' },
+              display: { xs: empty ? 'flex' : 'none', sm: 'flex' },
               flexDirection: 'row',
               alignItems: 'center',
               height: '70px',

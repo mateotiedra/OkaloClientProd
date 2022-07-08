@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
-const EmailConfirmationLogic = (props) => {
+const EmailConfirmationLogic = () => {
   const {
     API_ORIGIN,
     axios,
@@ -17,9 +17,7 @@ const EmailConfirmationLogic = (props) => {
   useLoadPage(() => {
     axios
       .put(API_ORIGIN + '/auth/signup/confirm', {
-        body: {
-          emailToken: emailToken,
-        },
+        emailToken: emailToken,
       })
       .then(({ accessToken }) => {
         localStorage.setItem('accessToken', accessToken);
@@ -30,7 +28,11 @@ const EmailConfirmationLogic = (props) => {
       });
   });
 
-  return { pageStatus };
+  const goToProfile = () => {
+    navigate('profile', { replace: true });
+  };
+
+  return { pageStatus, goToProfile };
 };
 
 export default EmailConfirmationLogic;
