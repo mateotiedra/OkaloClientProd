@@ -3,6 +3,7 @@ import { Box, Button, Container, Typography } from '@mui/material';
 
 import AlertPageLogic from './AlertPageLogic';
 import Navbar from '../Navbar/Navbar';
+import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
 
 function AlertPage({ title, body, ctaButtons, error, form, ...props }) {
   const { goHomeAction } = AlertPageLogic();
@@ -22,20 +23,9 @@ function AlertPage({ title, body, ctaButtons, error, form, ...props }) {
           p: 6,
         }}
       >
-        <Box>
-          <Typography component='h2' variant='h3'>
-            {title}
-          </Typography>
-          <Box
-            sx={{
-              backgroundColor: error ? 'error.main' : 'primary.main',
-              width: '100%',
-              borderRadius: 10,
-              height: 10,
-              mb: 2,
-            }}
-          />
-        </Box>
+        <UnderlinedTitle color={error ? 'error.main' : 'primary.main'}>
+          {title}
+        </UnderlinedTitle>
         {typeof body === 'string' ? (
           <Typography variant='body1'>{body}</Typography>
         ) : (
