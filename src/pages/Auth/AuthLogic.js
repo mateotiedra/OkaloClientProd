@@ -90,27 +90,37 @@ const AuthLogic = ({ startingMode }) => {
         }
       })
       .catch((err) => {
-        if (login) {
-          if (getStatusCode(err) === 404) {
-            setError('email', {
-              type: 'custom',
-              message: 'Adresse email inconnue',
-            });
-          } else if (getStatusCode(err) === 403) {
+        switch (getStatusCode(err)) {
+          case 403:
             setError('password', {
               type: 'custom',
               message: 'Mot de passe incorrect',
             });
-          }
-        } else {
-          if (getStatusCode(err) === 409) {
+            break;
+
+          case 404:
             setError('email', {
               type: 'custom',
-              message: 'Adresse déjà utilisée par un autre compte',
+              message: 'Adresse email inconnue',
             });
-          } else {
-            //console.log('fdsfdsafdsafdsafsda');
-          }
+            break;
+
+          case 409:
+            if (err.response.data.message.includes('email'))
+              setError('email', {
+                type: 'custom',
+                message: 'Adresse déjà utilisée par un autre compte',
+              });
+            else
+              setError('username', {
+                type: 'custom',
+                message: "Nom d'utilisateur déjà utilisée par un autre compte",
+              });
+            break;
+
+          default:
+            console.log(err);
+            break;
         }
       })
       .finally(() => {
