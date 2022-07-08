@@ -29,7 +29,7 @@ const EmailConfirmationLogic = () => {
   });
 
   const goToProfile = () => {
-    navigate('profile', { replace: true });
+    navigate('/user/u', { replace: true });
   };
 
   return { pageStatus, goToProfile };

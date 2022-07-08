@@ -8,7 +8,6 @@ const AxiosConfig = (axios) => {
         return res;
       },
       function (err) {
-        console.log(!err.response, err.response.status >= 500);
         if (!err.response || err.response.status >= 500) {
           setErrorCode(500);
         } else {
@@ -18,7 +17,6 @@ const AxiosConfig = (axios) => {
     );
   };
   const removeInterceptors = () => {
-    console.log('remove');
     axios.interceptors.request.eject(interceptor);
   };
 

@@ -18,7 +18,7 @@ const ProfileLogic = (props) => {
 
   useLoadPage(() => {
     if (username === 'u')
-      localStorage.getItem('x-access-token')
+      localStorage.getItem('accessToken')
         ? axios.get(API_ORIGIN + '/user/u').then((user) => {
             console.log(user);
           })

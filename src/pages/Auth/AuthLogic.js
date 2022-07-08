@@ -24,6 +24,7 @@ const AuthLogic = ({ startingMode }) => {
   const [loginMode, setLoginMode] = useState(startingMode === 'login');
 
   const switchLoginMode = () => {
+    // TODO : reset fields error
     loginMode
       ? navigate('/register', {
           replace: true,
@@ -45,10 +46,10 @@ const AuthLogic = ({ startingMode }) => {
           },
         })
         .then(() => {
-          navigate('/membre', { replace: true });
+          navigate('/user/u', { replace: true });
         })
         .catch((err) => {
-          if (getStatusCode(err) === 401) {
+          if (getStatusCode(err) === 401 || getStatusCode(err) === 404) {
             localStorage.removeItem('accessToken');
           }
         });
@@ -56,26 +57,28 @@ const AuthLogic = ({ startingMode }) => {
 
   const onSubmit = (login) => (formData) => {
     setPageStatus('sending');
-    console.log(API_ORIGIN + '/auth/' + (login ? 'signin' : 'signup'));
     axios
       .post(API_ORIGIN + '/auth/' + (login ? 'signin' : 'signup'), {
         email: formData.email,
         password: formData.password,
       })
       .then((res) => {
-        if (res.status === 200) {
-          if (login) {
+        switch (res.status) {
+          case 200:
             localStorage.setItem('accessToken', res.data.accessToken);
             navigate('/', { replace: true });
-          } else {
-            console.log('email sent');
-            onSubmit(true)(formData);
-          }
-        } else if (res.status === 202) {
-          setError('email', {
-            type: 'custom',
-            message: 'Adresse email pas encore confirmée',
-          });
+            break;
+          case 201:
+            navigate('/confirm-email/sent', {
+              state: { email: formData.email },
+            });
+            break;
+          case 202:
+            setError('email', {
+              type: 'custom',
+              message: 'Adresse email pas encore confirmée',
+            });
+            break;
         }
       })
       .catch((err) => {

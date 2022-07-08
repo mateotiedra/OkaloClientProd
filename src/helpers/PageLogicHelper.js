@@ -19,12 +19,12 @@ const PageLogic = () => {
 
   const useLoadPage = (actionIn, options) => {
     useEffect(() => {
-      const { actionOut, allowedRoles, setUserData, musFetchUserData } =
+      const { actionOut, allowedRoles, setUserData, mustFetchUserData } =
         options || {};
       if (!hasFetchedData.current) {
         hasFetchedData.current = true;
         setInterceptors(setErrorCode);
-        if (allowedRoles || setUserData || musFetchUserData)
+        if (allowedRoles || setUserData || mustFetchUserData)
           fetchUserData(allowedRoles, setUserData).then((userData) => {
             actionIn && actionIn(userData);
           });

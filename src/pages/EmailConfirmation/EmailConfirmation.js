@@ -24,7 +24,7 @@ function EmailConfirmation(props) {
     return (
       <AlertPage
         title='Adresse email confirmée'
-        body="Tu as bien confirmé ton adresse email. Ton compte est maintenant finalisé. N'hésite pas à ajouter d'autres moyens de contact afin de faciliter la communication avec tes futurs acheteurs !"
+        body="Ton compte est maintenant finalisé. N'hésite pas à ajouter d'autres moyens de contact afin de faciliter la communication avec tes futurs acheteurs !"
         ctaButtons={[{ text: 'Accéder à mon profile' }]}
       />
     );

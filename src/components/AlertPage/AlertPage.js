@@ -4,14 +4,14 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import AlertPageLogic from './AlertPageLogic';
 import Navbar from '../Navbar/Navbar';
 
-function AlertPage({ title, body, ctaButtons, error }) {
+function AlertPage({ title, body, ctaButtons, error, form, ...props }) {
   const { goHomeAction } = AlertPageLogic();
 
   return (
     <>
       <Navbar coverPage empty goHomeAction={goHomeAction} />
       <Container
-        component='main'
+        {...props}
         maxWidth='md'
         sx={{
           height: '100vh',
