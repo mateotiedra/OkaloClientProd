@@ -21,7 +21,7 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
           backgroundColor: 'background.default',
           position: 'fixed',
           top: 'auto',
-          bottom: { xs: 0, sm: 0, md: 'auto' },
+          bottom: empty ? 'auto' : { xs: 0, sm: 0, md: 'auto' },
         }}
       >
         <Container
