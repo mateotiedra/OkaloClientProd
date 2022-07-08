@@ -17,21 +17,25 @@ function AlertPage({ title, body, ctaButtons, error }) {
           height: '100vh',
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'flex-start',
           justifyContent: 'center',
+          p: 6,
         }}
       >
-        <Typography component='h2' variant='h3'>
-          {title}
-        </Typography>
-        <Box
-          sx={{
-            backgroundColor: error ? 'error.main' : 'primary.main',
-            width: '100%',
-            borderRadius: 10,
-            height: 10,
-            mb: 2,
-          }}
-        />
+        <Box>
+          <Typography component='h2' variant='h3'>
+            {title}
+          </Typography>
+          <Box
+            sx={{
+              backgroundColor: error ? 'error.main' : 'primary.main',
+              width: '100%',
+              borderRadius: 10,
+              height: 10,
+              mb: 2,
+            }}
+          />
+        </Box>
         {typeof body === 'string' ? (
           <Typography variant='body1'>{body}</Typography>
         ) : (
@@ -41,8 +45,10 @@ function AlertPage({ title, body, ctaButtons, error }) {
           sx={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-around',
+            justifyContent: { xs: 'center', sm: 'center', md: 'flex-start' },
+            flexWrap: 'wrap',
             mt: 3,
+            width: '100%',
           }}
         >
           {ctaButtons &&

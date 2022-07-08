@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { CircularProgress, Box, Typography } from '@mui/material';
-import Navbar from '../../components/Navbar/Navbar';
 
 // The loading page
 function Loading() {
@@ -32,9 +31,9 @@ function Loading() {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
+        p: 6,
       }}
     >
-      <Navbar />
       <Box
         sx={{
           display: 'flex',
@@ -48,7 +47,7 @@ function Loading() {
         <Typography
           variant='body1'
           color={displayMessage ? 'text.primary' : 'transparent'}
-          sx={{ transitionDuration: '500ms' }}
+          sx={{ transitionDuration: '500ms', textAlign: 'center' }}
         >
           Le chargement peut prendre quelques secondes...
         </Typography>
