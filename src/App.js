@@ -8,6 +8,7 @@ import EmailConfirmation from './pages/EmailConfirmation/EmailConfirmation';
 import EmailSender from './pages/EmailSender/EmailSender';
 import ErrorHandlerWrapper from './ErrorHandler/ErrorHandlerWrapper';
 import NewBid from './pages/NewBid/NewBid';
+import Settings from './pages/Settings/Settings';
 
 // Manage routing
 function App() {
@@ -24,6 +25,7 @@ function App() {
             element={<EmailConfirmation />}
           />
           <Route path='/user/:username' element={<Profile />} />
+          <Route path='/user/:username/edit' element={<Settings />} />
           <Route path='/new-bid' element={<NewBid />} />
         </Routes>
       </ErrorHandlerWrapper>
