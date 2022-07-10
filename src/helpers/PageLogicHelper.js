@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -13,21 +13,24 @@ const PageLogic = () => {
   const { setErrorCode } = useContext(ErrorHandlerContext);
   let navigate = useNavigate();
   let params = useParams();
+  let { pathname } = useLocation();
 
   const [pageStatus, setPageStatus] = useState('loading');
   const hasFetchedData = useRef(false);
 
   const useLoadPage = (actionIn, options) => {
     useEffect(() => {
-      const { actionOut, allowedRoles, setUserData, mustFetchUserData } =
+      const { actionOut, allowedRoles, setUserData, authNeeded } =
         options || {};
       if (!hasFetchedData.current) {
         hasFetchedData.current = true;
         setInterceptors(setErrorCode);
-        if (allowedRoles || setUserData || mustFetchUserData)
-          fetchUserData(allowedRoles, setUserData).then((userData) => {
-            actionIn && actionIn(userData);
-          });
+        if (allowedRoles || setUserData || authNeeded)
+          fetchUserData(allowedRoles, setUserData, authNeeded).then(
+            (userData) => {
+              actionIn && actionIn(userData);
+            }
+          );
         else actionIn && actionIn();
       }
       return () => {
@@ -36,8 +39,9 @@ const PageLogic = () => {
     }, [actionIn, options]);
   };
 
-  const fetchUserData = (allowedRoles, setUserData) =>
+  const fetchUserData = (allowedRoles, setUserData, authNeeded) =>
     new Promise((resolve, reject) => {
+      console.log('heere');
       if (localStorage.getItem('accessToken')) {
         axios
           .get(API_ORIGIN + '/user/u', {
@@ -68,12 +72,15 @@ const PageLogic = () => {
               (getStatusCode(err) === 401 || getStatusCode(err) === 403)
             ) {
               localStorage.removeItem('accessToken');
-              navigate('/membre/connexion', { replace: true });
+              navigate('/login', {
+                replace: true,
+                state: { destination: pathname },
+              });
               reject();
             }
           });
-      } else if (allowedRoles) {
-        navigate('/membre/connexion', { replace: true });
+      } else if (allowedRoles || authNeeded) {
+        navigate('/login', { replace: true, state: { destination: pathname } });
       } else {
         resolve();
       }
