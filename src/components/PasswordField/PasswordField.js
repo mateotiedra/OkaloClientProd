@@ -14,8 +14,14 @@ const PasswordField = ({
   id,
   label,
   autoFocus,
-  errors,
-  registration,
+  error,
+  disabled,
+  helperText,
+  innerRef,
+  inputProps,
+  visibilityDisabled,
+  sx,
+  ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,16 +35,18 @@ const PasswordField = ({
       variant='filled'
       fullWidth
       margin='normal'
-      error={errors[id] !== undefined}
+      error={error}
       autoFocus={autoFocus}
-      sx={{ my: 0 }}
+      sx={sx}
+      disabled={disabled}
+      ref={innerRef}
     >
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <FilledInput
         id={id}
         type={showPassword ? 'text' : 'password'}
         required={required}
-        {...registration}
+        {...inputProps}
         aria-describedby='my-helper-text'
         endAdornment={
           <InputAdornment position='end' sx={{ mr: 1 }}>
@@ -48,16 +56,16 @@ const PasswordField = ({
               onMouseDown={handleMouseDownPassword}
               edge='end'
             >
-              {showPassword ? <HiEyeOff /> : <HiEye />}
+              {!disabled &&
+                !visibilityDisabled &&
+                (showPassword ? <HiEyeOff /> : <HiEye />)}
             </IconButton>
           </InputAdornment>
         }
         label='Password'
       />
-      {errors[id] !== undefined && errors[id].message.length > 0 && (
-        <FormHelperText id='my-helper-text'>
-          {errors[id].message}
-        </FormHelperText>
+      {error && helperText && (
+        <FormHelperText id='my-helper-text'>{error.message}</FormHelperText>
       )}
     </FormControl>
   );

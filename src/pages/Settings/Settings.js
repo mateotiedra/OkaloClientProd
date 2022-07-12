@@ -1,15 +1,17 @@
 import React from 'react';
 
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, Typography, Link } from '@mui/material';
 
 import Navbar from '../../components/Navbar/Navbar';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import Loading from '../Loading/Loading';
 import SettingsLogic from './SettingsLogic';
 import { HiCog } from 'react-icons/hi';
+import FormFields from '../../components/FormFields/FormFields';
 
 function Settings() {
-  const { pageStatus } = SettingsLogic();
+  const { pageStatus, onSubmit, register, errors, fields, goToChangePassword } =
+    SettingsLogic();
 
   if (pageStatus === 'loading') return <Loading />;
 
@@ -33,6 +35,36 @@ function Settings() {
         <Typography component='h1' variant='h5'>
           Paramètres
         </Typography>
+        <FormFields
+          onSubmit={onSubmit}
+          register={register}
+          sending={pageStatus === 'sending'}
+          buttonText='Save'
+          errors={errors}
+          fields={fields}
+          extraComponents={{
+            2: (
+              <>
+                <Link
+                  sx={{ alignSelf: 'flex-end' }}
+                  onClick={goToChangePassword}
+                >
+                  <Typography variant='body2'>
+                    Changer le mot de passe
+                  </Typography>
+                </Link>
+                <Typography variant='h6' sx={{ mt: 2 }}>
+                  Autres moyens de contact
+                </Typography>
+                <Typography variant='body2'>
+                  L'adresse email est le moyen de contact acheteur/vendeur par
+                  défaut. Pour faciliter les prises de contact, tu peux en
+                  ajouter d'autres.
+                </Typography>
+              </>
+            ),
+          }}
+        />
       </SectionContainer>
     </>
   );

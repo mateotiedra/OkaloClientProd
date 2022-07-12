@@ -1,34 +1,78 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
-const SettingsLogic = (props) => {
-  const {
-    pageStatus,
-    API_ORIGIN,
-    axios,
-    setPageStatus,
-    navigate,
-    useLoadPage,
-  } = PageLogicHelper();
+const SettingsLogic = () => {
+  const { pageStatus, setPageStatus, navigate, useLoadPage } =
+    PageLogicHelper();
 
-  const [userData, setUserData] = useState({});
+  const {
+    register,
+    setValue,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
   useLoadPage(
-    async () => {
+    async (user) => {
+      navigate(`/user/${user.username}/edit`, { replace: true });
+      for (const { id } of fields) {
+        setValue(id, user[id]);
+      }
+      setValue('password', 'password');
       setPageStatus('active');
     },
     {
-      setUserData: (user) => {
-        console.log(user);
-        navigate(`/user/${user.username}/edit`, { replace: true });
-        setUserData(user);
-      },
       authNeeded: true,
     }
   );
 
-  return { pageStatus };
+  const goToChangePassword = () => {
+    navigate('change-password');
+  };
+
+  const fields = [
+    {
+      id: 'username',
+      label: "Nom d'utilisateur",
+      inputProps: { readOnly: true },
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      inputProps: { readOnly: true },
+    },
+    {
+      id: 'password',
+      password: true,
+      label: 'Mot de passe',
+      inputProps: { readOnly: true },
+    },
+    {
+      id: 'phone',
+      label: 'Numéro de téléphone',
+      registration: {
+        pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+      },
+    },
+    {
+      id: 'instagram',
+      label: 'Instagram',
+    },
+  ];
+
+  const onSubmit = (formData) => {
+    console.log(formData);
+  };
+
+  return {
+    pageStatus,
+    onSubmit: handleSubmit(onSubmit),
+    errors,
+    register,
+    fields,
+    goToChangePassword,
+  };
 };
 
 export default SettingsLogic;

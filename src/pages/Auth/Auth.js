@@ -81,8 +81,9 @@ export default function Auth({ startingMode }) {
             required
             id='password'
             label='Mot de passe'
-            errors={errors}
-            registration={register('password', {
+            error={errors['password'] !== undefined}
+            helperText={errors['password'] && errors['password'].message}
+            {...register('password', {
               required: true,
             })}
           />
