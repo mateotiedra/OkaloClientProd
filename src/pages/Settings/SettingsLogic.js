@@ -1,10 +1,15 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
 const SettingsLogic = () => {
-  const { pageStatus, setPageStatus, navigate, useLoadPage } =
-    PageLogicHelper();
+  const {
+    API_ORIGIN,
+    axios,
+    pageStatus,
+    setPageStatus,
+    navigate,
+    useLoadPage,
+  } = PageLogicHelper();
 
   const {
     register,
@@ -52,7 +57,7 @@ const SettingsLogic = () => {
       id: 'phone',
       label: 'Numéro de téléphone',
       registration: {
-        pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+        pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/, //eslint-disable-line
       },
     },
     {
@@ -62,7 +67,17 @@ const SettingsLogic = () => {
   ];
 
   const onSubmit = (formData) => {
-    console.log(formData);
+    setPageStatus('sending');
+    axios
+      .put(API_ORIGIN + '/user', formData, {
+        headers: { 'x-access-token': localStorage.accessToken },
+      })
+      .then(() => {
+        navigate('/user/' + formData.username);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return {
