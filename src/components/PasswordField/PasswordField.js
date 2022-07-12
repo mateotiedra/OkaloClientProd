@@ -47,25 +47,27 @@ const PasswordField = ({
         type={showPassword ? 'text' : 'password'}
         required={required}
         {...inputProps}
+        {...props}
         aria-describedby='my-helper-text'
         endAdornment={
-          <InputAdornment position='end' sx={{ mr: 1 }}>
-            <IconButton
-              aria-label='toggle password visibility'
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge='end'
-            >
-              {!disabled &&
-                !visibilityDisabled &&
-                (showPassword ? <HiEyeOff /> : <HiEye />)}
-            </IconButton>
-          </InputAdornment>
+          !disabled &&
+          !visibilityDisabled && (
+            <InputAdornment position='end' sx={{ mr: 1 }}>
+              <IconButton
+                aria-label='toggle password visibility'
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge='end'
+              >
+                {showPassword ? <HiEyeOff /> : <HiEye />}
+              </IconButton>
+            </InputAdornment>
+          )
         }
         label='Password'
       />
       {error && helperText && (
-        <FormHelperText id='my-helper-text'>{error.message}</FormHelperText>
+        <FormHelperText id='my-helper-text'>{helperText}</FormHelperText>
       )}
     </FormControl>
   );

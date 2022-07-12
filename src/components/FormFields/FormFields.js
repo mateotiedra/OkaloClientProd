@@ -27,12 +27,13 @@ function FormFields({
     >
       {fields.map((field, index) => {
         const Field = field.password ? PasswordField : TextField;
-        let registration = register(field.id, field.registration);
+        var registration = register(field.id, field.registration);
         if (Field === PasswordField) {
           registration.innerRef = registration.ref;
           registration.ref = undefined;
-          registration.visibilityDisabled = true;
+          registration.visibilityDisabled = field.visibilityDisabled;
         }
+
         return (
           <React.Fragment key={field.id}>
             <Field
@@ -46,7 +47,7 @@ function FormFields({
               inputProps={field.inputProps}
               {...registration}
             />
-            {extraComponents[index]}
+            {extraComponents && extraComponents[index]}
           </React.Fragment>
         );
       })}
