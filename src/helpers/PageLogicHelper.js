@@ -41,7 +41,6 @@ const PageLogic = () => {
 
   const fetchUserData = (allowedRoles, setUserData, authNeeded) =>
     new Promise((resolve, reject) => {
-      console.log('heere');
       if (localStorage.getItem('accessToken')) {
         axios
           .get(API_ORIGIN + '/user/u', {
