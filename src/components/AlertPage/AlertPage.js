@@ -21,7 +21,8 @@ function AlertPage({ title, body, ctaButtons, error, ...props }) {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          p: 8,
+          py: 8,
+          px: 6,
         }}
       >
         <UnderlinedTitle color={error ? 'error.main' : 'primary.main'}>
