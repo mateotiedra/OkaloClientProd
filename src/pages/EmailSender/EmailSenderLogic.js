@@ -33,7 +33,7 @@ const EmailSenderLogic = () => {
     setPageStatus(newPageAction, { replace: true });
   };
 
-  const onSubmit = ({ email }) => {
+  const resend = ({ email }) => {
     axios
       .put(API_ORIGIN + '/auth/signup/resend', {
         email: email,
@@ -73,13 +73,48 @@ const EmailSenderLogic = () => {
       });
   };
 
+  const resetPassword = ({ email }) => {
+    axios
+      .put(API_ORIGIN + '/auth/reset-password', {
+        email: email,
+      })
+      .then(() => {
+        navigate('/confirm-email/reset-password-sent', {
+          replace: true,
+          state: { email: email },
+        });
+        setPageStatus('reset-password-sent');
+      })
+      .catch((err) => {
+        switch (getStatusCode(err)) {
+          case 404:
+            setError('email', {
+              type: 'custom',
+              message: 'Cette adresse email ne correspond à aucun compte',
+            });
+            break;
+          case 409:
+            setError('email', {
+              type: 'custom',
+              message:
+                'Attends quelques minutes avant de demander un autre email de confirmation',
+            });
+            break;
+          default:
+            console.log(err);
+            break;
+        }
+      });
+  };
+
   return {
     pageStatus,
     email,
     register,
     errors,
     switchTo,
-    resend: handleSubmit(onSubmit),
+    resend: handleSubmit(resend),
+    resetPassword: handleSubmit(resetPassword),
   };
 };
 

@@ -1,15 +1,38 @@
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
 const ChangePasswordLogic = () => {
-  const { API_ORIGIN, axios, pageStatus, setPageStatus, navigate } =
-    PageLogicHelper();
+  const {
+    API_ORIGIN,
+    axios,
+    pageStatus,
+    setPageStatus,
+    navigate,
+    useLoadPage,
+  } = PageLogicHelper();
 
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const { emailToken } = useParams();
+
+  useLoadPage(() => {
+    if (emailToken) {
+      axios
+        .put(API_ORIGIN + '/auth/recover', { emailToken: emailToken })
+        .then(({ data }) => {
+          navigate(`/user/${data.username}/edit/change-password`);
+          localStorage.setItem('accessToken', data.accessToken);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else setPageStatus('active');
+  });
 
   const changePassword = (formData) => {
     setPageStatus('sending');

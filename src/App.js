@@ -31,6 +31,10 @@ function App() {
             path='/user/:username/edit/change-password'
             element={<ChangePassword />}
           />
+          <Route
+            path='/user/:username/edit/change-password/:emailToken'
+            element={<ChangePassword />}
+          />
           <Route path='/new-bid' element={<NewBid />} />
         </Routes>
       </ErrorHandlerWrapper>
