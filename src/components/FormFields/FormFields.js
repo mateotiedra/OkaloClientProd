@@ -19,6 +19,8 @@ function FormFields({
   avatarIcon,
   title,
   page,
+  centered,
+  children,
 }) {
   const { goHomeAction } = AlertPageLogic();
   const Inside = (
@@ -40,6 +42,7 @@ function FormFields({
           flexDirection: 'column',
           alignItems: 'flex-start',
           width: '100%',
+          gap: 2,
         }}
       >
         {fields.map((field, index) => {
@@ -52,7 +55,15 @@ function FormFields({
           }
 
           return (
-            <React.Fragment key={field.id}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                width: '100%',
+              }}
+              key={field.id}
+            >
               <Field
                 id={field.id}
                 label={field.label}
@@ -61,10 +72,11 @@ function FormFields({
                 error={errors[field.id] !== undefined}
                 disabled={field.disabled}
                 inputProps={field.inputProps}
+                autoFocus={index == 0}
                 {...registration}
               />
               {extraComponents && extraComponents[index]}
-            </React.Fragment>
+            </Box>
           );
         })}
         <LoadingButton
@@ -83,20 +95,19 @@ function FormFields({
   if (page)
     return (
       <>
-        <Navbar coverPage empty goHomeAction={goHomeAction} />
         <SectionContainer
           maxWidth='sm'
           sx={{
             height: '100vh',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: centered ? 'center' : 'flex-start',
             alignItems: 'center',
             pt: 8,
           }}
         >
           {Inside}
-          <Footer push={false} />
+          {children}
         </SectionContainer>
       </>
     );

@@ -20,6 +20,7 @@ const AuthLogic = ({ startingMode }) => {
     setError,
     formState: { errors },
     handleSubmit,
+    clearErrors,
   } = useForm();
 
   const { state } = useLocation();
@@ -30,7 +31,7 @@ const AuthLogic = ({ startingMode }) => {
   const [displayResend, setDisplayResend] = useState(false);
 
   const switchLoginMode = () => {
-    // TODO : reset fields error
+    clearErrors(['email', 'password']);
     loginMode
       ? navigate('/register', {
           replace: true,
@@ -94,7 +95,6 @@ const AuthLogic = ({ startingMode }) => {
       .catch((err) => {
         switch (getStatusCode(err)) {
           case 403:
-            console.log('heere');
             setError('password', {
               type: 'custom',
               message: 'Mot de passe incorrect',

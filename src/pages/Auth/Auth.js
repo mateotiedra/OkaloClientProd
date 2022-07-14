@@ -43,8 +43,10 @@ export default function Auth(props) {
 
   return (
     <>
+      <Navbar empty coverPage />
       <FormFields
-        page={true}
+        page
+        centered
         title={loginMode ? 'Connexion' : 'Inscription'}
         avatarIcon={<HiUser />}
         onSubmit={onSubmit}
@@ -68,19 +70,21 @@ export default function Auth(props) {
             ),
           }
         }
-      />
-      <Grid container>
-        <Grid item xs>
-          <Link variant='body2' onClick={switchLoginMode}>
-            {loginMode ? "S'inscrire" : 'Se connecter'}
-          </Link>
+      >
+        <Grid container>
+          <Grid item xs>
+            <Link variant='body2' onClick={switchLoginMode}>
+              {loginMode ? "S'inscrire" : 'Se connecter'}
+            </Link>
+          </Grid>
+          <Grid item md>
+            <Link href='#' variant='body2'>
+              {loginMode && false && 'Mot de passe oublié ?'}
+            </Link>
+          </Grid>
         </Grid>
-        <Grid item md>
-          <Link href='#' variant='body2'>
-            {loginMode && false && 'Mot de passe oublié ?'}
-          </Link>
-        </Grid>
-      </Grid>
+        <Footer />
+      </FormFields>
     </>
   );
 }

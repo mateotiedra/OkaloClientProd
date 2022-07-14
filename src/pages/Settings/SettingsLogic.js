@@ -67,6 +67,11 @@ const SettingsLogic = () => {
     },
   ];
 
+  const logOut = () => {
+    navigate('/');
+    localStorage.removeItem('accessToken', undefined);
+  };
+
   const onSubmit = (formData) => {
     setPageStatus('sending');
     axios
@@ -88,6 +93,7 @@ const SettingsLogic = () => {
     register,
     fields,
     goToChangePassword,
+    logOut,
   };
 };
 

@@ -3,7 +3,7 @@ import { Box, Container, Typography } from '@mui/material';
 
 import SectionDivider from '../SectionDivider/SectionDivider';
 
-function Footer({ push = true }) {
+function Footer({ push }) {
   return (
     <>
       <Box

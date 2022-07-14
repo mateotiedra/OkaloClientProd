@@ -37,7 +37,7 @@ const PasswordField = ({
       margin='normal'
       error={error}
       autoFocus={autoFocus}
-      sx={sx}
+      sx={{ my: 0, ...sx }}
       disabled={disabled}
       ref={innerRef}
     >

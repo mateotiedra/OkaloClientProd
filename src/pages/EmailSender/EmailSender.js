@@ -6,6 +6,7 @@ import FormFields from '../../components/FormFields/FormFields';
 import { HiMailOpen } from 'react-icons/hi';
 
 import EmailSenderLogic from './EmailSenderLogic';
+import Navbar from '../../components/Navbar/Navbar';
 
 function EmailSender(props) {
   const { pageStatus, email, resend, register, errors, switchTo } =
@@ -29,23 +30,27 @@ function EmailSender(props) {
     );
   if (pageStatus === 'resend')
     return (
-      <FormFields
-        page={true}
-        title={'Nouvel email de confirmation'}
-        avatarIcon={<HiMailOpen />}
-        onSubmit={resend}
-        register={register}
-        sending={pageStatus === 'sending'}
-        buttonText={'Envoyer'}
-        errors={errors}
-        fields={[
-          {
-            id: 'email',
-            label: 'Adresse email du compte',
-            registration: { pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g },
-          },
-        ]}
-      />
+      <>
+        <Navbar empty coverPage />
+        <FormFields
+          page={true}
+          centered
+          title={'Nouvel email de confirmation'}
+          avatarIcon={<HiMailOpen />}
+          onSubmit={resend}
+          register={register}
+          sending={pageStatus === 'sending'}
+          buttonText={'Envoyer'}
+          errors={errors}
+          fields={[
+            {
+              id: 'email',
+              label: 'Adresse email du compte',
+              registration: { pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g },
+            },
+          ]}
+        />
+      </>
     );
 }
 
