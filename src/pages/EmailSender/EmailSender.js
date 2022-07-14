@@ -1,8 +1,11 @@
 import React from 'react';
 
-import EmailSenderLogic from './EmailSenderLogic';
 import AlertPage from '../../components/AlertPage/AlertPage';
 import { Typography, Link, TextField } from '@mui/material';
+import FormFields from '../../components/FormFields/FormFields';
+import { HiMailOpen } from 'react-icons/hi';
+
+import EmailSenderLogic from './EmailSenderLogic';
 
 function EmailSender(props) {
   const { pageStatus, email, resend, register, errors, switchTo } =
@@ -26,29 +29,20 @@ function EmailSender(props) {
     );
   if (pageStatus === 'resend')
     return (
-      <AlertPage
-        title='Nouvel email de confirmation'
+      <FormFields
+        page={true}
+        title={'Nouvel email de confirmation'}
+        avatarIcon={<HiMailOpen />}
         onSubmit={resend}
-        noValidate
-        component='form'
-        body={
-          <TextField
-            id='email'
-            label='Adresse email'
-            autoComplete='email'
-            autoFocus
-            helperText={errors['email'] && errors['email'].message}
-            error={errors['email'] !== undefined}
-            {...register('email', {
-              required: true,
-              pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g,
-            })}
-          />
-        }
-        ctaButtons={[
+        register={register}
+        sending={pageStatus === 'sending'}
+        buttonText={'Envoyer'}
+        errors={errors}
+        fields={[
           {
-            text: 'Envoyer',
-            onClick: resend,
+            id: 'email',
+            label: 'Adresse email du compte',
+            registration: { pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g },
           },
         ]}
       />

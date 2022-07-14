@@ -27,6 +27,7 @@ const AuthLogic = ({ startingMode }) => {
   const destination = state?.destination;
 
   const [loginMode, setLoginMode] = useState(startingMode === 'login');
+  const [displayResend, setDisplayResend] = useState(false);
 
   const switchLoginMode = () => {
     // TODO : reset fields error
@@ -80,6 +81,7 @@ const AuthLogic = ({ startingMode }) => {
             });
             break;
           case 202:
+            setDisplayResend(true);
             setError('email', {
               type: 'custom',
               message: 'Adresse email pas encore confirmée',
@@ -92,6 +94,7 @@ const AuthLogic = ({ startingMode }) => {
       .catch((err) => {
         switch (getStatusCode(err)) {
           case 403:
+            console.log('heere');
             setError('password', {
               type: 'custom',
               message: 'Mot de passe incorrect',
@@ -128,6 +131,45 @@ const AuthLogic = ({ startingMode }) => {
       });
   };
 
+  const fields = loginMode
+    ? [
+        {
+          id: 'email',
+          label: 'Email',
+          registration: {
+            required: true,
+            pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g,
+          },
+        },
+        {
+          id: 'password',
+          password: true,
+          label: 'Mot de passe',
+          registration: { required: true },
+        },
+      ]
+    : [
+        {
+          id: 'username',
+          label: "Nom d'utilisateur",
+          registration: { required: true },
+        },
+        {
+          id: 'email',
+          label: 'Email',
+          registration: {
+            required: true,
+            pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g,
+          },
+        },
+        {
+          id: 'password',
+          password: true,
+          label: 'Mot de passe',
+          registration: { required: true },
+        },
+      ];
+
   return {
     pageStatus,
     register,
@@ -135,6 +177,8 @@ const AuthLogic = ({ startingMode }) => {
     onSubmit: handleSubmit(onSubmit(loginMode)),
     loginMode,
     switchLoginMode,
+    fields,
+    displayResend,
   };
 };
 
