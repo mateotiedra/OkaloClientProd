@@ -52,6 +52,7 @@ const SettingsLogic = () => {
       password: true,
       label: 'Mot de passe',
       inputProps: { readOnly: true },
+      visibilityDisabled: true,
     },
     {
       id: 'phone',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Avatar, Typography, Link } from '@mui/material';
+import { Avatar, Typography, Link, TextField } from '@mui/material';
 
 import Navbar from '../../components/Navbar/Navbar';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
@@ -8,10 +8,18 @@ import Loading from '../Loading/Loading';
 import SettingsLogic from './SettingsLogic';
 import { HiCog } from 'react-icons/hi';
 import FormFields from '../../components/FormFields/FormFields';
+import AlertPage from '../../components/AlertPage/AlertPage';
 
-function Settings() {
-  const { pageStatus, onSubmit, register, errors, fields, goToChangePassword } =
-    SettingsLogic();
+function Settings(props) {
+  const {
+    pageStatus,
+    onSubmit,
+    register,
+    errors,
+    fields,
+    goToChangePassword,
+    changePassword,
+  } = SettingsLogic(props);
 
   if (pageStatus === 'loading') return <Loading />;
 
@@ -39,7 +47,7 @@ function Settings() {
           onSubmit={onSubmit}
           register={register}
           sending={pageStatus === 'sending'}
-          buttonText='Save'
+          buttonText='Sauvegarder'
           errors={errors}
           fields={fields}
           extraComponents={{
