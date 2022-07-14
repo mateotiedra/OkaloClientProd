@@ -18,8 +18,8 @@ const EmailConfirmationLogic = () => {
       .put(API_ORIGIN + '/auth/signup/confirm', {
         emailToken: emailToken,
       })
-      .then(({ accessToken }) => {
-        localStorage.setItem('accessToken', accessToken);
+      .then(({ data }) => {
+        localStorage.setItem('accessToken', data.accessToken);
         setPageStatus('ok');
       })
       .catch(() => {
