@@ -4,8 +4,9 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import AlertPageLogic from './AlertPageLogic';
 import Navbar from '../Navbar/Navbar';
 import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
+import LoadingButton from '@mui/lab/LoadingButton';
 
-function AlertPage({ title, body, ctaButtons, error, form, ...props }) {
+function AlertPage({ title, body, ctaButtons, error, ...props }) {
   const { goHomeAction } = AlertPageLogic();
 
   return (
@@ -20,7 +21,7 @@ function AlertPage({ title, body, ctaButtons, error, form, ...props }) {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          p: 6,
+          p: 8,
         }}
       >
         <UnderlinedTitle color={error ? 'error.main' : 'primary.main'}>
@@ -34,23 +35,24 @@ function AlertPage({ title, body, ctaButtons, error, form, ...props }) {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'row',
-            justifyContent: { xs: 'center', sm: 'center', md: 'flex-start' },
-            flexWrap: 'wrap',
+            flexDirection: 'column',
+            gap: 1,
             mt: 3,
             width: '100%',
           }}
         >
           {ctaButtons &&
-            ctaButtons.map((button) => {
+            ctaButtons.map(({ sx, onClick, text, ...button }) => {
               return (
-                <Button
+                <LoadingButton
+                  sx={{ width: '100%', ...sx }}
                   variant='contained'
-                  onClick={button.onClick}
-                  key={button.text}
+                  onClick={onClick}
+                  key={text}
+                  {...button}
                 >
-                  <Typography variant='body1'>{button.text}</Typography>
-                </Button>
+                  <Typography variant='body1'>{text}</Typography>
+                </LoadingButton>
               );
             })}
         </Box>
