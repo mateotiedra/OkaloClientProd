@@ -9,6 +9,7 @@ import EmailSender from './pages/EmailSender/EmailSender';
 import ErrorHandlerWrapper from './ErrorHandler/ErrorHandlerWrapper';
 import NewBid from './pages/NewBid/NewBid';
 import Settings from './pages/Settings/Settings';
+import ChangePassword from './pages/ChangePassword/ChangePassword';
 
 // Manage routing
 function App() {
@@ -26,6 +27,10 @@ function App() {
           />
           <Route path='/user/:username' element={<Profile />} />
           <Route path='/user/:username/edit' element={<Settings />} />
+          <Route
+            path='/user/:username/edit/change-password'
+            element={<ChangePassword />}
+          />
           <Route path='/new-bid' element={<NewBid />} />
         </Routes>
       </ErrorHandlerWrapper>
