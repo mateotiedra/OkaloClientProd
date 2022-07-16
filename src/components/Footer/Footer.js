@@ -25,7 +25,7 @@ function Footer({ push }) {
           </Typography>
         </Container>
       </Box>
-      <SectionDivider sx={{ display: { md: 'none' } }} />
+      <Box sx={{ height: 90, display: { md: 'none' } }} />
     </>
   );
 }

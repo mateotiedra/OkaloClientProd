@@ -17,7 +17,6 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          height: 90,
           backgroundColor: 'background.default',
           position: 'fixed',
           top: 'auto',
@@ -71,7 +70,7 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
                   sx={{
                     mx: 1,
                     px: 1,
-                    py: 2,
+                    py: { xs: 2, sm: 2, md: 2 },
                     color: 'text.primary',
                     transitionDuration: '500ms',
                     border: '2px solid transparent',
@@ -103,7 +102,14 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
             })}
         </Container>
       </AppBar>
-      {!coverPage && <Box sx={{ height: 90 }} />}
+      {!coverPage && (
+        <Box
+          sx={{
+            height: 90,
+            display: { xs: 'none', sm: 'none', md: 'block' },
+          }}
+        />
+      )}
     </>
   );
 }
