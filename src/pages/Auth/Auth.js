@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, Grid, Typography, TextField, Box } from '@mui/material';
+import { Link, Typography, Box } from '@mui/material';
 import { HiUser } from 'react-icons/hi';
 import { HashLink as RouterLink } from 'react-router-hash-link';
 
@@ -8,23 +8,6 @@ import Footer from '../../components/Footer/Footer';
 import FormFields from '../../components/FormFields/FormFields';
 
 import AuthLogic from './AuthLogic';
-
-function RegisterFields({ register, errors }) {
-  return (
-    <>
-      <TextField
-        id='username'
-        label="Nom d'utilisateur"
-        autoFocus
-        helperText={errors['username'] && errors['username'].message}
-        error={errors['username'] !== undefined}
-        {...register('username', {
-          required: true,
-        })}
-      />
-    </>
-  );
-}
 
 export default function Auth(props) {
   const {

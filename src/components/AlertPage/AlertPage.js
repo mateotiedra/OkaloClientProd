@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 import AlertPageLogic from './AlertPageLogic';
 import Navbar from '../Navbar/Navbar';

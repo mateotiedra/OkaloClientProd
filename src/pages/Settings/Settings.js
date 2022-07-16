@@ -1,21 +1,12 @@
 import React from 'react';
 
-import {
-  Avatar,
-  Typography,
-  Link,
-  TextField,
-  Grid,
-  Container,
-} from '@mui/material';
+import { Typography, Link, Grid } from '@mui/material';
 
 import Navbar from '../../components/Navbar/Navbar';
-import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import Loading from '../Loading/Loading';
 import SettingsLogic from './SettingsLogic';
 import { HiCog } from 'react-icons/hi';
 import FormFields from '../../components/FormFields/FormFields';
-import AlertPage from '../../components/AlertPage/AlertPage';
 
 function Settings(props) {
   const {

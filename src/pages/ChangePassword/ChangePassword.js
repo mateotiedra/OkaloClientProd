@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Typography, Link, TextField } from '@mui/material';
 import { HiLockOpen } from 'react-icons/hi';
 
 import FormFields from '../../components/FormFields/FormFields';

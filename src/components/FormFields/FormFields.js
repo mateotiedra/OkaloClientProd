@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Avatar, Box, TextField, Typography } from '@mui/material';
 
 import PasswordField from '../PasswordField/PasswordField';
 import SectionContainer from '../SectionContainer/SectionContainer';
-import Navbar from '../Navbar/Navbar';
-import AlertPageLogic from '../AlertPage/AlertPageLogic';
-import Footer from '../Footer/Footer';
 
 function FormFields({
   onSubmit,
@@ -22,7 +19,6 @@ function FormFields({
   centered,
   children,
 }) {
-  const { goHomeAction } = AlertPageLogic();
   const Inside = (
     <>
       {title && (
@@ -72,7 +68,7 @@ function FormFields({
                 error={errors[field.id] !== undefined}
                 disabled={field.disabled}
                 inputProps={field.inputProps}
-                autoFocus={index == 0}
+                autoFocus={index === 0}
                 {...registration}
               />
               {extraComponents && extraComponents[index]}
