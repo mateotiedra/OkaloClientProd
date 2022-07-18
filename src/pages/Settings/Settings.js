@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Typography, Link, Grid } from '@mui/material';
 
+import { HiCog } from 'react-icons/hi';
 import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../Loading/Loading';
 import SettingsLogic from './SettingsLogic';
-import { HiCog } from 'react-icons/hi';
 import FormFields from '../../components/FormFields/FormFields';
 
 function Settings(props) {
