@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Typography } from '@mui/material';
 import { HashLink } from 'react-router-hash-link';
 
-function PageButton({ text, onClick, to, ...props }) {
+function PageButton({ text, onClick, to, children, ...props }) {
   return (
     <Button
       variant='contained'
@@ -12,7 +12,7 @@ function PageButton({ text, onClick, to, ...props }) {
         margin: 0,
         top: 'auto',
         right: 20,
-        bottom: 20,
+        bottom: { xs: 90, sm: 90, md: 20 },
         left: 'auto',
         position: 'fixed',
       }}
@@ -21,7 +21,7 @@ function PageButton({ text, onClick, to, ...props }) {
       to={to}
       {...props}
     >
-      <Typography variant='button'>{text}</Typography>
+      <Typography variant='body1'>{text || children}</Typography>
     </Button>
   );
 }
