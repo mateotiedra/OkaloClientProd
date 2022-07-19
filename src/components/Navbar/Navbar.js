@@ -17,8 +17,9 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          backgroundColor: 'background.default',
+          backdropFilter: 'blur(10px)',
           position: 'fixed',
+          backgroundColor: 'rgba(255, 255, 255, 0.7)',
           top: 'auto',
           bottom: empty ? 'auto' : { xs: 0, sm: 0, md: 'auto' },
         }}
@@ -30,8 +31,20 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
             flexDirection: 'row',
             justifyContent: 'space-evenly',
             alignItems: 'center',
+            position: 'relative',
           }}
         >
+          {/* 
+          <Box
+            sx={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'background.default',
+              opacity: 0.8,
+            }}
+          /> */}
+
           <Link
             sx={{
               display: { xs: empty ? 'flex' : 'none', sm: 'flex' },
