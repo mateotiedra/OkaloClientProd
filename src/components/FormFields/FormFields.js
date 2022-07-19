@@ -71,7 +71,11 @@ function FormFields({
                 autoFocus={index === 0}
                 {...registration}
               />
-              {extraComponents && extraComponents[index]}
+              {extraComponents &&
+                (extraComponents[index] ||
+                  (extraComponents['-1'] &&
+                    index === fields.length - 1 &&
+                    extraComponents['-1']))}
             </Box>
           );
         })}
