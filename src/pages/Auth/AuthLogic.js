@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 
@@ -30,18 +30,10 @@ const AuthLogic = ({ startingMode }) => {
   const [loginMode, setLoginMode] = useState(startingMode === 'login');
   const [displayResend, setDisplayResend] = useState(false);
 
-  const switchLoginMode = () => {
-    clearErrors(['email', 'password']);
-    loginMode
-      ? navigate('/register', {
-          replace: true,
-        })
-      : navigate('/login', {
-          replace: true,
-        });
-
-    setLoginMode(!loginMode);
-  };
+  // Institutions managment
+  const [institutions, setInstitutions] = useState([]);
+  const [institutionsHelperText, setInstitutionsHelperText] = useState();
+  const userInstitutions = useRef([]);
 
   useLoadPage(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -60,15 +52,55 @@ const AuthLogic = ({ startingMode }) => {
             localStorage.removeItem('accessToken');
           }
         });
+
+    axios
+      .get(API_ORIGIN + '/institution/suggestions')
+      .then(({ data }) => {
+        setInstitutions(data);
+        setPageStatus('active');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
+  const switchLoginMode = () => {
+    clearErrors(['email', 'password']);
+    loginMode
+      ? navigate('/register', {
+          replace: true,
+        })
+      : navigate('/login', {
+          replace: true,
+        });
+
+    setLoginMode(!loginMode);
+  };
+
+  const onInstitutionsChange = (event, value) => {
+    institutionsHelperText && setInstitutionsHelperText(undefined);
+    userInstitutions.context = value;
+  };
+
   const onSubmit = (login) => (formData) => {
+    if (!userInstitutions.context || !userInstitutions.context.length) {
+      setInstitutionsHelperText(
+        "Les acheteurs ne vont pas pouvoir voir tes annonces si tu n'es pas disponible dans au moins un établissement"
+      );
+      return;
+    }
     setPageStatus('sending');
+
+    const institutionIds = institutions
+      .filter((inst) => userInstitutions.context.includes(inst.name))
+      .map((inst) => inst.id);
+
     axios
       .post(API_ORIGIN + '/auth/' + (login ? 'signin' : 'signup'), {
         email: formData.email,
         password: formData.password,
         username: formData.username,
+        institutionIds: institutionIds,
       })
       .then((res) => {
         switch (res.status) {
@@ -179,6 +211,9 @@ const AuthLogic = ({ startingMode }) => {
     switchLoginMode,
     fields,
     displayResend,
+    institutions,
+    onInstitutionsChange,
+    institutionsHelperText,
   };
 };
 
