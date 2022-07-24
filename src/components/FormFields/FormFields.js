@@ -83,7 +83,7 @@ function FormFields({
           variant='contained'
           type='submit'
           fullWidth
-          sx={{ mt: 3, mb: 2 }}
+          sx={{ mt: 2, mb: 2 }}
           loading={sending}
         >
           <Typography variant='body1'>{buttonText}</Typography>
