@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
 
+import { HashLink } from 'react-router-hash-link';
+
 import AlertPageLogic from './AlertPageLogic';
 import Navbar from '../Navbar/Navbar';
 import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
@@ -43,13 +45,15 @@ function AlertPage({ title, body, ctaButtons, error, ...props }) {
           }}
         >
           {ctaButtons &&
-            ctaButtons.map(({ sx, onClick, text, ...button }) => {
+            ctaButtons.map(({ sx, onClick, text, to, ...button }) => {
               return (
                 <LoadingButton
                   sx={{ width: '100%', ...sx }}
                   variant='contained'
                   onClick={onClick}
                   key={text}
+                  component={Boolean(to) ? HashLink : undefined}
+                  to={to}
                   {...button}
                 >
                   <Typography variant='body1'>{text}</Typography>
