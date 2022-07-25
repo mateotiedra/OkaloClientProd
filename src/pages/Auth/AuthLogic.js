@@ -83,24 +83,28 @@ const AuthLogic = ({ startingMode }) => {
   };
 
   const onSubmit = (login) => (formData) => {
-    if (!userInstitutions.context || !userInstitutions.context.length) {
-      setInstitutionsHelperText(
-        "Les acheteurs ne vont pas pouvoir voir tes annonces si tu n'es pas disponible dans au moins un établissement"
-      );
-      return;
-    }
-    setPageStatus('sending');
+    // If the user register it add some checks
+    var institutionIds;
+    if (!login) {
+      if (!(userInstitutions.context && userInstitutions.context.length)) {
+        setInstitutionsHelperText(
+          "Les acheteurs ne vont pas pouvoir voir tes annonces si tu n'es pas disponible dans au moins un établissement"
+        );
+        return;
+      }
+      setPageStatus('sending');
 
-    const institutionIds = institutions
-      .filter((inst) => userInstitutions.context.includes(inst.name))
-      .map((inst) => inst.id);
+      institutionIds = institutions
+        .filter((inst) => userInstitutions.context.includes(inst.name))
+        .map((inst) => inst.id);
+    }
 
     axios
       .post(API_ORIGIN + '/auth/' + (login ? 'signin' : 'signup'), {
         email: formData.email,
         password: formData.password,
         username: formData.username,
-        institutionIds: institutionIds,
+        institutionIds: !login && institutionIds,
       })
       .then((res) => {
         switch (res.status) {
