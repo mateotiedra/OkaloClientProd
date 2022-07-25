@@ -5,7 +5,8 @@ import AlertPage from '../../components/AlertPage/AlertPage';
 import Loading from '../Loading/Loading';
 
 function EmailConfirmation() {
-  const { pageStatus, goToProfile, goToNewLink } = EmailConfirmationLogic();
+  const { pageStatus, goToProfile, goToSocials, goToNewLink } =
+    EmailConfirmationLogic();
 
   if (pageStatus === 'loading') return <Loading />;
 
@@ -24,7 +25,14 @@ function EmailConfirmation() {
       <AlertPage
         title='Adresse email confirmée'
         body="Ton compte est maintenant finalisé. N'hésite pas à ajouter d'autres moyens de contact afin de faciliter la communication avec tes futurs acheteurs !"
-        ctaButtons={[{ text: 'Accéder à mon profile', onClick: goToProfile }]}
+        ctaButtons={[
+          { text: 'Ajouter', onClick: goToSocials },
+          {
+            text: 'Plus tard',
+            onClick: goToProfile,
+            variant: 'outlined',
+          },
+        ]}
       />
     );
 }

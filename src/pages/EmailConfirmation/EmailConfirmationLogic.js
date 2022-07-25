@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
@@ -12,6 +13,7 @@ const EmailConfirmationLogic = () => {
   } = PageLogicHelper();
 
   const { emailToken } = useParams();
+  const username = useRef('');
 
   useLoadPage(() => {
     axios
@@ -19,6 +21,7 @@ const EmailConfirmationLogic = () => {
         emailToken: emailToken,
       })
       .then(({ data }) => {
+        username.context = data.username;
         localStorage.setItem('accessToken', data.accessToken);
         setPageStatus('ok');
       })
@@ -31,11 +34,15 @@ const EmailConfirmationLogic = () => {
     navigate('/user/u', { replace: true });
   };
 
+  const goToSocials = () => {
+    navigate(`/user/${username.context}/edit#socials`, { replace: true });
+  };
+
   const goToNewLink = () => {
     navigate('/confirm-email/resend');
   };
 
-  return { pageStatus, goToProfile, goToNewLink };
+  return { pageStatus, goToProfile, goToSocials, goToNewLink };
 };
 
 export default EmailConfirmationLogic;

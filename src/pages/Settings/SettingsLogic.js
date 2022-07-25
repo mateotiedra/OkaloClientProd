@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
 const SettingsLogic = () => {
@@ -18,9 +19,12 @@ const SettingsLogic = () => {
     handleSubmit,
   } = useForm();
 
+  const { username: profileUsername } = useParams();
+
   useLoadPage(
     async (user) => {
-      navigate(`/user/${user.username}/edit`, { replace: true });
+      profileUsername === 'u' &&
+        navigate(`/user/${user.username}/edit`, { replace: true });
       for (const { id } of fields) {
         setValue(id, user[id]);
       }
