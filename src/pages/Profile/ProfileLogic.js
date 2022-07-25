@@ -36,7 +36,12 @@ const ProfileLogic = (props) => {
           return;
         }
       } catch (err) {
-        console.log(err);
+        if (getStatusCode(err) === 404)
+          navigate(`/login`, {
+            replace: true,
+            state: { destination: '/user/u' },
+          });
+        else console.log(err);
       }
     } else if (profileUsername === 'u') {
       navigate(`/login`, {
