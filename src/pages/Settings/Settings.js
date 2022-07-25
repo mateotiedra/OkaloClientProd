@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../Loading/Loading';
 import SettingsLogic from './SettingsLogic';
 import FormFields from '../../components/FormFields/FormFields';
+import Footer from '../../components/Footer/Footer';
 
 function Settings(props) {
   const {
@@ -43,7 +44,7 @@ function Settings(props) {
               >
                 <Typography variant='body2'>Changer le mot de passe</Typography>
               </Link>
-              <Typography variant='h6' sx={{ mt: 2 }}>
+              <Typography variant='h6' id='socials' sx={{ mt: 2 }}>
                 Autres moyens de contact
               </Typography>
               <Typography variant='body2'>
@@ -63,6 +64,7 @@ function Settings(props) {
           </Grid>
           <Grid item md></Grid>
         </Grid>
+        <Footer />
       </FormFields>
     </>
   );
