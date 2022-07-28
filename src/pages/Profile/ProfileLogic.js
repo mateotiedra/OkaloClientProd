@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { HiMail, HiPhone } from 'react-icons/hi';
+import { HiMail, HiPhone, HiCog } from 'react-icons/hi';
 import { GrInstagram } from 'react-icons/gr';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
@@ -20,24 +20,33 @@ const ProfileLogic = (props) => {
   const { username: profileUsername } = useParams();
   const [userData, setUserData] = useState({});
 
-  const socials = [
-    Boolean(userData.email) && {
-      text: userData.email,
-      link: 'mailto:' + userData.email,
-      icon: <HiMail />,
-    },
+  const socials =
+    pageStatus === 'owner'
+      ? [
+          {
+            text: 'Modifier mon profil',
+            to: `/user/${profileUsername}/edit#socials`,
+            icon: <HiCog />,
+          },
+        ]
+      : [
+          Boolean(userData.email) && {
+            text: userData.email,
+            link: 'mailto:' + userData.email,
+            icon: <HiMail />,
+          },
 
-    Boolean(userData.instagram) && {
-      text: '@' + userData.instagram,
-      link: 'https://www.instagram.com/' + userData.instagram,
-      icon: <GrInstagram />,
-    },
-    Boolean(userData.phone) && {
-      text: userData.phone,
-      link: 'tel:' + userData.phone,
-      icon: <HiPhone />,
-    },
-  ];
+          Boolean(userData.instagram) && {
+            text: '@' + userData.instagram,
+            link: 'https://www.instagram.com/' + userData.instagram,
+            icon: <GrInstagram />,
+          },
+          Boolean(userData.phone) && {
+            text: userData.phone,
+            link: 'tel:' + userData.phone,
+            icon: <HiPhone />,
+          },
+        ];
 
   useLoadPage(async () => {
     const accessToken = localStorage.getItem('accessToken');

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Box, Link, ListItem, ListItemIcon } from '@mui/material';
+import { HashLink } from 'react-router-hash-link';
 
 import Navbar from '../../components/Navbar/Navbar';
 import PageButton from '../../components/PageButton/PageButton';
@@ -19,7 +20,6 @@ function Profile() {
   return (
     <>
       <Navbar />
-      <PageButton to='/user/u/edit'>Modifier profil</PageButton>
       <SectionContainer
         sx={{
           display: 'flex',
@@ -58,7 +58,9 @@ function Profile() {
                       sx={{ ml: 1 }}
                       href={social.link}
                       rel='noopener noreferrer'
-                      target='_blank'
+                      target={Boolean(social.to) ? '' : '_blank'}
+                      component={Boolean(social.to) ? HashLink : 'a'}
+                      to={social.to}
                     >
                       {social.text}
                     </Link>
