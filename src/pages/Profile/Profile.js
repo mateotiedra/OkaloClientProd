@@ -1,15 +1,18 @@
 import React from 'react';
 
+import { Box, Link, ListItem, ListItemIcon } from '@mui/material';
+
 import Navbar from '../../components/Navbar/Navbar';
 import PageButton from '../../components/PageButton/PageButton';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import SectionDivider from '../../components/SectionDivider/SectionDivider';
 import UnderlinedTitle from '../../components/UnderlinedTitle/UnderlinedTitle';
 import Loading from '../Loading/Loading';
+
 import ProfileLogic from './ProfileLogic';
 
 function Profile() {
-  const { userData, pageStatus } = ProfileLogic();
+  const { userData: user, pageStatus, socials } = ProfileLogic();
 
   if (pageStatus === 'loading') return <Loading />;
 
@@ -25,7 +28,44 @@ function Profile() {
         }}
       >
         <SectionDivider />
-        <UnderlinedTitle>{userData.username}</UnderlinedTitle>
+        <UnderlinedTitle>{user.username}</UnderlinedTitle>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            gap: '15px 35px',
+            flexWrap: 'wrap',
+            width: '100%',
+          }}
+        >
+          {socials &&
+            socials.map(
+              (social, index) =>
+                social && (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flex: 'row',
+                      alignItems: 'center',
+                    }}
+                    key={index}
+                  >
+                    {React.cloneElement(social.icon, {
+                      size: 20,
+                    })}
+                    <Link
+                      sx={{ ml: 1 }}
+                      href={social.link}
+                      rel='noopener noreferrer'
+                      target='_blank'
+                    >
+                      {social.text}
+                    </Link>
+                  </Box>
+                )
+            )}
+        </Box>
       </SectionContainer>
     </>
   );
