@@ -12,6 +12,7 @@ import PageButton from '../../components/PageButton/PageButton';
 import Loading from '../Loading/Loading';
 
 import ProfileLogic from './ProfileLogic';
+import IconTitle from '../../components/IconTitle/IconTitle';
 
 function Profile() {
   const { username, pageStatus, socials, bids } = ProfileLogic();
@@ -79,10 +80,9 @@ function Profile() {
         }}
         maxWidth='none'
       >
-        <HiSparkles size={60} opacity={0.8} />
-        <Typography variant='h5' sx={{ textAlign: 'center', mt: 2 }}>
+        <IconTitle icon={<HiSparkles />}>
           Aucune annonce n'a encore été postée
-        </Typography>
+        </IconTitle>
         {pageStatus === 'owner' && (
           <Button sx={{ mt: 2 }} component={HashLink} to='/new-bid'>
             <Typography>Nouvelle annonce</Typography>

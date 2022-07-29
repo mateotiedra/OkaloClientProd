@@ -3,6 +3,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { Avatar, Box, TextField, Typography } from '@mui/material';
 
 import PasswordField from '../PasswordField/PasswordField';
+import IconTitle from '../IconTitle/IconTitle';
 import SectionContainer from '../SectionContainer/SectionContainer';
 
 function FormFields({
@@ -21,19 +22,13 @@ function FormFields({
 }) {
   const Inside = (
     <>
-      {title && (
-        <>
-          <Avatar sx={{ m: 1 }}>{avatarIcon}</Avatar>
-          <Typography sx={{ mb: 2 }} component='h1' variant='h5'>
-            {title}
-          </Typography>
-        </>
-      )}
+      {title && <IconTitle icon={avatarIcon}>{title}</IconTitle>}
       <Box
         component='form'
         noValidate
         onSubmit={onSubmit}
         sx={{
+          mt: 2,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
