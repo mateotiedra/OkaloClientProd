@@ -8,6 +8,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import SectionDivider from '../../components/SectionDivider/SectionDivider';
 import UnderlinedTitle from '../../components/UnderlinedTitle/UnderlinedTitle';
+import PageButton from '../../components/PageButton/PageButton';
 import Loading from '../Loading/Loading';
 
 import ProfileLogic from './ProfileLogic';
@@ -62,33 +63,39 @@ function Profile() {
     </SectionContainer>
   );
 
+  const BidsList =
+    bids && bids.length ? (
+      <></>
+    ) : (
+      <SectionContainer
+        centered
+        sx={{
+          position: 'absolute',
+          top: 0,
+          width: '100vw',
+          height: '100vh',
+          justifyContent: 'center',
+          zIndex: -10,
+        }}
+        maxWidth='none'
+      >
+        <HiSparkles size={60} opacity={0.8} />
+        <Typography variant='h5' sx={{ textAlign: 'center', mt: 2 }}>
+          Aucune annonce n'a encore été postée
+        </Typography>
+      </SectionContainer>
+    );
+
   return (
     <>
       <Navbar />
+      {pageStatus === 'owner' && (
+        <PageButton text={'Nouvelle annonce'} to='/new-bid' />
+      )}
       <SectionDivider />
       {TitleAndSocials}
       <SectionDivider />
-      {bids && bids.length ? (
-        <></>
-      ) : (
-        <SectionContainer
-          centered
-          sx={{
-            position: 'absolute',
-            top: 0,
-            width: '100vw',
-            height: '100vh',
-            justifyContent: 'center',
-            zIndex: -10,
-          }}
-          maxWidth='none'
-        >
-          <HiSparkles size={60} opacity={0.8} />
-          <Typography variant='h5' sx={{ textAlign: 'center', mt: 2 }}>
-            Aucune annonce n'a encore été postée
-          </Typography>
-        </SectionContainer>
-      )}
+      {BidsList}
     </>
   );
 }

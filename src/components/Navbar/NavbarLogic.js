@@ -1,8 +1,9 @@
 import { HiUser, HiSearch, HiPlus, HiHome } from 'react-icons/hi';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const NavbarLogic = () => {
   let { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const navLinksObj = [
     {
@@ -31,7 +32,14 @@ const NavbarLogic = () => {
     },
   ];
 
-  return { navLinksObj };
+  const onClickLink = (to) => () => {
+    const userChange = pathname.includes('user') && to.includes('user');
+    const reload = pathname === to;
+    navigate(to, { replace: reload && !userChange });
+    (reload || userChange) && window.location.reload();
+  };
+
+  return { navLinksObj, onClickLink };
 };
 
 export default NavbarLogic;

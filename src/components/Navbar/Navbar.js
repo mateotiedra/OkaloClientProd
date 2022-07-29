@@ -8,7 +8,7 @@ import { Box } from '@mui/system';
 import { HashLink as RouterLink } from 'react-router-hash-link';
 
 function Navbar({ admin, coverPage, empty, goHomeAction }) {
-  const { navLinksObj } = NavbarLogic(admin);
+  const { navLinksObj, onClickLink } = NavbarLogic(admin);
 
   return (
     <>
@@ -78,8 +78,7 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
               return (
                 <Link
                   key={linkObj.text}
-                  component={RouterLink}
-                  to={linkObj.to}
+                  onClick={onClickLink(linkObj.to)}
                   sx={{
                     mx: 1,
                     px: 1,
