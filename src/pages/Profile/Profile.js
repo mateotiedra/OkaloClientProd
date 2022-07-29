@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import { HiSparkles } from 'react-icons/hi';
 import { HashLink } from 'react-router-hash-link';
 
@@ -83,15 +83,17 @@ function Profile() {
         <Typography variant='h5' sx={{ textAlign: 'center', mt: 2 }}>
           Aucune annonce n'a encore été postée
         </Typography>
+        {pageStatus === 'owner' && (
+          <Button sx={{ mt: 2 }}>
+            <Typography>Nouvelle annonce</Typography>
+          </Button>
+        )}
       </SectionContainer>
     );
 
   return (
     <>
       <Navbar />
-      {pageStatus === 'owner' && (
-        <PageButton text={'Nouvelle annonce'} to='/new-bid' />
-      )}
       <SectionDivider />
       {TitleAndSocials}
       <SectionDivider />
