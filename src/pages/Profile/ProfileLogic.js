@@ -94,7 +94,12 @@ const ProfileLogic = (props) => {
     }
   });
 
-  return { userData, pageStatus, socials };
+  return {
+    username: userData.username,
+    bids: userData.bids,
+    pageStatus,
+    socials,
+  };
 };
 
 export default ProfileLogic;
