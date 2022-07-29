@@ -59,6 +59,7 @@ let theme = createTheme({
       defaultProps: {
         disableRipple: true,
         disableElevation: true,
+        variant: 'contained',
       },
       styleOverrides: {
         root: { textTransform: 'none', padding: '12px 36px' },
