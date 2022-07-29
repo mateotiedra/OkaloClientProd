@@ -84,7 +84,7 @@ function Profile() {
           Aucune annonce n'a encore été postée
         </Typography>
         {pageStatus === 'owner' && (
-          <Button sx={{ mt: 2 }}>
+          <Button sx={{ mt: 2 }} component={HashLink} to='/new-bid'>
             <Typography>Nouvelle annonce</Typography>
           </Button>
         )}
