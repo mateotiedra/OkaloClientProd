@@ -4,7 +4,12 @@ import { Box, Typography } from '@mui/material';
 function IconTitle({ icon, title, children }) {
   return (
     <Box
-      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        mb: 2,
+      }}
     >
       {icon &&
         React.cloneElement(icon, {

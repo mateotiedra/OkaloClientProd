@@ -28,7 +28,6 @@ function FormFields({
         noValidate
         onSubmit={onSubmit}
         sx={{
-          mt: 2,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',

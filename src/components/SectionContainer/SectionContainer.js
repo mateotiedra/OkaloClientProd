@@ -7,6 +7,7 @@ function SectionContainer({
   sx,
   children,
   centered,
+  fullPage,
   ...props
 }) {
   return (
@@ -19,6 +20,8 @@ function SectionContainer({
         display: 'flex',
         flexDirection: 'column',
         alignItems: centered && 'center',
+        height: fullPage && '100vh',
+        justifyContent: fullPage && 'center',
         ...sx,
       }}
       {...props}
