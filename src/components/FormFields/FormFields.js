@@ -19,6 +19,10 @@ function FormFields({
   page,
   centered,
   children,
+  variant,
+  sx,
+  noAutofocus,
+  ...props
 }) {
   const Inside = (
     <>
@@ -33,12 +37,13 @@ function FormFields({
           alignItems: 'flex-start',
           width: '100%',
           gap: 2,
+          ...sx,
         }}
       >
         {fields.map((field, index) => {
           const Field = field.password ? PasswordField : TextField;
           var registration = register(field.id, field.registration);
-          if (Field === PasswordField) {
+          if (field.password) {
             registration.innerRef = registration.ref;
             registration.ref = undefined;
             registration.visibilityDisabled = field.visibilityDisabled;
@@ -62,7 +67,8 @@ function FormFields({
                 error={errors[field.id] !== undefined}
                 disabled={field.disabled}
                 inputProps={field.inputProps}
-                autoFocus={index === 0}
+                autoFocus={!noAutofocus && index === 0}
+                variant={variant}
                 {...registration}
               />
               {extraComponents &&
@@ -73,15 +79,17 @@ function FormFields({
             </Box>
           );
         })}
-        <LoadingButton
-          variant='contained'
-          type='submit'
-          fullWidth
-          sx={{ mt: 2, mb: 2 }}
-          loading={sending}
-        >
-          <Typography variant='body1'>{buttonText}</Typography>
-        </LoadingButton>
+        {buttonText && (
+          <LoadingButton
+            variant='contained'
+            type='submit'
+            fullWidth
+            sx={{ mt: 2, mb: 2 }}
+            loading={sending}
+          >
+            <Typography variant='body1'>{buttonText}</Typography>
+          </LoadingButton>
+        )}
       </Box>
     </>
   );
