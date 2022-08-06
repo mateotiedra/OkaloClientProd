@@ -1,6 +1,17 @@
 import React from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Avatar, Box, TextField, Typography } from '@mui/material';
+import {
+  FormControlLabel,
+  Avatar,
+  Box,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  TextField,
+  Typography,
+  createFilterOptions,
+  Radio,
+} from '@mui/material';
 
 import PasswordField from '../PasswordField/PasswordField';
 import IconTitle from '../IconTitle/IconTitle';
@@ -41,13 +52,23 @@ function FormFields({
         }}
       >
         {fields.map((field, index) => {
-          const Field = field.password ? PasswordField : TextField;
           var registration = register(field.id, field.registration);
           if (field.password) {
             registration.innerRef = registration.ref;
             registration.ref = undefined;
             registration.visibilityDisabled = field.visibilityDisabled;
           }
+
+          if (field.radio)
+            return (
+              <RadioField
+                {...field}
+                key={field.id}
+                registration={registration}
+              />
+            );
+
+          const Field = field.password ? PasswordField : TextField;
 
           return (
             <Box
@@ -69,6 +90,7 @@ function FormFields({
                 inputProps={field.inputProps}
                 autoFocus={!noAutofocus && index === 0}
                 variant={variant}
+                required={field.registration && field.registration.required}
                 {...registration}
               />
               {extraComponents &&
@@ -114,6 +136,29 @@ function FormFields({
       </>
     );
   else return Inside;
+}
+
+function RadioField({ label, defaultValue, registration, options, ...props }) {
+  return (
+    <FormControl {...registration}>
+      <FormLabel id='demo-row-radio-buttons-group-label'>{label}</FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby='demo-row-radio-buttons-group-label'
+        name='row-radio-buttons-group'
+        defaultValue={defaultValue}
+      >
+        {options.map(({ value, label: optionLabel }) => (
+          <FormControlLabel
+            value={value}
+            control={<Radio />}
+            label={optionLabel}
+            key={value}
+          />
+        ))}
+      </RadioGroup>
+    </FormControl>
+  );
 }
 
 export default FormFields;
