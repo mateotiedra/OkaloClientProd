@@ -95,6 +95,7 @@ function FormFields({
                 autoFocus={!noAutofocus && index === 0}
                 variant={variant}
                 required={field.registration && field.registration.required}
+                multiline={field.multiline}
                 {...registration}
               />
               {extraComponents &&
@@ -154,6 +155,7 @@ function RadioField({
   const radioOnChange = ({ target }) => {
     setValue(id, target.value);
   };
+
   return (
     <FormControl>
       <FormLabel id='demo-row-radio-buttons-group-label'>{label}</FormLabel>
@@ -162,7 +164,6 @@ function RadioField({
         aria-labelledby='demo-row-radio-buttons-group-label'
         name='row-radio-buttons-group'
         defaultValue={defaultValue}
-        {...{ onChange: setValue && radioOnChange, ...registration }}
       >
         {options.map(({ value, label: optionLabel }) => {
           return (
@@ -171,6 +172,7 @@ function RadioField({
               control={<Radio />}
               label={optionLabel}
               key={value}
+              {...registration}
             />
           );
         })}
