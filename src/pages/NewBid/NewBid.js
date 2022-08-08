@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Button, Divider, Link, Typography } from '@mui/material';
+import { Button, Link, Typography } from '@mui/material';
 import { HiBookOpen } from 'react-icons/hi';
 
 import Navbar from '../../components/Navbar/Navbar';
@@ -10,7 +10,6 @@ import NewBidLogic from './NewBidLogic';
 import Footer from '../../components/Footer/Footer';
 import IconTitle from '../../components/IconTitle/IconTitle';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
-import SectionDivider from '../../components/SectionDivider/SectionDivider';
 
 function NewBid() {
   const {

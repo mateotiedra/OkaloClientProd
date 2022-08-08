@@ -8,7 +8,6 @@ import Navbar from '../../components/Navbar/Navbar';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import SectionDivider from '../../components/SectionDivider/SectionDivider';
 import UnderlinedTitle from '../../components/UnderlinedTitle/UnderlinedTitle';
-import PageButton from '../../components/PageButton/PageButton';
 import Loading from '../Loading/Loading';
 
 import ProfileLogic from './ProfileLogic';

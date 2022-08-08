@@ -2,14 +2,12 @@ import React from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
   FormControlLabel,
-  Avatar,
   Box,
   FormControl,
   FormLabel,
   RadioGroup,
   TextField,
   Typography,
-  createFilterOptions,
   Radio,
 } from '@mui/material';
 
@@ -152,10 +150,6 @@ function RadioField({
   setValue,
   ...props
 }) {
-  const radioOnChange = ({ target }) => {
-    setValue(id, target.value);
-  };
-
   return (
     <FormControl>
       <FormLabel id='demo-row-radio-buttons-group-label'>{label}</FormLabel>
