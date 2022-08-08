@@ -33,6 +33,7 @@ function FormFields({
   variant,
   sx,
   noAutofocus,
+  setValue,
   ...props
 }) {
   const Inside = (
@@ -58,13 +59,16 @@ function FormFields({
             registration.ref = undefined;
             registration.visibilityDisabled = field.visibilityDisabled;
           }
+          //console.log(field.registration);
 
           if (field.radio)
             return (
               <RadioField
                 {...field}
                 key={field.id}
+                id={field.id}
                 registration={registration}
+                setValue={setValue}
               />
             );
 
@@ -138,24 +142,38 @@ function FormFields({
   else return Inside;
 }
 
-function RadioField({ label, defaultValue, registration, options, ...props }) {
+function RadioField({
+  label,
+  defaultValue,
+  registration,
+  options,
+  id,
+  setValue,
+  ...props
+}) {
+  const radioOnChange = ({ target }) => {
+    setValue(id, target.value);
+  };
   return (
-    <FormControl {...registration}>
+    <FormControl>
       <FormLabel id='demo-row-radio-buttons-group-label'>{label}</FormLabel>
       <RadioGroup
         row
         aria-labelledby='demo-row-radio-buttons-group-label'
         name='row-radio-buttons-group'
         defaultValue={defaultValue}
+        {...{ onChange: setValue && radioOnChange, ...registration }}
       >
-        {options.map(({ value, label: optionLabel }) => (
-          <FormControlLabel
-            value={value}
-            control={<Radio />}
-            label={optionLabel}
-            key={value}
-          />
-        ))}
+        {options.map(({ value, label: optionLabel }) => {
+          return (
+            <FormControlLabel
+              value={value}
+              control={<Radio />}
+              label={optionLabel}
+              key={value}
+            />
+          );
+        })}
       </RadioGroup>
     </FormControl>
   );
