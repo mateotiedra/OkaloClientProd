@@ -98,7 +98,20 @@ const NewBidLogic = (props) => {
   };
 
   const onSubmitBid = (values) => {
-    console.log(values);
+    axios
+      .post(
+        API_ORIGIN + '/bid',
+        { ...bookData.current, ...values },
+        {
+          headers: { 'x-access-token': localStorage.accessToken },
+        }
+      )
+      .then(({ data }) => {
+        navigate('/ad/' + data.uuid);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return {
