@@ -56,8 +56,8 @@ const NewBidLogic = (props) => {
       id: 'condition',
       label: 'État',
       radio: true,
-      registration: { required: false },
-      //defaultValue: 'good',
+      registration: { required: true },
+      defaultValue: 'good',
       options: [
         { value: 'new', label: 'Jamais ouvert' },
         { value: 'good', label: 'En bon état' },
@@ -68,18 +68,24 @@ const NewBidLogic = (props) => {
       id: 'customisation',
       label: 'Annotation',
       radio: true,
-      registration: { required: false },
+      registration: { required: true },
+      defaultValue: 'little',
       options: [
         { value: 'none', label: "Rien d'annoté" },
         { value: 'little', label: 'Quelques mots' },
-        { value: 'good', label: 'Très annoté' },
+        { value: 'lot', label: 'Très annoté' },
       ],
     },
-    /* {
+    {
       id: 'price',
       label: 'Prix de vente',
       registration: { required: true, pattern: /^[0-9]*\.?[0-9]*$/g },
-    }, */
+    },
+    {
+      id: 'comment',
+      label: 'Remarques',
+      multiline: true,
+    },
   ];
 
   const onSubmitBook = (values) => {

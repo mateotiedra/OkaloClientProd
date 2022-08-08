@@ -91,17 +91,7 @@ function NewBid() {
             </Typography>
           )}
         </SectionContainer>
-        {/* <FormFields
-        page
-        centered
-        title={'Nouvelle annonce'}
-        avatarIcon={<HiBookOpen />}
-        sending={pageStatus === 'sending'}
-        buttonText={'Suivant'}
-        fields={[]}
-      >
         <Footer />
-      </FormFields> */}
       </>
     );
 
@@ -121,6 +111,7 @@ function NewBid() {
             setValue={setValue}
           />
         </SectionContainer>
+        <Footer />
       </>
     );
 }
