@@ -15,11 +15,15 @@ import SectionDivider from '../../components/SectionDivider/SectionDivider';
 function NewBid() {
   const {
     pageStatus,
-    switchToManual,
+    switchManual,
     register,
     errors,
+    infoFields,
+    stateFields,
+    setValue,
     onSubmitBook,
     onSubmitISBN,
+    onSubmitBid,
   } = NewBidLogic();
 
   if (pageStatus === 'loading') return <Loading />;
@@ -29,15 +33,19 @@ function NewBid() {
       <>
         <Navbar coverPage />
         <SectionContainer fullPage maxWidth={'sm'}>
-          <IconTitle icon={<HiBookOpen />}>Mettre un livre en vente</IconTitle>
-          <Typography variant='body1'>
-            Pour renseigner les informations sur ton livre automatiquement, il
-            te suffit de scanner son code barre !
-          </Typography>
-          <Typography sx={{ mb: 2 }} variant='body2'>
-            Si cela ne marche pas essaie de rentrer le code ISBN qui est juste
-            en dessous.
-          </Typography>
+          <IconTitle icon={<HiBookOpen />}>Informations sur le livre</IconTitle>
+          {!pageStatus.includes('manual') && (
+            <>
+              <Typography variant='body1'>
+                Pour renseigner les informations sur ton livre automatiquement,
+                il te suffit de scanner son code barre !
+              </Typography>
+              <Typography sx={{ mb: 2 }} variant='body2'>
+                Si cela ne marche pas essaie de rentrer le code ISBN qui est
+                juste en dessous.
+              </Typography>
+            </>
+          )}
           {pageStatus.includes('manual') ? (
             <FormFields
               onSubmit={onSubmitBook}
@@ -45,22 +53,7 @@ function NewBid() {
               errors={errors}
               sending={pageStatus.includes('sending')}
               buttonText={'Suivant'}
-              fields={[
-                {
-                  id: 'title',
-                  label: 'Titre',
-                  registration: { required: true },
-                },
-                {
-                  id: 'author',
-                  label: 'Auteur',
-                },
-                {
-                  id: 'publisher',
-                  label: "Maison d'édition",
-                  registration: { required: true },
-                },
-              ]}
+              fields={infoFields}
             />
           ) : (
             <>
@@ -87,11 +80,16 @@ function NewBid() {
               />
             </>
           )}
-          <Link sx={{ ml: 'auto', mt: 1 }} onClick={switchToManual}>
-            {pageStatus.includes('manual')
-              ? 'Renseigner automatiquement'
-              : 'Renseigner manuellement'}
-          </Link>
+          {pageStatus.includes('manual') ? (
+            <Link sx={{ ml: 'auto', mt: 1 }} onClick={switchManual}>
+              Renseigner automatiquement
+            </Link>
+          ) : (
+            <Typography variant='body1' sx={{ ml: 'auto', mt: 1 }}>
+              {'Pas de code ISBN ? '}
+              <Link onClick={switchManual}>Renseigner manuellement</Link>
+            </Typography>
+          )}
         </SectionContainer>
         {/* <FormFields
         page
@@ -104,6 +102,25 @@ function NewBid() {
       >
         <Footer />
       </FormFields> */}
+      </>
+    );
+
+  if (pageStatus.includes('step-2'))
+    return (
+      <>
+        <Navbar coverPage />
+        <SectionContainer fullPage maxWidth={'sm'}>
+          <IconTitle icon={<HiBookOpen />}>État du livre</IconTitle>
+          <FormFields
+            onSubmit={onSubmitBid}
+            register={register}
+            errors={errors}
+            sending={pageStatus.includes('sending')}
+            buttonText={'Suivant'}
+            fields={stateFields}
+            setValue={setValue}
+          />
+        </SectionContainer>
       </>
     );
 }

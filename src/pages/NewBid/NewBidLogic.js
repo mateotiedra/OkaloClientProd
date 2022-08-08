@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
@@ -13,11 +14,12 @@ const NewBidLogic = (props) => {
 
   const {
     register,
-    setError,
     formState: { errors },
     handleSubmit,
-    clearErrors,
+    setValue,
   } = useForm();
+
+  const bookData = useRef({});
 
   useLoadPage(
     () => {
@@ -32,27 +34,78 @@ const NewBidLogic = (props) => {
       : setPageStatus('step-1.manual');
   };
 
-  const onSubmitBook = (formData) => {
-    console.log(formData.values);
+  const infoFields = [
+    {
+      id: 'title',
+      label: 'Titre',
+      registration: { required: true },
+    },
+    {
+      id: 'author',
+      label: 'Auteur',
+    },
+    {
+      id: 'publisher',
+      label: "Maison d'édition",
+      registration: { required: true },
+    },
+  ];
+
+  const stateFields = [
+    {
+      id: 'condition',
+      label: 'État',
+      radio: true,
+      registration: { required: false },
+      //defaultValue: 'good',
+      options: [
+        { value: 'new', label: 'Jamais ouvert' },
+        { value: 'good', label: 'En bon état' },
+        { value: 'damaged', label: 'Abimé' },
+      ],
+    },
+    {
+      id: 'customisation',
+      label: 'Annotation',
+      radio: true,
+      registration: { required: false },
+      options: [
+        { value: 'none', label: "Rien d'annoté" },
+        { value: 'little', label: 'Quelques mots' },
+        { value: 'good', label: 'Très annoté' },
+      ],
+    },
+    /* {
+      id: 'price',
+      label: 'Prix de vente',
+      registration: { required: true, pattern: /^[0-9]*\.?[0-9]*$/g },
+    }, */
+  ];
+
+  const onSubmitBook = (values) => {
+    bookData.current = values;
+    setPageStatus('step-2');
   };
 
   const onSubmitISBN = ({ isbn }) => {
     console.log(isbn);
   };
 
-  const onSubmitBid = (formData) => {
-    console.log(formData.values);
+  const onSubmitBid = (values) => {
+    console.log(values);
   };
-
-  //const onSubmit = pageStatus.includes('step-1') ? onSubmitBook : onSubmitBid;
 
   return {
     pageStatus,
     switchManual,
     register,
     errors,
+    infoFields,
+    stateFields,
+    setValue,
     onSubmitBook: handleSubmit(onSubmitBook),
     onSubmitISBN: handleSubmit(onSubmitISBN),
+    onSubmitBid: handleSubmit(onSubmitBid),
   };
 };
 
