@@ -3,8 +3,7 @@ import React from 'react';
 import NavbarLogic from './NavbarLogic';
 
 import Logo from '../../assets/rsvg/logo.js';
-import { AppBar, Container, Link, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { AppBar, Container, Link, Typography, Box } from '@mui/material';
 import { HashLink as RouterLink } from 'react-router-hash-link';
 
 function Navbar({ admin, coverPage, empty, goHomeAction }) {

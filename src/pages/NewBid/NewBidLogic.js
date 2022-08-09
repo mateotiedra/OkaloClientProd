@@ -25,13 +25,22 @@ const NewBidLogic = (props) => {
     () => {
       setPageStatus('step-1');
     },
-    { authNeeded: true }
+    {
+      authNeeded: true,
+      actionOut: () => {
+        setPageStatus('step-1');
+      },
+    }
   );
 
   const switchManual = () => {
     pageStatus.includes('manual')
       ? setPageStatus('step-1')
       : setPageStatus('step-1.manual');
+  };
+
+  const startScan = () => {
+    setPageStatus('step-1.scan');
   };
 
   const infoFields = [
@@ -117,6 +126,7 @@ const NewBidLogic = (props) => {
   return {
     pageStatus,
     switchManual,
+    startScan,
     register,
     errors,
     infoFields,

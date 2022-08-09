@@ -10,11 +10,13 @@ import NewBidLogic from './NewBidLogic';
 import Footer from '../../components/Footer/Footer';
 import IconTitle from '../../components/IconTitle/IconTitle';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
+import IsbnScanner from '../../components/IsbnScanner/IsbnScanner';
 
 function NewBid() {
   const {
     pageStatus,
     switchManual,
+    startScan,
     register,
     errors,
     infoFields,
@@ -27,7 +29,11 @@ function NewBid() {
 
   if (pageStatus === 'loading') return <Loading />;
 
-  if (pageStatus.includes('step-1'))
+  if (pageStatus.includes('step-1.scan')) {
+    return <IsbnScanner />;
+  }
+
+  if (pageStatus.includes('step-1')) {
     return (
       <>
         <Navbar coverPage />
@@ -56,7 +62,7 @@ function NewBid() {
             />
           ) : (
             <>
-              <Button>
+              <Button onClick={startScan}>
                 <Typography variant='body1'>Scanner</Typography>
               </Button>
               <Typography width='100%' textAlign='center' sx={{ my: 1 }}>
@@ -93,8 +99,9 @@ function NewBid() {
         <Footer />
       </>
     );
+  }
 
-  if (pageStatus.includes('step-2'))
+  if (pageStatus.includes('step-2')) {
     return (
       <>
         <Navbar coverPage />
@@ -113,6 +120,7 @@ function NewBid() {
         <Footer />
       </>
     );
+  }
 }
 
 export default NewBid;
