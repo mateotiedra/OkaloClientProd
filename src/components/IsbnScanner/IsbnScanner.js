@@ -1,28 +1,46 @@
-/* import { useState } from 'react'; */
-//import BarcodeScannerComponent from 'react-qr-barcode-scanner';
+import React from 'react';
+
+import { Box, Typography } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
 import SectionContainer from '../SectionContainer/SectionContainer';
 
-function IsbnScanner() {
-  /* const [code, setCode] = useState(); */
+import IsbnScannerLogic from './IsbnScannerLogic';
+import IconTitle from '../IconTitle/IconTitle';
+import { HiCamera } from 'react-icons/hi';
 
-  /* const handleScan = (err, result) => {
-    if (result) setCode(result.text);
-    else setCode('Not Found');
-  }; */
+function IsbnScanner(props) {
+  const { videoRef } = IsbnScannerLogic(props);
 
   return (
-    <>
+    <SectionContainer fullPage centered>
       <Navbar coverPage />
-      <SectionContainer fullPage maxWidth={'sm'}>
-        {/* <BarcodeScannerComponent
-          width={500}
-          height={500}
-          onUpdate={handleScan}
-        /> 
-        <p>{code}</p>*/}
-      </SectionContainer>
-    </>
+      <IconTitle icon={<HiCamera />}>Scan du codebar</IconTitle>
+      <Box
+        sx={{
+          width: 350,
+          height: 200,
+          position: 'relative',
+          borderRadius: 1.5,
+          overflow: 'hidden',
+          /* border: 'solid black 10px',
+          backgroundColor: 'primary.main',
+          borderColor: 'primary.main', */
+        }}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            transform: 'translate(0, -50%)',
+            top: '50%',
+          }}
+        >
+          <video ref={videoRef} id='videosamere' width='100%' />
+        </Box>
+      </Box>
+      <Typography variant='body1' sx={{ mt: 2, pb: 10 }}>
+        Détection en cours...
+      </Typography>
+    </SectionContainer>
   );
 }
 

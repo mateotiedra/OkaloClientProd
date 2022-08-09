@@ -23,14 +23,15 @@ function NewBid() {
     stateFields,
     setValue,
     onSubmitBook,
-    onSubmitISBN,
+    onSubmitISBNManu,
+    onSubmitISBNAuto,
     onSubmitBid,
   } = NewBidLogic();
 
   if (pageStatus === 'loading') return <Loading />;
 
   if (pageStatus.includes('step-1.scan')) {
-    return <IsbnScanner />;
+    return <IsbnScanner onResult={onSubmitISBNAuto} />;
   }
 
   if (pageStatus.includes('step-1')) {
@@ -69,7 +70,7 @@ function NewBid() {
                 ou
               </Typography>
               <FormFields
-                onSubmit={onSubmitISBN}
+                onSubmit={onSubmitISBNManu}
                 register={register}
                 errors={errors}
                 sending={pageStatus.includes('sending')}

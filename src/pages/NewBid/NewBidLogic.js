@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
@@ -10,6 +10,7 @@ const NewBidLogic = (props) => {
     setPageStatus,
     navigate,
     useLoadPage,
+    getStatusCode,
   } = PageLogicHelper();
 
   const {
@@ -20,6 +21,7 @@ const NewBidLogic = (props) => {
   } = useForm();
 
   const bookData = useRef({});
+  const [alertState, setAlertState] = useState({});
 
   useLoadPage(
     () => {
@@ -97,13 +99,42 @@ const NewBidLogic = (props) => {
     },
   ];
 
+  // Manually
   const onSubmitBook = (values) => {
     bookData.current = values;
     setPageStatus('step-2');
   };
 
+  // Automatically
   const onSubmitISBN = ({ isbn }) => {
-    console.log(isbn);
+    if (!/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(isbn)) {
+      setPageStatus('step-1.manual');
+      setAlertState({ error: true });
+      return;
+    }
+
+    axios
+      .get(API_ORIGIN + '/book/isbn', { params: { isbn: isbn } })
+      .then(({ data }) => {
+        bookData.current = { isbn: data.isbn };
+        console.log(data);
+        for (const infoField of infoFields) {
+          setValue(infoField.id, data[infoField.id]);
+        }
+      })
+      .catch((err) => {
+        if (getStatusCode(err) === 404) {
+          setAlertState({ error: true, text: 'Le code ISBN est inconnu' });
+        } else {
+          setAlertState({
+            error: true,
+            text: "Il s'est passé quelque chose que j'avais pas prévu on dirait...",
+          });
+        }
+      })
+      .finally(() => {
+        setPageStatus('step-1.manual');
+      });
   };
 
   const onSubmitBid = (values) => {
@@ -133,7 +164,8 @@ const NewBidLogic = (props) => {
     stateFields,
     setValue,
     onSubmitBook: handleSubmit(onSubmitBook),
-    onSubmitISBN: handleSubmit(onSubmitISBN),
+    onSubmitISBNManu: handleSubmit(onSubmitISBN),
+    onSubmitISBNAuto: onSubmitISBN,
     onSubmitBid: handleSubmit(onSubmitBid),
   };
 };
