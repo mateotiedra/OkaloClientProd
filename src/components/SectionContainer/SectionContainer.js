@@ -31,7 +31,7 @@ function SectionContainer({
           display: 'flex',
           flexDirection: 'column',
           alignItems: centered && 'center',
-          mt: fullPage && 10,
+          my: fullPage && 10,
         }}
       >
         {children}

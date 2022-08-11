@@ -109,14 +109,13 @@ function Home() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          pb: 20,
         }}
       >
         <TitleSection />
         <SectionDivider h={1} />
         <CTASection />
+        <Footer />
       </Box>
-      <Footer />
     </>
   );
 }
