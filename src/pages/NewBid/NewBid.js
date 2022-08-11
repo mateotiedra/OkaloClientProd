@@ -53,19 +53,8 @@ function NewBid() {
         <Navbar coverPage />
         <SectionContainer fullPage maxWidth={'sm'}>
           <IconTitle icon={<HiBookOpen />}>Informations sur le livre</IconTitle>
-          {!pageStatus.includes('manual') && (
-            <>
-              <Typography variant='body1'>
-                Pour renseigner les informations sur ton livre automatiquement,
-                il te suffit de scanner son code barre !
-              </Typography>
-              <Typography sx={{ mb: 2 }} variant='body2'>
-                Si cela ne marche pas essaie de rentrer le code ISBN qui est
-                juste au dessus.
-              </Typography>
-            </>
-          )}
           {pageStatus.includes('manual') ? (
+            // Manual
             <>
               <FetchBookAlert state={alertState} retry={retryScan} />
               <FormFields
@@ -79,7 +68,16 @@ function NewBid() {
               />
             </>
           ) : (
+            // new bid Home
             <>
+              <Typography variant='body1'>
+                Pour renseigner les informations sur ton livre automatiquement,
+                il te suffit de scanner son code barre !
+              </Typography>
+              <Typography sx={{ mb: 2 }} variant='body2'>
+                Si cela ne marche pas essaie de rentrer le code ISBN qui est
+                juste au dessus.
+              </Typography>
               <Button onClick={startScan}>
                 <Typography variant='body1'>Scanner</Typography>
               </Button>
