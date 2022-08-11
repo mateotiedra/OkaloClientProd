@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 function SectionContainer({
   id,
@@ -18,15 +18,24 @@ function SectionContainer({
       sx={{
         px: { xs: 4, sm: 5, md: 10, lg: 10, ...sx },
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: centered && 'center',
-        height: fullPage && '100vh',
-        justifyContent: fullPage && 'center',
+        alignItems: fullPage && 'center',
+        minHeight: fullPage && '100vh',
         ...sx,
       }}
       {...props}
     >
-      {children}
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: centered && 'center',
+          mt: fullPage && 10,
+        }}
+      >
+        {children}
+      </Box>
     </Container>
   );
 }
