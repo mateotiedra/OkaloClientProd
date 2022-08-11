@@ -12,6 +12,17 @@ import IconTitle from '../../components/IconTitle/IconTitle';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import IsbnScanner from '../../components/IsbnScanner/IsbnScanner';
 
+function FetchBookAlert({ state, retry }) {
+  if (state)
+    return (
+      <Alert sx={{ mb: 2 }} severity={state.error ? 'error' : 'success'}>
+        {state.text}
+        {state.error && <Link onClick={retry}>Réessayer</Link>}
+      </Alert>
+    );
+  return null;
+}
+
 function NewBid() {
   const {
     pageStatus,
@@ -27,6 +38,7 @@ function NewBid() {
     onSubmitISBNAuto,
     onSubmitBid,
     alertState,
+    retryScan,
   } = NewBidLogic();
 
   if (pageStatus === 'loading') return <Loading />;
@@ -55,14 +67,7 @@ function NewBid() {
           )}
           {pageStatus.includes('manual') ? (
             <>
-              {alertState && (
-                <Alert
-                  sx={{ mb: 2 }}
-                  severity={alertState.error ? 'error' : 'success'}
-                >
-                  {alertState.text}
-                </Alert>
-              )}
+              <FetchBookAlert state={alertState} retry={retryScan} />
               <FormFields
                 onSubmit={onSubmitBook}
                 register={register}
@@ -92,7 +97,10 @@ function NewBid() {
                   {
                     id: 'isbn',
                     label: 'Code ISBN',
-                    registration: { required: true },
+                    registration: {
+                      required: true,
+                      pattern: /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/,
+                    },
                   },
                 ]}
               />
@@ -108,8 +116,8 @@ function NewBid() {
               <Link onClick={switchManual}>Renseigner manuellement</Link>
             </Typography>
           )}
+          <Footer />
         </SectionContainer>
-        <Footer />
       </>
     );
   }
@@ -129,8 +137,8 @@ function NewBid() {
             fields={stateFields}
             setValue={setValue}
           />
+          <Footer />
         </SectionContainer>
-        <Footer />
       </>
     );
   }

@@ -11,6 +11,8 @@ const NewBidLogic = (props) => {
     navigate,
     useLoadPage,
     getStatusCode,
+    useNavigationInterceptor,
+    pathname,
   } = PageLogicHelper();
 
   const {
@@ -25,7 +27,7 @@ const NewBidLogic = (props) => {
 
   useLoadPage(
     () => {
-      setPageStatus('step-1');
+      handleStep('step-1', true);
     },
     {
       authNeeded: true,
@@ -35,14 +37,25 @@ const NewBidLogic = (props) => {
     }
   );
 
+  useNavigationInterceptor(() => {
+    const url = window.location.href.split('#');
+    url && url[1] && setPageStatus(url[1]);
+    console.log(url[1]);
+  });
+
+  const handleStep = (next, replace) => {
+    navigate(pathname + '#' + next, { replace: replace });
+    setPageStatus(next);
+  };
+
   const switchManual = () => {
     pageStatus.includes('manual')
-      ? setPageStatus('step-1')
-      : setPageStatus('step-1.manual');
+      ? handleStep('step-1')
+      : handleStep('step-1.manual');
   };
 
   const startScan = () => {
-    setPageStatus('step-1.scan');
+    handleStep('step-1.scan');
   };
 
   const infoFields = [
@@ -101,14 +114,14 @@ const NewBidLogic = (props) => {
 
   // Manually
   const onSubmitBook = () => {
-    setPageStatus('step-2');
+    handleStep('step-2');
   };
 
   // Automatically, ex : 2-7654-1005-4
   const onSubmitISBN = ({ isbn }) => {
     if (!/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(isbn)) {
-      setPageStatus('step-1.manual');
-      setAlertState({ error: true });
+      handleStep('step-1.manual');
+      setAlertState({ error: true, text: 'Le code est incorrect' });
       return;
     }
 
@@ -123,17 +136,21 @@ const NewBidLogic = (props) => {
       })
       .catch((err) => {
         if (getStatusCode(err) === 404) {
-          setAlertState({ error: true, text: 'Le code ISBN est inconnu' });
+          setAlertState({ error: true, text: 'Le code ISBN est inconnu :/' });
         } else {
           setAlertState({
             error: true,
-            text: "Il s'est passé quelque chose que j'avais pas prévu on dirait...",
+            text: "Il s'est passé quelque chose que j'avais pas prévu on dirait... ",
           });
         }
       })
       .finally(() => {
-        setPageStatus('step-1.manual');
+        handleStep('step-1.manual');
       });
+  };
+
+  const retryScan = () => {
+    navigate(-1);
   };
 
   const onSubmitBid = (bookData) => {
@@ -164,6 +181,7 @@ const NewBidLogic = (props) => {
     onSubmitISBNAuto: onSubmitISBN,
     onSubmitBid: handleSubmit(onSubmitBid),
     alertState,
+    retryScan,
   };
 };
 
