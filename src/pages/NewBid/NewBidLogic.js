@@ -67,7 +67,7 @@ const NewBidLogic = (props) => {
       id: 'condition',
       label: 'État',
       radio: true,
-      registration: { required: true },
+      registration: { required: false },
       defaultValue: 'good',
       options: [
         { value: 'new', label: 'Jamais ouvert' },
@@ -79,7 +79,7 @@ const NewBidLogic = (props) => {
       id: 'customisation',
       label: 'Annotation',
       radio: true,
-      registration: { required: true },
+      registration: { required: false },
       defaultValue: 'little',
       options: [
         { value: 'none', label: "Rien d'annoté" },
@@ -105,7 +105,7 @@ const NewBidLogic = (props) => {
     setPageStatus('step-2');
   };
 
-  // Automatically
+  // Automatically, ex : 2-7654-1005-4
   const onSubmitISBN = ({ isbn }) => {
     if (!/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(isbn)) {
       setPageStatus('step-1.manual');
@@ -117,10 +117,10 @@ const NewBidLogic = (props) => {
       .get(API_ORIGIN + '/book/isbn', { params: { isbn: isbn } })
       .then(({ data }) => {
         bookData.current = { isbn: data.isbn };
-        console.log(data);
         for (const infoField of infoFields) {
           setValue(infoField.id, data[infoField.id]);
         }
+        setAlertState({ error: false, text: 'Le livre a bien été trouvé' });
       })
       .catch((err) => {
         if (getStatusCode(err) === 404) {
@@ -138,6 +138,7 @@ const NewBidLogic = (props) => {
   };
 
   const onSubmitBid = (values) => {
+    values.isbn = undefined;
     axios
       .post(
         API_ORIGIN + '/bid',
@@ -167,6 +168,7 @@ const NewBidLogic = (props) => {
     onSubmitISBNManu: handleSubmit(onSubmitISBN),
     onSubmitISBNAuto: onSubmitISBN,
     onSubmitBid: handleSubmit(onSubmitBid),
+    alertState,
   };
 };
 

@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import PageLogic from '../../helpers/PageLogicHelper';
 
 const IsbnScannerLogic = ({ onResult, onError }) => {
-  const { useLoadPage, axios, API_ORIGIN, getStatusCode } = PageLogic();
+  const { useLoadPage } = PageLogic();
   const controls = useRef();
   const videoRef = useRef(null);
   const codeReader = new BrowserMultiFormatReader();

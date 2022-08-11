@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Link, Typography } from '@mui/material';
+import { Alert, Button, Link, Typography } from '@mui/material';
 import { HiBookOpen } from 'react-icons/hi';
 
 import Navbar from '../../components/Navbar/Navbar';
@@ -26,6 +26,7 @@ function NewBid() {
     onSubmitISBNManu,
     onSubmitISBNAuto,
     onSubmitBid,
+    alertState,
   } = NewBidLogic();
 
   if (pageStatus === 'loading') return <Loading />;
@@ -48,19 +49,30 @@ function NewBid() {
               </Typography>
               <Typography sx={{ mb: 2 }} variant='body2'>
                 Si cela ne marche pas essaie de rentrer le code ISBN qui est
-                juste en dessous.
+                juste au dessus.
               </Typography>
             </>
           )}
           {pageStatus.includes('manual') ? (
-            <FormFields
-              onSubmit={onSubmitBook}
-              register={register}
-              errors={errors}
-              sending={pageStatus.includes('sending')}
-              buttonText={'Suivant'}
-              fields={infoFields}
-            />
+            <>
+              {alertState && (
+                <Alert
+                  sx={{ mb: 2 }}
+                  severity={alertState.error ? 'error' : 'success'}
+                >
+                  {alertState.text}
+                </Alert>
+              )}
+              <FormFields
+                onSubmit={onSubmitBook}
+                register={register}
+                errors={errors}
+                sending={pageStatus.includes('sending')}
+                buttonText={'Suivant'}
+                fields={infoFields}
+                readOnly={Boolean(alertState) && !alertState.error}
+              />
+            </>
           ) : (
             <>
               <Button onClick={startScan}>

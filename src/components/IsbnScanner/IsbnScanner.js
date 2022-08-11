@@ -12,35 +12,37 @@ function IsbnScanner(props) {
   const { videoRef } = IsbnScannerLogic(props);
 
   return (
-    <SectionContainer fullPage centered>
+    <>
       <Navbar coverPage />
-      <IconTitle icon={<HiCamera />}>Scan du codebar</IconTitle>
-      <Box
-        sx={{
-          width: 350,
-          height: 200,
-          position: 'relative',
-          borderRadius: 1.5,
-          overflow: 'hidden',
-          /* border: 'solid black 10px',
-          backgroundColor: 'primary.main',
-          borderColor: 'primary.main', */
-        }}
-      >
+      <SectionContainer fullPage centered>
+        <IconTitle icon={<HiCamera />}>Scan du codebar</IconTitle>
         <Box
           sx={{
-            position: 'absolute',
-            transform: 'translate(0, -50%)',
-            top: '50%',
+            width: 350,
+            height: 200,
+            position: 'relative',
+            borderRadius: 1.5,
+            overflow: 'hidden',
+            /* border: 'solid black 10px',
+          backgroundColor: 'primary.main',
+          borderColor: 'primary.main', */
           }}
         >
-          <video ref={videoRef} id='videosamere' width='100%' />
+          <Box
+            sx={{
+              position: 'absolute',
+              transform: 'translate(0, -50%)',
+              top: '50%',
+            }}
+          >
+            <video ref={videoRef} id='videosamere' width='100%' />
+          </Box>
         </Box>
-      </Box>
-      <Typography variant='body1' sx={{ mt: 2, pb: 10 }}>
-        Détection en cours...
-      </Typography>
-    </SectionContainer>
+        <Typography variant='body1' sx={{ mt: 2, pb: 10 }}>
+          Détection en cours...
+        </Typography>
+      </SectionContainer>
+    </>
   );
 }
 
