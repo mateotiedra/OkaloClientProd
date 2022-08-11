@@ -18,9 +18,8 @@ const IsbnScannerLogic = ({ onResult, onError }) => {
     }
 
     // choose your media device (webcam, frontal camera, back camera, etc.)
-    const selectedDeviceId = Boolean(videoInputDevices[1])
-      ? videoInputDevices[1].deviceId
-      : videoInputDevices[0].deviceId;
+    const selectedDeviceId =
+      videoInputDevices[1].deviceId || videoInputDevices[0].deviceId;
 
     const previewElem = videoRef.current;
 

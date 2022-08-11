@@ -24,8 +24,13 @@ function IsbnScanner({ switchManual, ...props }) {
             borderRadius: 1.5,
             overflow: 'hidden',
             backgroundColor: 'text.primary',
+            color: 'white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
+          <Typography>Aucune caméra détectée</Typography>
           <Box
             sx={{
               position: 'absolute',
