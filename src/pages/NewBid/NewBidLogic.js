@@ -20,8 +20,8 @@ const NewBidLogic = (props) => {
     setValue,
   } = useForm();
 
-  const bookData = useRef({});
-  const [alertState, setAlertState] = useState({});
+  const savedIsbn = useRef();
+  const [alertState, setAlertState] = useState();
 
   useLoadPage(
     () => {
@@ -100,8 +100,7 @@ const NewBidLogic = (props) => {
   ];
 
   // Manually
-  const onSubmitBook = (values) => {
-    bookData.current = values;
+  const onSubmitBook = () => {
     setPageStatus('step-2');
   };
 
@@ -116,7 +115,7 @@ const NewBidLogic = (props) => {
     axios
       .get(API_ORIGIN + '/book/isbn', { params: { isbn: isbn } })
       .then(({ data }) => {
-        bookData.current = { isbn: data.isbn };
+        savedIsbn.current = data.isbn;
         for (const infoField of infoFields) {
           setValue(infoField.id, data[infoField.id]);
         }
@@ -137,16 +136,12 @@ const NewBidLogic = (props) => {
       });
   };
 
-  const onSubmitBid = (values) => {
-    values.isbn = undefined;
+  const onSubmitBid = (bookData) => {
+    bookData.isbn = savedIsbn.current;
     axios
-      .post(
-        API_ORIGIN + '/bid',
-        { ...bookData.current, ...values },
-        {
-          headers: { 'x-access-token': localStorage.accessToken },
-        }
-      )
+      .post(API_ORIGIN + '/bid', bookData, {
+        headers: { 'x-access-token': localStorage.accessToken },
+      })
       .then(({ data }) => {
         navigate('/ad/' + data.uuid);
       })
