@@ -30,7 +30,7 @@ function IsbnScanner({ switchManual, ...props }) {
             alignItems: 'center',
           }}
         >
-          <Typography>Aucune caméra détectée</Typography>
+          <Typography>Chargement de la caméra...</Typography>
           <Box
             sx={{
               position: 'absolute',
