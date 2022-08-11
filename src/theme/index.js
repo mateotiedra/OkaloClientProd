@@ -84,7 +84,6 @@ let theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          padding: '0 20px',
           fieldset: {
             borderColor: darkGrey,
             borderOpacity: 0.5,
