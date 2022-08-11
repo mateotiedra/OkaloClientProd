@@ -7,14 +7,18 @@ import { AppBar, Container, Link, Typography, Box } from '@mui/material';
 import { HashLink as RouterLink } from 'react-router-hash-link';
 
 function Navbar({ admin, coverPage, empty, goHomeAction }) {
-  const { navLinksObj, onClickLink } = NavbarLogic(admin);
+  const { navLinksObj, onClickLink, keyboardVisibility } = NavbarLogic(admin);
 
   return (
     <>
       <AppBar
         elevation={0}
         sx={{
-          display: 'flex',
+          display: {
+            xs: keyboardVisibility,
+            sm: keyboardVisibility,
+            md: 'flex',
+          },
           alignItems: 'center',
           backdropFilter: 'blur(10px)',
           position: 'fixed',

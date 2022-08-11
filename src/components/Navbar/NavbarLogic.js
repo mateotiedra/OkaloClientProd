@@ -1,9 +1,13 @@
+import { useEffect, useState } from 'react';
 import { HiUser, HiSearch, HiPlus, HiHome } from 'react-icons/hi';
 import { useNavigate, useLocation } from 'react-router-dom';
+import useDetectKeyboardOpen from 'use-detect-keyboard-open';
 
 const NavbarLogic = () => {
   let { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const isKeyboardOpen = useDetectKeyboardOpen();
 
   const navLinksObj = [
     {
@@ -39,7 +43,11 @@ const NavbarLogic = () => {
     (reload || userChange) && window.location.reload();
   };
 
-  return { navLinksObj, onClickLink };
+  return {
+    navLinksObj,
+    onClickLink,
+    keyboardVisibility: isKeyboardOpen ? 'none' : 'flex',
+  };
 };
 
 export default NavbarLogic;
