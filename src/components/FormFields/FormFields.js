@@ -32,6 +32,7 @@ function FormFields({
   sx,
   noAutofocus,
   setValue,
+  readOnly,
   ...props
 }) {
   const Inside = (
@@ -94,6 +95,9 @@ function FormFields({
                 variant={variant}
                 required={field.registration && field.registration.required}
                 multiline={field.multiline}
+                InputProps={{
+                  readOnly: readOnly,
+                }}
                 {...registration}
               />
               {extraComponents &&
