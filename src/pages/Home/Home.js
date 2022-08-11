@@ -81,7 +81,7 @@ function CTASection() {
         variant='outlined'
         sx={{ width: '100%' }}
         inputProps={{
-          sx: { fontSize: { xs: 18, sm: 21, md: 20 } },
+          sx: { fontSize: { xs: 18, sm: 21, md: 20 }, textAlign: 'center' },
         }}
       />
       <Button
@@ -109,11 +109,11 @@ function Home() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          pb: { xs: 10, sm: 10 },
+          pb: 20,
         }}
       >
         <TitleSection />
-        <SectionDivider h={2} />
+        <SectionDivider h={1} />
         <CTASection />
       </Box>
       <Footer />
