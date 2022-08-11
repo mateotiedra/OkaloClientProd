@@ -1,5 +1,10 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  UNSAFE_NavigationContext,
+} from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -11,9 +16,11 @@ const PageLogic = () => {
   const { API_ORIGIN } = AppConfig();
   const { getStatusCode, setInterceptors } = AxiosHelper(axios);
   const { setErrorCode } = useContext(ErrorHandlerContext);
+
   let navigate = useNavigate();
-  let params = useParams();
   let { pathname } = useLocation();
+
+  let params = useParams();
 
   const [pageStatus, setPageStatus] = useState('loading');
   const hasFetchedData = useRef(false);
@@ -22,6 +29,8 @@ const PageLogic = () => {
     useEffect(() => {
       const { actionOut, allowedRoles, setUserData, authNeeded } =
         options || {};
+
+      // First time the page is loaded
       if (!hasFetchedData.current) {
         hasFetchedData.current = true;
         setInterceptors(setErrorCode);
@@ -33,10 +42,25 @@ const PageLogic = () => {
           );
         else actionIn && actionIn();
       }
+
+      // When leaving the page
       return () => {
         if (actionOut) return actionOut;
       };
     }, [actionIn, options]);
+  };
+
+  const useNavigationInterceptor = (onIntercept) => {
+    const navigator = useContext(UNSAFE_NavigationContext).navigator;
+
+    useEffect(() => {
+      const listener = ({ location, action }) => {
+        onIntercept && onIntercept({ location, action });
+      };
+
+      const unlisten = navigator.listen(listener);
+      return unlisten;
+    }, [onIntercept]);
   };
 
   const fetchUserData = (allowedRoles, setUserData, authNeeded) =>
@@ -95,6 +119,8 @@ const PageLogic = () => {
     useLoadPage,
     params,
     setErrorCode,
+    useNavigationInterceptor,
+    pathname,
   };
 };
 
