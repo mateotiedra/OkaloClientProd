@@ -149,7 +149,7 @@ const NewBidLogic = (props) => {
       });
   };
 
-  const retryScan = () => {
+  const goBack = () => {
     navigate(-1);
   };
 
@@ -181,7 +181,7 @@ const NewBidLogic = (props) => {
     onSubmitISBNAuto: onSubmitISBN,
     onSubmitBid: handleSubmit(onSubmitBid),
     alertState,
-    retryScan,
+    goBack,
   };
 };
 

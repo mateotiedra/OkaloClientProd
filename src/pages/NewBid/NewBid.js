@@ -38,13 +38,13 @@ function NewBid() {
     onSubmitISBNAuto,
     onSubmitBid,
     alertState,
-    retryScan,
+    goBack,
   } = NewBidLogic();
 
   if (pageStatus === 'loading') return <Loading />;
 
   if (pageStatus.includes('step-1.scan')) {
-    return <IsbnScanner onResult={onSubmitISBNAuto} />;
+    return <IsbnScanner onResult={onSubmitISBNAuto} switchManual={goBack} />;
   }
 
   if (pageStatus.includes('step-1')) {
@@ -56,7 +56,7 @@ function NewBid() {
           {pageStatus.includes('manual') ? (
             // Manual
             <>
-              <FetchBookAlert state={alertState} retry={retryScan} />
+              <FetchBookAlert state={alertState} retry={goBack} />
               <FormFields
                 onSubmit={onSubmitBook}
                 register={register}
@@ -70,13 +70,9 @@ function NewBid() {
           ) : (
             // new bid Home
             <>
-              <Typography variant='body1'>
+              <Typography variant='body1' sx={{ mb: 2 }}>
                 Pour renseigner les informations sur ton livre automatiquement,
-                il te suffit de scanner son code barre !
-              </Typography>
-              <Typography sx={{ mb: 2 }} variant='body2'>
-                Si cela ne marche pas essaie de rentrer le code ISBN qui est
-                juste au dessus.
+                il te suffit de scanner son code-barre !
               </Typography>
               <Button onClick={startScan}>
                 <Typography variant='body1'>Scanner</Typography>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
 import SectionContainer from '../SectionContainer/SectionContainer';
 
@@ -8,14 +8,14 @@ import IsbnScannerLogic from './IsbnScannerLogic';
 import IconTitle from '../IconTitle/IconTitle';
 import { HiCamera } from 'react-icons/hi';
 
-function IsbnScanner(props) {
+function IsbnScanner({ switchManual, ...props }) {
   const { videoRef } = IsbnScannerLogic(props);
 
   return (
     <>
       <Navbar coverPage />
       <SectionContainer fullPage centered>
-        <IconTitle icon={<HiCamera />}>Scan du codebar</IconTitle>
+        <IconTitle icon={<HiCamera />}>Scan du code-barre</IconTitle>
         <Box
           sx={{
             width: 350,
@@ -23,9 +23,7 @@ function IsbnScanner(props) {
             position: 'relative',
             borderRadius: 1.5,
             overflow: 'hidden',
-            /* border: 'solid black 10px',
-          backgroundColor: 'primary.main',
-          borderColor: 'primary.main', */
+            backgroundColor: 'text.primary',
           }}
         >
           <Box
@@ -39,7 +37,14 @@ function IsbnScanner(props) {
           </Box>
         </Box>
         <Typography variant='body1' sx={{ mt: 2, pb: 10 }}>
-          Détection en cours...
+          Si cela ne marche pas essaie de :<br />
+          1) Rester bien droit
+          <br />
+          2) Avoir une image bien nette
+          <br />
+          3) Rester immobile <br />
+          Si cela ne fonctionne toujours pas tu peux :
+          <Link onClick={switchManual}> rentrer le code ISBN</Link> à la main
         </Typography>
       </SectionContainer>
     </>
