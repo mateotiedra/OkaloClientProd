@@ -40,7 +40,6 @@ const NewBidLogic = (props) => {
   useNavigationInterceptor(() => {
     const url = window.location.href.split('#');
     url && url[1] && setPageStatus(url[1]);
-    console.log(url[1]);
   });
 
   const handleStep = (next, replace) => {
@@ -136,7 +135,7 @@ const NewBidLogic = (props) => {
       })
       .catch((err) => {
         if (getStatusCode(err) === 404) {
-          setAlertState({ error: true, text: 'Le code ISBN est inconnu :/' });
+          setAlertState({ error: true, text: 'Le code ISBN est inconnu' });
         } else {
           setAlertState({
             error: true,

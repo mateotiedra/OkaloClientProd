@@ -16,7 +16,7 @@ function FetchBookAlert({ state, retry }) {
   if (state)
     return (
       <Alert sx={{ mb: 2 }} severity={state.error ? 'error' : 'success'}>
-        {state.text}
+        {state.text + ' '}
         {state.error && <Link onClick={retry}>Réessayer</Link>}
       </Alert>
     );
