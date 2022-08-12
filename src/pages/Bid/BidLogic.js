@@ -15,52 +15,59 @@ const BidLogic = (props) => {
     getStatusCode,
     navigate,
     useLoadPage,
+    pathname,
   } = PageLogicHelper();
 
-  const { username: profileUsername } = useParams();
-  const [userData, setUserData] = useState({});
+  const { uuid: urlUuid } = useParams();
   const [bidData, setBidData] = useState({});
 
   useLoadPage(async () => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-      try {
-        const { data: user } = await axios.get(API_ORIGIN + '/user/u', {
+      // Fetch the book from the user
+      axios
+        .get(API_ORIGIN + '/user/u', {
           headers: { 'x-access-token': accessToken },
-        });
-        console.log(user);
-      } catch (err) {
-        if (getStatusCode(err) === 404) {
-          navigate(`/login`, {
-            replace: true,
-            state: { destination: '/user/u' },
-          });
-        } else console.log(err);
-      }
-    } else if (profileUsername === 'u') {
-      navigate(`/login`, {
-        replace: true,
-        state: { destination: '/user/u' },
-      });
-      return;
-    }
+        })
+        .then(({ data: user }) => {
+          const userBids = user.bids.filter((bid) => bid.uuid === urlUuid);
 
-    try {
-      const { data: user } = await axios.get(API_ORIGIN + '/user', {
-        params: { username: profileUsername },
-      });
-      setUserData(user);
-      setPageStatus('guest');
-    } catch (err) {
-      if (getStatusCode(err) === 404) setPageStatus('not found');
-      else console.log(err);
+          if (userBids.length) {
+            setBidData(userBids[0]);
+            setPageStatus('owner');
+          } else fetchBidFromUrl();
+        })
+        .catch((err) => {
+          if (getStatusCode(err) === 404) {
+            navigate(`/login`, {
+              replace: true,
+              state: { destination: pathname },
+            });
+          } else console.log(err);
+        });
+    } else {
+      fetchBidFromUrl();
     }
   });
 
+  const fetchBidFromUrl = async () => {
+    // Fetch the book from its uuid
+    axios
+      .get('/bid', { params: { uuid: urlUuid } })
+      .then(({ data: bid }) => {
+        setBidData(bid);
+        setPageStatus('active');
+      })
+      .catch((err) => {
+        if (getStatusCode(err) === 404) {
+          setPageStatus('not found');
+        } else console.log(err);
+      });
+  };
+
   return {
-    username: userData.username,
-    bids: userData.bids,
     pageStatus,
+    bidData,
   };
 };
 
