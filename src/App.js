@@ -10,6 +10,7 @@ import ErrorHandlerWrapper from './ErrorHandler/ErrorHandlerWrapper';
 import NewBid from './pages/NewBid/NewBid';
 import Settings from './pages/Settings/Settings';
 import ChangePassword from './pages/ChangePassword/ChangePassword';
+import Bid from './pages/Bid/Bid';
 
 // Manage routing
 function App() {
@@ -36,6 +37,7 @@ function App() {
             element={<ChangePassword />}
           />
           <Route path='/new-bid' element={<NewBid />} />
+          <Route path='/ad/:uuid' element={<Bid />} />
         </Routes>
       </ErrorHandlerWrapper>
     </Router>
