@@ -167,44 +167,27 @@ const AuthLogic = ({ startingMode }) => {
       });
   };
 
-  const fields = loginMode
-    ? [
-        {
-          id: 'email',
-          label: 'Email',
-          registration: {
-            required: true,
-            pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g,
-          },
-        },
-        {
-          id: 'password',
-          password: true,
-          label: 'Mot de passe',
-          registration: { required: true },
-        },
-      ]
-    : [
-        {
-          id: 'username',
-          label: "Nom d'utilisateur",
-          registration: { required: true },
-        },
-        {
-          id: 'email',
-          label: 'Email',
-          registration: {
-            required: true,
-            pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g,
-          },
-        },
-        {
-          id: 'password',
-          password: true,
-          label: 'Mot de passe',
-          registration: { required: true },
-        },
-      ];
+  const fields = [
+    !loginMode && {
+      id: 'username',
+      label: "Nom d'utilisateur",
+      registration: { required: true },
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      registration: {
+        required: true,
+        pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+      },
+    },
+    {
+      id: 'password',
+      password: true,
+      label: 'Mot de passe',
+      registration: { required: true },
+    },
+  ];
 
   return {
     pageStatus,
