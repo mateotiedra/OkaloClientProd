@@ -52,6 +52,7 @@ function FormFields({
         }}
       >
         {fields.map((field, index) => {
+          if (!field) return;
           var registration = register(field.id, field.registration);
           if (field.password) {
             registration.innerRef = registration.ref;
