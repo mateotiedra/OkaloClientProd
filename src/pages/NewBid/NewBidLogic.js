@@ -74,6 +74,18 @@ const NewBidLogic = (props) => {
     },
   ];
 
+  const conditionOptions = {
+    new: 'Comme neuf',
+    good: 'En bon état',
+    damaged: 'Abimé',
+  };
+
+  const customisationOptions = {
+    none: 'Pas dutout annoté',
+    little: 'Annoté normalement',
+    lot: 'Très annoté',
+  };
+
   const stateFields = [
     {
       id: 'condition',
@@ -82,9 +94,9 @@ const NewBidLogic = (props) => {
       registration: { required: false },
       defaultValue: 'good',
       options: [
-        { value: 'new', label: 'Jamais ouvert' },
-        { value: 'good', label: 'En bon état' },
-        { value: 'damaged', label: 'Abimé' },
+        { value: 'new', label: conditionOptions['new'] },
+        { value: 'good', label: conditionOptions['good'] },
+        { value: 'damaged', label: conditionOptions['damaged'] },
       ],
     },
     {
@@ -94,9 +106,9 @@ const NewBidLogic = (props) => {
       registration: { required: false },
       defaultValue: 'little',
       options: [
-        { value: 'none', label: "Rien d'annoté" },
-        { value: 'little', label: 'Quelques mots' },
-        { value: 'lot', label: 'Très annoté' },
+        { value: 'none', label: customisationOptions['none'] },
+        { value: 'little', label: customisationOptions['little'] },
+        { value: 'lot', label: customisationOptions['lot'] },
       ],
     },
     {
@@ -181,6 +193,8 @@ const NewBidLogic = (props) => {
     onSubmitBid: handleSubmit(onSubmitBid),
     alertState,
     goBack,
+    conditionOptions,
+    customisationOptions,
   };
 };
 

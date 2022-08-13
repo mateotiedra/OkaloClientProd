@@ -5,6 +5,7 @@ import { HiMail, HiPhone, HiCog } from 'react-icons/hi';
 import { GrInstagram } from 'react-icons/gr';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
+import NewBidLogic from '../NewBid/NewBidLogic';
 
 const BidLogic = (props) => {
   const {
@@ -33,7 +34,7 @@ const BidLogic = (props) => {
           const userBids = user.bids.filter((bid) => bid.uuid === urlUuid);
 
           if (userBids.length) {
-            setBidData(userBids[0]);
+            setBidData({ user: user, ...userBids[0] });
             setPageStatus('owner');
           } else fetchBidFromUrl();
         })
@@ -50,11 +51,24 @@ const BidLogic = (props) => {
     }
   });
 
+  const conditionOptions = {
+    new: 'Comme neuf',
+    good: 'En bon état',
+    damaged: 'Abimé',
+  };
+
+  const customisationOptions = {
+    none: 'Pas dutout annoté',
+    little: 'Annoté normalement',
+    lot: 'Très annoté',
+  };
+
   const fetchBidFromUrl = async () => {
     // Fetch the book from its uuid
     axios
-      .get('/bid', { params: { uuid: urlUuid } })
+      .get(API_ORIGIN + '/bid', { params: { uuid: urlUuid } })
       .then(({ data: bid }) => {
+        console.log(bid.comment);
         setBidData(bid);
         setPageStatus('active');
       })
@@ -67,7 +81,12 @@ const BidLogic = (props) => {
 
   return {
     pageStatus,
-    bidData,
+    bidData: {
+      ...bidData,
+      customisation: customisationOptions[bidData.customisation],
+      condition: conditionOptions[bidData.condition],
+    },
+    institutions: bidData && bidData.user && bidData.user.institutions,
   };
 };
 
