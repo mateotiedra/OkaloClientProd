@@ -40,6 +40,7 @@ const PasswordField = ({
       sx={{ my: 0, ...sx }}
       disabled={disabled}
       ref={innerRef}
+      required={required}
     >
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <FilledInput

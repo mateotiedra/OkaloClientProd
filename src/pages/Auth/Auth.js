@@ -15,6 +15,7 @@ import Footer from '../../components/Footer/Footer';
 import FormFields from '../../components/FormFields/FormFields';
 
 import AuthLogic from './AuthLogic';
+import SectionContainer from '../../components/SectionContainer/SectionContainer';
 
 function InstitutionsField({
   institutions = [],
@@ -75,44 +76,45 @@ export default function Auth(props) {
   return (
     <>
       <Navbar empty coverPage />
-      <FormFields
-        page
-        centered
-        title={loginMode ? 'Connexion' : 'Inscription'}
-        avatarIcon={<HiUser />}
-        onSubmit={onSubmit}
-        register={register}
-        sending={pageStatus === 'sending'}
-        buttonText={loginMode ? 'Se connecter' : "S'inscrire"}
-        errors={errors}
-        fields={fields}
-        extraComponents={{
-          0: displayResend && (
-            <Link
-              sx={{ alignSelf: 'flex-end' }}
-              component={RouterLink}
-              to='/confirm-email/resend'
-            >
-              <Typography variant='body2'>
-                Renvoyer un code de confirmation
-              </Typography>
-            </Link>
-          ),
-          '-1': !loginMode && (
-            <InstitutionsField
-              institutions={institutions}
-              loading={pageStatus === 'loading'}
-              onChange={onInstitutionsChange}
-              helperText={institutionsHelperText}
-            />
-          ),
-        }}
-      >
+      <SectionContainer fullPage>
+        <FormFields
+          title={loginMode ? 'Connexion' : 'Inscription'}
+          avatarIcon={<HiUser />}
+          onSubmit={onSubmit}
+          register={register}
+          sending={pageStatus === 'sending'}
+          buttonText={loginMode ? 'Se connecter' : "S'inscrire"}
+          errors={errors}
+          fields={fields}
+          extraComponents={{
+            0: displayResend && (
+              <Link
+                sx={{ alignSelf: 'flex-end' }}
+                component={RouterLink}
+                to='/confirm-email/resend'
+              >
+                <Typography variant='body2'>
+                  Renvoyer un code de confirmation
+                </Typography>
+              </Link>
+            ),
+            '-1': !loginMode && (
+              <InstitutionsField
+                institutions={institutions}
+                loading={pageStatus === 'loading'}
+                onChange={onInstitutionsChange}
+                helperText={institutionsHelperText}
+              />
+            ),
+          }}
+        />
+
         <Box
           sx={{
             width: '100%',
             display: 'flex',
             justifyContent: 'space-between',
+            px: 1,
           }}
         >
           <Link variant='body2' onClick={switchLoginMode}>
@@ -128,7 +130,7 @@ export default function Auth(props) {
           </Link>
         </Box>
         <Footer />
-      </FormFields>
+      </SectionContainer>
     </>
   );
 }
