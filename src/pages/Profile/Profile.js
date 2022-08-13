@@ -69,11 +69,10 @@ function Profile() {
     ) : (
       <SectionContainer
         centered
+        fullPage
         sx={{
           position: 'absolute',
           top: 0,
-          width: '100vw',
-          height: '100vh',
           justifyContent: 'center',
           zIndex: -10,
         }}
