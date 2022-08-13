@@ -1,6 +1,17 @@
 import React from 'react';
 
-import { Box, Button, Link, Skeleton, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Link,
+  Skeleton,
+  Typography,
+} from '@mui/material';
 import { HiSparkles } from 'react-icons/hi';
 import { HashLink } from 'react-router-hash-link';
 
@@ -10,27 +21,78 @@ import SectionDivider from '../../components/SectionDivider/SectionDivider';
 import UnderlinedTitle from '../../components/UnderlinedTitle/UnderlinedTitle';
 import Loading from '../Loading/Loading';
 import IconTitle from '../../components/IconTitle/IconTitle';
+import FormFields from '../../components/FormFields/FormFields';
+import Footer from '../../components/Footer/Footer';
+
 import BidLogic from './BidLogic';
 
 function Bid() {
-  const { pageStatus, bidData, institutions } = BidLogic();
+  const {
+    pageStatus,
+    bidData,
+    institutions,
+    stateFields,
+    setValue,
+    register,
+    errors,
+    switchToEdit,
+    onSubmitChange,
+    deleteDialogOpened,
+    toggleDeleteDialog,
+    deleteBid,
+  } = BidLogic();
 
   if (pageStatus === 'loading') return <Loading />;
+
+  if (pageStatus === 'edit') {
+    return (
+      <>
+        <Navbar coverPage />
+        <DeleteDialog
+          opened={deleteDialogOpened}
+          handleClose={toggleDeleteDialog}
+          deleteBid={deleteBid}
+        />
+        <SectionContainer fullPage>
+          <BookSection book={bidData.book} />
+          <FormFields
+            onSubmit={onSubmitChange}
+            register={register}
+            errors={errors}
+            sending={pageStatus.includes('sending')}
+            fields={stateFields}
+            setValue={setValue}
+            sx={{ mt: 4 }}
+          />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              mt: 4,
+              gap: 2,
+            }}
+          >
+            <Button
+              onClick={toggleDeleteDialog}
+              variant='outlined'
+              color='error'
+            >
+              <Typography>Supprimer</Typography>
+            </Button>
+            <Button onClick={onSubmitChange}>
+              <Typography>Sauvegarder</Typography>
+            </Button>
+          </Box>
+        </SectionContainer>
+      </>
+    );
+  }
 
   return (
     <>
       <Navbar coverPage />
       <SectionContainer fullPage>
-        <Box sx={{ display: 'flex' }}>
-          <BookImage book={bidData.book} sx={{ mr: 5, ml: 2 }} />
-          <Box sx={{ wordBreak: 'break-word' }}>
-            <Typography variant='h4'>{bidData.book.title}</Typography>
-            <Typography variant='body1' mb={2}>
-              {bidData.book.author}
-            </Typography>
-            <Typography variant='h6'>{bidData.book.publisher}</Typography>
-          </Box>
-        </Box>
+        <BookSection book={bidData.book} />
         <Typography variant='body1' mt={4}>
           <Typography component='span' fontWeight='bold'>
             {bidData.condition}
@@ -76,7 +138,7 @@ function Bid() {
           <Typography variant='h4'>CHF {bidData.price}</Typography>
           {pageStatus === 'owner' ? (
             <>
-              <Button>
+              <Button onClick={switchToEdit}>
                 <Typography>Modifier l'annonce</Typography>
               </Button>
             </>
@@ -91,37 +153,78 @@ function Bid() {
   );
 }
 
-function BookImage({ book, sx }) {
+function BookSection({ book }) {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        minWidth: 120,
-        height: !book.coverLink && 180,
-        border: 'solid 3px',
-        borderColor: 'text.primary',
-        borderRadius: '5px',
-        overflow: 'hidden',
-        ...sx,
-      }}
-    >
-      {book.coverLink ? (
-        <Box
-          component='img'
-          src={book.coverLink}
-          sx={{
-            width: '100%',
-          }}
-        />
-      ) : (
-        <Typography variant='caption' sx={{ mx: 1, textAlign: 'center' }}>
-          Aucune image disponible
+    <Box sx={{ display: 'flex' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          minWidth: 120,
+          maxWidth: 120,
+          height: !book.coverLink && 180,
+          border: 'solid 3px',
+          borderColor: 'text.primary',
+          borderRadius: '5px',
+          overflow: 'hidden',
+          mr: 5,
+          ml: 2,
+        }}
+      >
+        {book.coverLink ? (
+          <Box
+            component='img'
+            src={book.coverLink}
+            sx={{
+              width: '100%',
+            }}
+          />
+        ) : (
+          <Typography variant='caption' sx={{ mx: 1, textAlign: 'center' }}>
+            Pas de preview disponible
+          </Typography>
+        )}
+      </Box>
+      <Box sx={{ wordBreak: 'break-word' }}>
+        <Typography variant='h5'>{book.title}</Typography>
+        <Typography variant='body1' mb={2}>
+          {book.author}
         </Typography>
-      )}
+        <Typography variant='h6'>{book.publisher}</Typography>
+      </Box>
     </Box>
+  );
+}
+
+function DeleteDialog({ opened, deleteBid, handleClose }) {
+  return (
+    <Dialog
+      open={opened}
+      onClose={handleClose}
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
+    >
+      <DialogTitle id='alert-dialog-title'>Supprimer l'annonce</DialogTitle>
+      <DialogContent>
+        <DialogContentText id='alert-dialog-description'>
+          Cette action supprimera définitivement l'annonce du livre et toutes
+          les données associées.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button variant='text' onClick={handleClose}>
+          Annuler
+        </Button>
+        <Button variant='text' onClick={() => deleteBid(true)} autoFocus>
+          Je l'ai vendu
+        </Button>
+        <Button variant='text' onClick={() => deleteBid(false)} autoFocus>
+          Supprimer
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 
