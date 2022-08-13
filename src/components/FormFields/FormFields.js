@@ -90,14 +90,14 @@ function FormFields({
                 helperText={errors[field.id] && errors[field.id].message}
                 error={errors[field.id] !== undefined}
                 disabled={field.disabled}
-                inputProps={field.inputProps}
+                inputProps={{
+                  readOnly: readOnly,
+                  ...field.inputProps,
+                }}
                 autoFocus={!noAutofocus && index === 0}
                 variant={variant}
                 required={field.registration && field.registration.required}
                 multiline={field.multiline}
-                InputProps={{
-                  readOnly: readOnly,
-                }}
                 {...registration}
               />
               {extraComponents &&
