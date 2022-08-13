@@ -18,7 +18,7 @@ const PageLogic = () => {
   const { setErrorCode } = useContext(ErrorHandlerContext);
 
   let navigate = useNavigate();
-  let { pathname } = useLocation();
+  let { pathname, ...location } = useLocation();
 
   let params = useParams();
 
@@ -121,6 +121,7 @@ const PageLogic = () => {
     setErrorCode,
     useNavigationInterceptor,
     pathname,
+    location,
   };
 };
 
