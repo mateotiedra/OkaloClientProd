@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
-const NewBidLogic = (props) => {
+const NewBidLogic = ({ fromOtherPage }) => {
   const {
     pageStatus,
     API_ORIGIN,
@@ -27,10 +27,10 @@ const NewBidLogic = (props) => {
 
   useLoadPage(
     () => {
-      handleStep('step-1', true);
+      !fromOtherPage && handleStep('step-1', true);
     },
     {
-      authNeeded: true,
+      authNeeded: !Boolean(fromOtherPage),
       actionOut: () => {
         setPageStatus('step-1');
       },
@@ -195,6 +195,7 @@ const NewBidLogic = (props) => {
     goBack,
     conditionOptions,
     customisationOptions,
+    stateFields,
   };
 };
 

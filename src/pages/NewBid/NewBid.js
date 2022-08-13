@@ -39,7 +39,7 @@ function NewBid() {
     onSubmitBid,
     alertState,
     goBack,
-  } = NewBidLogic();
+  } = NewBidLogic({});
 
   if (pageStatus === 'loading') return <Loading />;
 
