@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Button, Link, Typography } from '@mui/material';
+import { Box, Button, Link, TextField, Typography } from '@mui/material';
 import { HiSparkles } from 'react-icons/hi';
 import { HashLink } from 'react-router-hash-link';
 
@@ -9,12 +9,14 @@ import SectionContainer from '../../components/SectionContainer/SectionContainer
 import SectionDivider from '../../components/SectionDivider/SectionDivider';
 import UnderlinedTitle from '../../components/UnderlinedTitle/UnderlinedTitle';
 import Loading from '../Loading/Loading';
+import IconTitle from '../../components/IconTitle/IconTitle';
+import BidsList from '../../components/BidsList/BidsList';
 
 import ProfileLogic from './ProfileLogic';
-import IconTitle from '../../components/IconTitle/IconTitle';
 
 function Profile() {
-  const { username, pageStatus, socials, bids } = ProfileLogic();
+  const { username, pageStatus, socials, bids, onSearchChange } =
+    ProfileLogic();
 
   if (pageStatus === 'loading') return <Loading />;
 
@@ -63,9 +65,9 @@ function Profile() {
     </SectionContainer>
   );
 
-  const BidsList =
+  const BidsSection =
     bids && bids.length ? (
-      <></>
+      <BidsList bids={bids} />
     ) : (
       <SectionContainer
         centered
@@ -92,10 +94,18 @@ function Profile() {
   return (
     <>
       <Navbar />
-      <SectionDivider />
-      {TitleAndSocials}
-      <SectionDivider />
-      {BidsList}
+      <SectionContainer maxWidth='md' sx={{ pb: 12 }}>
+        <SectionDivider />
+        {TitleAndSocials}
+        <SectionDivider />
+        <TextField
+          sx={{ mb: 2 }}
+          variant='outlined'
+          placeholder={'Chercher un livre de ' + username + '...'}
+          onChange={onSearchChange}
+        />
+        {BidsSection}
+      </SectionContainer>
     </>
   );
 }

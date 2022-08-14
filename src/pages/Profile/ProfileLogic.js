@@ -19,6 +19,7 @@ const ProfileLogic = (props) => {
 
   const { username: profileUsername } = useParams();
   const [userData, setUserData] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
 
   const socials = [
     Boolean(userData.email) && {
@@ -90,11 +91,36 @@ const ProfileLogic = (props) => {
     }
   });
 
+  const onSearchChange = ({ target }) => {
+    setSearchQuery(target.value);
+  };
+
+  const filterBids = () => {
+    const queryWords = searchQuery.split(' ');
+    if (searchQuery === '') return userData && userData.bids;
+    return (
+      userData &&
+      userData.bids &&
+      userData.bids.filter(({ book }) => {
+        for (const queryWord of queryWords) {
+          if (
+            !book.title
+              .toLocaleLowerCase()
+              .includes(queryWord.toLocaleLowerCase())
+          )
+            return false;
+        }
+        return true;
+      })
+    );
+  };
+
   return {
     username: userData.username,
-    bids: userData.bids,
     pageStatus,
     socials,
+    bids: filterBids(),
+    onSearchChange,
   };
 };
 
