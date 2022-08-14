@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { HiUser, HiSearch, HiPlus, HiHome } from 'react-icons/hi';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useDetectKeyboardOpen from 'use-detect-keyboard-open';

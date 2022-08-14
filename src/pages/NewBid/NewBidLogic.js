@@ -195,7 +195,6 @@ const NewBidLogic = ({ fromOtherPage }) => {
     goBack,
     conditionOptions,
     customisationOptions,
-    stateFields,
   };
 };
 

@@ -178,6 +178,7 @@ const AuthLogic = ({ startingMode }) => {
       label: 'Email',
       registration: {
         required: true,
+        // eslint-disable-next-line
         pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
       },
     },

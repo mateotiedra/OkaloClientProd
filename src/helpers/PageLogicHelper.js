@@ -60,7 +60,7 @@ const PageLogic = () => {
 
       const unlisten = navigator.listen(listener);
       return unlisten;
-    }, [onIntercept]);
+    }, [onIntercept, navigator]);
   };
 
   const fetchUserData = (allowedRoles, setUserData, authNeeded) =>

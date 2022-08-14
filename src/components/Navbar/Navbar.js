@@ -15,8 +15,8 @@ function Navbar({ admin, coverPage, empty, goHomeAction }) {
         elevation={0}
         sx={{
           display: {
-            xs: keyboardVisibility,
-            sm: keyboardVisibility,
+            xs: empty ? 'flex' : keyboardVisibility,
+            sm: empty ? 'flex' : keyboardVisibility,
             md: 'flex',
           },
           alignItems: 'center',

@@ -101,9 +101,11 @@ function NewBid() {
             </>
           )}
           {pageStatus.includes('manual') ? (
-            <Link sx={{ ml: 'auto', mt: 1 }} onClick={switchManual}>
-              Renseigner automatiquement
-            </Link>
+            (!alertState || alertState.error) && (
+              <Link sx={{ ml: 'auto', mt: 1 }} onClick={switchManual}>
+                Renseigner automatiquement
+              </Link>
+            )
           ) : (
             <Typography variant='body1' sx={{ ml: 'auto', mt: 1 }}>
               {'Pas de code ISBN ? '}

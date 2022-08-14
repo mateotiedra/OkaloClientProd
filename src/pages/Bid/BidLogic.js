@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { HiMail, HiPhone, HiCog } from 'react-icons/hi';
-import { GrInstagram } from 'react-icons/gr';
-
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 import NewBidLogic from '../NewBid/NewBidLogic';
 

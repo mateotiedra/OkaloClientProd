@@ -9,20 +9,14 @@ import {
   DialogContentText,
   DialogTitle,
   Link,
-  Skeleton,
   Typography,
 } from '@mui/material';
-import { HiSparkles } from 'react-icons/hi';
 import { HashLink } from 'react-router-hash-link';
 
 import Navbar from '../../components/Navbar/Navbar';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
-import SectionDivider from '../../components/SectionDivider/SectionDivider';
-import UnderlinedTitle from '../../components/UnderlinedTitle/UnderlinedTitle';
 import Loading from '../Loading/Loading';
-import IconTitle from '../../components/IconTitle/IconTitle';
 import FormFields from '../../components/FormFields/FormFields';
-import Footer from '../../components/Footer/Footer';
 
 import BidLogic from './BidLogic';
 
