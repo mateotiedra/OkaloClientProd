@@ -88,19 +88,6 @@ function Bid() {
       <SectionContainer fullPage>
         <BookSection book={bidData.book} />
         <Typography variant='body1' mt={4}>
-          <Typography component='span' fontWeight='bold'>
-            {bidData.condition}
-          </Typography>
-          {' et '}
-          <Typography
-            component='span'
-            fontWeight='bold'
-            textTransform='lowercase'
-          >
-            {bidData.customisation}
-          </Typography>
-        </Typography>
-        <Typography variant='body1' mt={2}>
           {pageStatus === 'owner' ? (
             'Vous vendez'
           ) : (
@@ -125,6 +112,19 @@ function Bid() {
             {bidData.comment}
           </Typography>
         )}
+        <Typography variant='body1' mt={2}>
+          <Typography component='span' fontWeight='bold'>
+            {bidData.condition}
+          </Typography>
+          {' et '}
+          <Typography
+            component='span'
+            fontWeight='bold'
+            textTransform='lowercase'
+          >
+            {bidData.customisation}
+          </Typography>
+        </Typography>
         <Box
           display='flex'
           sx={{ mt: 3, justifyContent: 'space-around', alignItems: 'center' }}
