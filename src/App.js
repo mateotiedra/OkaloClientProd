@@ -12,6 +12,7 @@ import Settings from './pages/Settings/Settings';
 import ChangePassword from './pages/ChangePassword/ChangePassword';
 import Bid from './pages/Bid/Bid';
 import Search from './pages/Search/Search';
+import Book from './pages/Book/Book';
 
 // Manage routing
 function App() {
@@ -39,6 +40,7 @@ function App() {
           />
           <Route path='/new-bid' element={<NewBid />} />
           <Route path='/ad/:uuid' element={<Bid />} />
+          <Route path='/book/:uuid' element={<Book />} />
           <Route path='/search' element={<Search />} />
         </Routes>
       </ErrorHandlerWrapper>

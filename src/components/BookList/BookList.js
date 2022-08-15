@@ -5,7 +5,6 @@ import {
   Divider,
   List,
   ListItemButton,
-  ListItemAvatar,
   ListItemText,
   Typography,
   Link,
