@@ -21,22 +21,31 @@ import Loading from '../Loading/Loading';
 import FormFields from '../../components/FormFields/FormFields';
 
 import SearchLogic from './SearchLogic';
-import AutocompleteBookTitle from '../../components/AutocompleteBookTitle/AutocompleteBookTitle';
+import AutocompleteBookAttr from '../../components/AutocompleteBookAttr/AutocompleteBookAttr';
+import BookList from '../../components/BookList/BookList';
 
 function Search() {
-  const { pageStatus, submitSearch } = SearchLogic();
+  const { pageStatus, onTitleSelect, resultBids } = SearchLogic();
 
   return (
     <>
       <Navbar />
-      <SectionContainer sx={{ pb: 12 }}>
-        <SectionDivider />
-        <AutocompleteBookTitle />
-        {
-          {
-            /* todo: autocomplete attribute */
-          }
-        }
+      <SectionContainer>
+        <AutocompleteBookAttr
+          attr='title'
+          placeholder='Titre du livre'
+          wholeBook
+          autoFocus
+          onSelect={onTitleSelect}
+          sx={{ minHeight: '100vh', py: 12 }}
+        />
+        {pageStatus === 'loading-books' ? (
+          <Loading />
+        ) : pageStatus === 'results ' ? (
+          <BookList bids={resultBids} />
+        ) : (
+          <></>
+        )}
       </SectionContainer>
     </>
   );

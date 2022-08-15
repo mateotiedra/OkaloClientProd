@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-function IconTitle({ icon, title, children }) {
+function IconTitle({ icon, title, children, sx }) {
   return (
     <Box
       sx={{
@@ -9,6 +9,7 @@ function IconTitle({ icon, title, children }) {
         flexDirection: 'column',
         alignItems: 'center',
         mb: 2,
+        ...sx,
       }}
     >
       {icon &&

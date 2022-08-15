@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
 
 // The loading page
-function Loading() {
+function Loading({ notFullPage }) {
   const [seconds, setSeconds] = useState(3);
   const [displayMessage, setDisplayMessage] = useState(false);
 
@@ -27,10 +27,14 @@ function Loading() {
   return (
     <Box
       sx={{
+        position: !notFullPage && 'absolute',
+        zIndex: -20,
+        top: 0,
+        left: 0,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
+        height: !notFullPage && '100vh',
         p: 6,
       }}
     >

@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
-import NewBidLogic from '../NewBid/NewBidLogic';
 
 const BidLogic = (props) => {
   const {
@@ -26,9 +25,27 @@ const BidLogic = (props) => {
     setValue,
   } = useForm();
 
-  useLoadPage(async () => {});
+  const [resultBids, setResultBids] = useState([]);
 
-  return { pageStatus };
+  useLoadPage(async () => {
+    setPageStatus('active');
+  });
+
+  const onTitleSelect = (title) => {
+    console.log(title);
+    setPageStatus('loading-books');
+    axios
+      .get(API_ORIGIN + '/book/search', {
+        params: { attr: 'title', title: title },
+      })
+      .then(({ data }) => {
+        console.log(data);
+        setResultBids(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  return { pageStatus, onTitleSelect, resultBids };
 };
 
 export default BidLogic;

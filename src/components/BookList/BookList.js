@@ -8,13 +8,14 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
+  Link,
 } from '@mui/material';
 
-import BidsListLogic from './BidsListLogic';
+import BookListLogic from './BookListLogic';
 import { HashLink } from 'react-router-hash-link';
 
-function BidsList(props) {
-  const { bids } = BidsListLogic(props);
+export default function (props) {
+  const { items } = BookListLogic(props);
 
   return (
     <List
@@ -23,23 +24,26 @@ function BidsList(props) {
         margin: 'auto',
       }}
     >
-      {bids &&
-        bids.map((bid, index) => {
+      {items &&
+        items.map((item, index) => {
+          const isBid = Boolean(item.book);
+          const book = item.book || item;
           return (
-            <React.Fragment key={bid.uuid}>
+            <React.Fragment key={item.uuid}>
               <ListItemButton
+                disableRipple
                 disableGutters
                 component={HashLink}
-                to={'/ad/' + bid.uuid}
+                to={(isBid ? '/ad/' : '/book/') + item.uuid}
                 sx={{
                   width: '100%',
                   alignItems: 'center',
                 }}
               >
-                {bid.book.coverLink ? (
+                {book.coverLink ? (
                   <Box
                     component='img'
-                    src={bid.book.coverLink}
+                    src={book.coverLink}
                     sx={{
                       height: 90,
                       border: 'solid 2px',
@@ -69,35 +73,47 @@ function BidsList(props) {
                 )}
 
                 <ListItemText
-                  primary={bid.book.title}
+                  primary={book.title}
+                  sx={{ pl: 3, pr: 2 }}
                   secondary={
                     <Typography
                       sx={{ display: 'inline' }}
                       component='span'
                       variant='body2'
                     >
-                      {bid.book.publisher}
+                      {book.publisher}
                     </Typography>
                   }
-                  sx={{ px: 3 }}
                 />
-                <Typography
+                <Box
                   sx={{
-                    alignSelf: 'flex-end',
-                    mb: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-end',
                     minWidth: 70,
-                    textAlign: 'right',
                   }}
                 >
-                  CHF {bid.price}
-                </Typography>
+                  {Boolean(item.price) && (
+                    <Typography
+                      sx={{
+                        alignSelf: 'flex-end',
+                        mb: 1,
+                        textAlign: 'right',
+                      }}
+                    >
+                      CHF {item.price}
+                    </Typography>
+                  )}
+                  <Link component='span' variant='body2'>
+                    Voir plus
+                  </Link>
+                </Box>
               </ListItemButton>
-              {index !== bids.length - 1 && <Divider component='li' />}
+              {index !== items.length - 1 && <Divider component='li' />}
             </React.Fragment>
           );
         })}
     </List>
   );
 }
-
-export default BidsList;

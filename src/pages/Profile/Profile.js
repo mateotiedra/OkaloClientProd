@@ -10,7 +10,7 @@ import SectionDivider from '../../components/SectionDivider/SectionDivider';
 import UnderlinedTitle from '../../components/UnderlinedTitle/UnderlinedTitle';
 import Loading from '../Loading/Loading';
 import IconTitle from '../../components/IconTitle/IconTitle';
-import BidsList from '../../components/BidsList/BidsList';
+import BookList from '../../components/BookList/BookList';
 
 import ProfileLogic from './ProfileLogic';
 
@@ -67,7 +67,7 @@ function Profile() {
 
   const BidsSection =
     bids && bids.length ? (
-      <BidsList bids={bids} />
+      <BookList items={bids} />
     ) : (
       <SectionContainer
         centered
