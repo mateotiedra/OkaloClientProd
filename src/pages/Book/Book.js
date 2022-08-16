@@ -21,8 +21,15 @@ import BookLogic from './BookLogic';
 import InstitutionsField from '../../components/InstitutionsField/InstitutionsField';
 
 export default function (props) {
-  const { book, pageStatus, sortedBids, institutions, onInstitutionsChange } =
-    BookLogic(props);
+  const {
+    book,
+    pageStatus,
+    sortedBids,
+    institutions,
+    onInstitutionsChange,
+    defaultInstitutions,
+    institutionsOptions,
+  } = BookLogic(props);
 
   if (pageStatus === 'loading') return <Loading />;
   return (
@@ -30,16 +37,19 @@ export default function (props) {
       <Navbar coverPage />
       <SectionContainer fullPage>
         <BookSection book={book} />
-        <Typography variant='h4' mt={5}>
+        <Typography variant='h4' mt={5} alignSelf='center'>
           {book.bids.length} annonce
-          {book.bids.length && book.bids.length > 1 ? 's' : ''} :
+          {book.bids.length && book.bids.length > 1 ? 's' : ''}
         </Typography>
-        <InstitutionsField
-          institutions={institutions}
-          variant='standard'
-          onChange={onInstitutionsChange}
-          sx={{ mt: 1, mb: 5 }}
-        />
+        {defaultInstitutions && (
+          <InstitutionsField
+            defaultValue={defaultInstitutions}
+            institutions={institutionsOptions}
+            variant='standard'
+            onChange={onInstitutionsChange}
+            sx={{ mt: 1, mb: 5 }}
+          />
+        )}
         {institutions.map(({ name }) => (
           <React.Fragment key={name}>
             <Divider>

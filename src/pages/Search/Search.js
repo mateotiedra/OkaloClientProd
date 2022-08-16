@@ -23,6 +23,8 @@ import FormFields from '../../components/FormFields/FormFields';
 import SearchLogic from './SearchLogic';
 import AutocompleteBookAttr from '../../components/AutocompleteBookAttr/AutocompleteBookAttr';
 import BookList from '../../components/BookList/BookList';
+import IconTitle from '../../components/IconTitle/IconTitle';
+import { HiSearch } from 'react-icons/hi';
 
 function Search() {
   const { pageStatus, onTitleSelect, resultBids } = SearchLogic();
@@ -38,7 +40,15 @@ function Search() {
           autoFocus
           onSelect={onTitleSelect}
           sx={{ minHeight: '100vh', py: 12 }}
-        />
+        >
+          <IconTitle icon={<HiSearch />} sx={{ mt: 6 }}>
+            {'Recherche'}
+            <Typography>
+              Entre le titre de ton livre afin de le trouver parmi des centaines
+              d'autre
+            </Typography>
+          </IconTitle>
+        </AutocompleteBookAttr>
         {pageStatus === 'loading-books' ? (
           <Loading />
         ) : pageStatus === 'results ' ? (

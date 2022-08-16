@@ -7,7 +7,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import SectionDivider from '../../components/SectionDivider/SectionDivider';
 
-//import HomeLogic from './HomeLogic';
+import HomeLogic from './HomeLogic';
 
 function TitleSection() {
   return (
@@ -73,13 +73,14 @@ function TitleSection() {
   );
 }
 
-function CTASection() {
+function CTASection({ goToSearch }) {
   return (
     <Container maxWidth='sm' sx={{ px: 4 }}>
       <TextField
         placeholder='Chercher un livre, un auteur, ...'
         variant='outlined'
         sx={{ width: '100%' }}
+        onFocus={goToSearch}
         inputProps={{
           sx: { fontSize: { xs: 18, sm: 21, md: 20 }, textAlign: 'center' },
         }}
@@ -98,7 +99,8 @@ function CTASection() {
 }
 
 function Home() {
-  /* const {  } = HomeLogic();*/
+  const { goToSearch } = HomeLogic();
+
   return (
     <>
       <Navbar coverPage />
@@ -113,7 +115,7 @@ function Home() {
       >
         <TitleSection />
         <SectionDivider h={1} />
-        <CTASection />
+        <CTASection goToSearch={goToSearch} />
         <Footer />
       </Box>
     </>

@@ -1,9 +1,13 @@
-//import PageLogicHelper from '../../helpers/PageLogicHelper';
+import PageLogicHelper from '../../helpers/PageLogicHelper';
 
 const HomeLogic = () => {
-  //const {  } = PageLogicHelper();
+  const { navigate } = PageLogicHelper();
 
-  return {};
+  const goToSearch = () => {
+    navigate('/search');
+  };
+
+  return { goToSearch };
 };
 
 export default HomeLogic;

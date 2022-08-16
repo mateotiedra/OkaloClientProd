@@ -65,7 +65,6 @@ const AutocompleteBookAttrLogic = ({
           });
       }
       searchTimer.current = undefined;
-      console.log('end timer');
     }, 500);
   };
 

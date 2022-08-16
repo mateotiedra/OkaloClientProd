@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 
 import { Autocomplete, Box, TextField, Typography } from '@mui/material';
 
@@ -14,6 +14,7 @@ function AutocompleteBookAttr({
   placeholder,
   wholeBook,
   autoFocus,
+  children,
   sx,
   ...props
 }) {
@@ -38,6 +39,8 @@ function AutocompleteBookAttr({
           <Loading notFullPage />
         ) : autocompleteOptions.length ? (
           <BookList items={autocompleteOptions} />
+        ) : emptySearch ? (
+          children
         ) : (
           <IconTitle
             icon={emptySearch ? <HiSearch /> : <HiOutlineEmojiSad />}

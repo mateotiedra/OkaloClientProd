@@ -24,6 +24,7 @@ export default function () {
   const { uuid: urlUuid } = useParams();
   const [bookData, setBookData] = useState({});
   const [filteredInstitutions, setFilteredInstitutions] = useState([]);
+  const [defaultInstitutions, setDefaultInstitutions] = useState();
 
   useLoadPage(async () => {
     // Fetch the book from its uuid
@@ -39,7 +40,29 @@ export default function () {
         } else console.log(err);
       });
 
-    // TODO : add user inst pref when page load
+    // Add user inst pref when page load
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      // Fetch the book from the user
+      axios
+        .get(API_ORIGIN + '/user/u', {
+          headers: { 'x-access-token': accessToken },
+        })
+        .then(({ data: user }) => {
+          setFilteredInstitutions(user.institutions);
+          setDefaultInstitutions(
+            user.institutions.map((institution) => institution.name)
+          );
+        })
+        .catch((err) => {
+          if (getStatusCode(err) === 404) {
+            navigate(`/login`, {
+              replace: true,
+              state: { destination: pathname },
+            });
+          } else console.log(err);
+        });
+    }
   });
 
   const onInstitutionsChange = (_, newValues) => {
@@ -82,6 +105,9 @@ export default function () {
   };
 
   const sortedBids = sortBidsByInstitutions();
+  const institutionsOptions = Object.keys(sortedBids).map((institutionName) => {
+    return { name: institutionName };
+  });
 
   return {
     pageStatus,
@@ -90,9 +116,9 @@ export default function () {
     institutions:
       filteredInstitutions.length > 0
         ? filteredInstitutions
-        : Object.keys(sortedBids).map((institutionName) => {
-            return { name: institutionName };
-          }),
+        : institutionsOptions,
+    institutionsOptions,
     onInstitutionsChange,
+    defaultInstitutions,
   };
 }

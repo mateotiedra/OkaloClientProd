@@ -98,7 +98,8 @@ function FormFields({
                 autoFocus={!noAutofocus && index === 0}
                 variant={variant}
                 required={field.registration && field.registration.required}
-                multiline={field.multiline}
+                multiline={Boolean(field.rows)}
+                rows={field.rows}
                 {...registration}
               />
               {extraComponents &&

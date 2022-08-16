@@ -69,14 +69,14 @@ function Profile() {
     bids && bids.length ? (
       <BookList items={bids} />
     ) : (
-      <SectionContainer
+      <Box
         centered
-        fullPage
         sx={{
-          position: 'absolute',
-          top: 0,
+          py: 10,
           justifyContent: 'center',
-          zIndex: -10,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
         maxWidth='none'
       >
@@ -88,7 +88,7 @@ function Profile() {
             <Typography>Nouvelle annonce</Typography>
           </Button>
         )}
-      </SectionContainer>
+      </Box>
     );
 
   return (

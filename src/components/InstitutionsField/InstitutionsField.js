@@ -8,6 +8,7 @@ export default function ({
   helperText,
   sx,
   variant,
+  defaultValue,
 }) {
   return (
     <Box sx={{ width: '100%' }}>
@@ -16,6 +17,7 @@ export default function ({
         multiple
         id='tags-filled'
         options={institutions.map((institution) => institution.name)}
+        defaultValue={defaultValue}
         loading={loading}
         onChange={onChange}
         renderTags={(value, getTagProps) =>

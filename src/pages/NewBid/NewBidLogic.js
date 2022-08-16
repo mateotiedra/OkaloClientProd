@@ -119,7 +119,7 @@ const NewBidLogic = ({ fromOtherPage }) => {
     {
       id: 'comment',
       label: 'Remarques',
-      multiline: true,
+      rows: 4,
     },
   ];
 
