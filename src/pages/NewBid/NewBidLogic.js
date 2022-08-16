@@ -48,9 +48,15 @@ const NewBidLogic = ({ fromOtherPage }) => {
   };
 
   const switchManual = () => {
-    pageStatus.includes('manual')
-      ? handleStep('step-1')
-      : handleStep('step-1.manual');
+    if (pageStatus.includes('manual')) {
+      handleStep('step-1');
+    } else {
+      handleStep('step-1.manual');
+      setAlertState({
+        type: 'warning',
+        text: 'En renseignant ces champs manuellement ton livre sera mal répertorié. Fais-le uniquement si les autres méthodes ne fonctionnent pas.',
+      });
+    }
   };
 
   const startScan = () => {
@@ -132,7 +138,7 @@ const NewBidLogic = ({ fromOtherPage }) => {
   const onSubmitISBN = ({ isbn }) => {
     if (!/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(isbn)) {
       handleStep('step-1.manual');
-      setAlertState({ error: true, text: 'Le code est incorrect' });
+      setAlertState({ type: 'error', text: 'Le code est incorrect' });
       return;
     }
 
@@ -143,14 +149,14 @@ const NewBidLogic = ({ fromOtherPage }) => {
         for (const infoField of infoFields) {
           setValue(infoField.id, data[infoField.id]);
         }
-        setAlertState({ error: false, text: 'Le livre a bien été trouvé' });
+        setAlertState({ type: 'success', text: 'Le livre a bien été trouvé' });
       })
       .catch((err) => {
         if (getStatusCode(err) === 404) {
-          setAlertState({ error: true, text: 'Le code ISBN est inconnu' });
+          setAlertState({ type: 'error', text: 'Le code ISBN est inconnu' });
         } else {
           setAlertState({
-            error: true,
+            type: 'error',
             text: "Il s'est passé quelque chose que j'avais pas prévu on dirait... ",
           });
         }
