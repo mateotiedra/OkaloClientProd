@@ -1,29 +1,18 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+//import { useForm } from 'react-hook-form';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
 const BidLogic = (props) => {
-  const {
-    API_ORIGIN,
-    axios,
-    pageStatus,
-    setPageStatus,
-    getStatusCode,
-    navigate,
-    useLoadPage,
-    pathname,
-    location,
-    useNavigationInterceptor,
-  } = PageLogicHelper();
+  const { API_ORIGIN, axios, pageStatus, setPageStatus, useLoadPage } =
+    PageLogicHelper();
 
-  const {
+  /*   const {
     register,
     formState: { errors },
     handleSubmit,
     setValue,
-  } = useForm();
+  } = useForm(); */
 
   const [resultBids, setResultBids] = useState([]);
 

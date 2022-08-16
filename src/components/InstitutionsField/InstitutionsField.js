@@ -1,7 +1,7 @@
 import { Autocomplete, Box, Chip, TextField } from '@mui/material';
 import React from 'react';
 
-export default function ({
+export default function InstitutionsField({
   institutions = [],
   loading,
   onChange,

@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  Link,
-  Typography,
-  Box,
-  Autocomplete,
-  Chip,
-  TextField,
-} from '@mui/material';
+import { Link, Typography, Box } from '@mui/material';
 import { HiUser } from 'react-icons/hi';
 import { HashLink as RouterLink } from 'react-router-hash-link';
 

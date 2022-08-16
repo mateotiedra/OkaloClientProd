@@ -13,7 +13,7 @@ import {
 import BookListLogic from './BookListLogic';
 import { HashLink } from 'react-router-hash-link';
 
-export default function (props) {
+export default function BookList(props) {
   const { items } = BookListLogic(props);
 
   return (

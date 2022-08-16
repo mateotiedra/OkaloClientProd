@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 import NewBidLogic from '../NewBid/NewBidLogic';
 
-export default function () {
+export default function BookLogic() {
   const {
     API_ORIGIN,
     axios,
@@ -14,7 +14,6 @@ export default function () {
     navigate,
     useLoadPage,
     pathname,
-    location,
   } = PageLogicHelper();
 
   const { conditionOptions, customisationOptions } = NewBidLogic({

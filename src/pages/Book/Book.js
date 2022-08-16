@@ -4,7 +4,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   Typography,
 } from '@mui/material';
@@ -15,12 +14,11 @@ import BookSection from '../../components/BookSection/BookSection';
 import Navbar from '../../components/Navbar/Navbar';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import Loading from '../Loading/Loading';
-import { HiInformationCircle } from 'react-icons/hi';
 
 import BookLogic from './BookLogic';
 import InstitutionsField from '../../components/InstitutionsField/InstitutionsField';
 
-export default function (props) {
+export default function Book(props) {
   const {
     book,
     pageStatus,

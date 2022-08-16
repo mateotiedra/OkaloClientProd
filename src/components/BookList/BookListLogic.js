@@ -1,7 +1,6 @@
-import React from 'react';
 import NewBidLogic from '../../pages/NewBid/NewBidLogic';
 
-export default function ({ items }) {
+export default function BookListLogic({ items }) {
   const { conditionOptions, customisationOptions } = NewBidLogic({
     fromOtherPage: true,
   });
