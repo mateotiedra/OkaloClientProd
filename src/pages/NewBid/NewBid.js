@@ -15,7 +15,7 @@ import IsbnScanner from '../../components/IsbnScanner/IsbnScanner';
 function FetchBookAlert({ state, retry }) {
   if (state)
     return (
-      <Alert sx={{ mb: 2 }} severity={state.error ? 'error' : 'success'}>
+      <Alert sx={{ mb: 2 }} severity={state.type}>
         {state.text + ' '}
         {state.error && <Link onClick={retry}>Réessayer</Link>}
       </Alert>
@@ -101,7 +101,7 @@ function NewBid() {
             </>
           )}
           {pageStatus.includes('manual') ? (
-            (!alertState || alertState.error) && (
+            (!alertState || alertState.type !== 'success') && (
               <Link sx={{ ml: 'auto', mt: 1 }} onClick={switchManual}>
                 Renseigner automatiquement
               </Link>
