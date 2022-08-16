@@ -12,6 +12,7 @@ import {
 
 import BookListLogic from './BookListLogic';
 import { HashLink } from 'react-router-hash-link';
+import { HiCheckCircle } from 'react-icons/hi';
 
 export default function BookList(props) {
   const { items } = BookListLogic(props);
@@ -53,10 +54,14 @@ export default function BookList(props) {
                 ) : (
                   <Box
                     sx={{
-                      width: 55,
+                      width: 58,
                       height: 90,
                       display: 'flex',
                       alignItems: 'center',
+                      border: 'solid 2px',
+                      borderColor: 'text.primary',
+                      borderRadius: '3px',
+                      p: 0.5,
                     }}
                   >
                     <Typography
@@ -64,6 +69,7 @@ export default function BookList(props) {
                       sx={{
                         textAlign: 'center',
                         display: 'block',
+                        fontSize: 11,
                       }}
                     >
                       Pas de preview
@@ -72,7 +78,24 @@ export default function BookList(props) {
                 )}
 
                 <ListItemText
-                  primary={book.title}
+                  primary={
+                    <>
+                      {book.title}
+                      {Boolean(book.isbn) && (
+                        <Box
+                          display='inline'
+                          component={HiCheckCircle}
+                          size={20}
+                          sx={{
+                            color: 'primary.main',
+                            position: 'relative',
+                            ml: 0.5,
+                            top: 4,
+                          }}
+                        />
+                      )}
+                    </>
+                  }
                   sx={{ pl: 3, pr: 2 }}
                   secondary={
                     <Typography
