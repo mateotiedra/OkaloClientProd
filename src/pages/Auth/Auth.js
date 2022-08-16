@@ -23,7 +23,7 @@ export default function Auth(props) {
     displayResend,
     institutions,
     onInstitutionsChange,
-    institutionsHelperText,
+    institutionsFieldState,
   } = AuthLogic(props);
 
   return (
@@ -56,7 +56,8 @@ export default function Auth(props) {
                 institutions={institutions}
                 loading={pageStatus === 'loading'}
                 onChange={onInstitutionsChange}
-                helperText={institutionsHelperText}
+                helperText={institutionsFieldState.text}
+                error={institutionsFieldState.error}
               />
             ),
           }}

@@ -32,8 +32,12 @@ const AuthLogic = ({ startingMode }) => {
 
   // Institutions managment
   const [institutions, setInstitutions] = useState([]);
-  const [institutionsHelperText, setInstitutionsHelperText] = useState(
-    'Indique dans quel(s) établissement(s) tu es prêt à te rendre pour vendre tes livres.'
+  const institutionsFieldStateDefault = {
+    error: false,
+    text: 'Indique dans quel(s) établissement(s) tu es prêt à te rendre pour vendre tes livres.',
+  };
+  const [institutionsFieldState, setInstitutionsFieldState] = useState(
+    institutionsFieldStateDefault
   );
   const userInstitutions = useRef([]);
 
@@ -79,8 +83,10 @@ const AuthLogic = ({ startingMode }) => {
     setLoginMode(!loginMode);
   };
 
-  const onInstitutionsChange = (event, value) => {
-    institutionsHelperText && setInstitutionsHelperText(undefined);
+  const onInstitutionsChange = (_, value) => {
+    console.log(institutionsFieldStateDefault);
+    institutionsFieldState &&
+      setInstitutionsFieldState(institutionsFieldStateDefault);
     userInstitutions.context = value;
   };
 
@@ -89,9 +95,10 @@ const AuthLogic = ({ startingMode }) => {
     var institutionIds;
     if (!login) {
       if (!(userInstitutions.context && userInstitutions.context.length)) {
-        setInstitutionsHelperText(
-          "Les acheteurs ne vont pas pouvoir voir tes annonces si tu n'es pas disponible dans au moins un établissement"
-        );
+        setInstitutionsFieldState({
+          error: true,
+          text: 'Personne ne pourra voir tes annonces si tu disponible dans aucun établissement',
+        });
         return;
       }
       setPageStatus('sending');
@@ -203,7 +210,7 @@ const AuthLogic = ({ startingMode }) => {
     displayResend,
     institutions,
     onInstitutionsChange,
-    institutionsHelperText,
+    institutionsFieldState,
   };
 };
 

@@ -6,6 +6,7 @@ export default function InstitutionsField({
   loading,
   onChange,
   helperText,
+  error,
   sx,
   variant,
   defaultValue,
@@ -34,7 +35,7 @@ export default function InstitutionsField({
             {...params}
             variant={variant || 'filled'}
             label='Établissements'
-            error={Boolean(helperText)}
+            error={error}
             helperText={helperText}
           />
         )}
