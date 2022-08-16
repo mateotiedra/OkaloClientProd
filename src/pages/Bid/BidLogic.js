@@ -131,7 +131,6 @@ const BidLogic = (props) => {
   };
 
   const deleteBid = (sold) => {
-    console.log(localStorage.accessToken);
     axios
       .delete(API_ORIGIN + '/bid', {
         headers: { 'x-access-token': localStorage.accessToken },
