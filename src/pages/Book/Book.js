@@ -39,23 +39,28 @@ export default function Book(props) {
           {book.bids.length} annonce
           {book.bids.length && book.bids.length > 1 ? 's' : ''}
         </Typography>
-        {defaultInstitutions && (
-          <InstitutionsField
-            defaultValue={defaultInstitutions}
-            institutions={institutionsOptions}
-            variant='standard'
-            onChange={onInstitutionsChange}
-            sx={{ mt: 1, mb: 5 }}
-          />
-        )}
-        {institutions.map(({ name }) => (
-          <React.Fragment key={name}>
-            <Divider>
-              <Typography variant='h6'>{name}</Typography>
-            </Divider>
-            <BidsList bids={sortedBids[name]} />
-          </React.Fragment>
-        ))}
+        {defaultInstitutions &&
+          institutionsOptions &&
+          institutionsOptions.length > 0 && (
+            <InstitutionsField
+              defaultValue={defaultInstitutions}
+              institutions={institutionsOptions}
+              variant='standard'
+              onChange={onInstitutionsChange}
+              sx={{ mt: 1, mb: 5 }}
+            />
+          )}
+        {institutions.map(({ name }) => {
+          if (Boolean(sortedBids[name]))
+            return (
+              <React.Fragment key={name}>
+                <Divider>
+                  <Typography variant='h6'>{name}</Typography>
+                </Divider>
+                <BidsList bids={sortedBids[name]} />
+              </React.Fragment>
+            );
+        })}
       </SectionContainer>
     </>
   );
