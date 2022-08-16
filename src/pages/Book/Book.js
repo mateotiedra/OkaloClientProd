@@ -30,6 +30,7 @@ export default function Book(props) {
   } = BookLogic(props);
 
   if (pageStatus === 'loading') return <Loading />;
+
   return (
     <>
       <Navbar coverPage />
@@ -39,17 +40,15 @@ export default function Book(props) {
           {book.bids.length} annonce
           {book.bids.length && book.bids.length > 1 ? 's' : ''}
         </Typography>
-        {defaultInstitutions &&
-          institutionsOptions &&
-          institutionsOptions.length > 0 && (
-            <InstitutionsField
-              defaultValue={defaultInstitutions}
-              institutions={institutionsOptions}
-              variant='standard'
-              onChange={onInstitutionsChange}
-              sx={{ mt: 1, mb: 5 }}
-            />
-          )}
+        {institutionsOptions && institutionsOptions.length > 0 && (
+          <InstitutionsField
+            defaultValue={defaultInstitutions}
+            institutions={institutionsOptions}
+            variant='standard'
+            onChange={onInstitutionsChange}
+            sx={{ mt: 1, mb: 5 }}
+          />
+        )}
         {institutions.map(({ name }) => {
           if (Boolean(sortedBids[name]))
             return (

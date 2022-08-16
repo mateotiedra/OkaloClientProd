@@ -27,41 +27,40 @@ export default function BookLogic() {
 
   useLoadPage(async () => {
     // Fetch the book from its uuid
-    axios
-      .get(API_ORIGIN + '/book', { params: { uuid: urlUuid } })
-      .then(({ data: book }) => {
-        setBookData(book);
-        setPageStatus('active');
-      })
-      .catch((err) => {
-        if (getStatusCode(err) === 404) {
-          setPageStatus('not found');
-        } else console.log(err);
+    try {
+      const { data: book } = await axios.get(API_ORIGIN + '/book', {
+        params: { uuid: urlUuid },
       });
+      setBookData(book);
+    } catch (err) {
+      if (getStatusCode(err) === 404) {
+        setPageStatus('not found');
+      } else console.log(err);
+    }
 
     // Add user inst pref when page load
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       // Fetch the book from the user
-      axios
-        .get(API_ORIGIN + '/user/u', {
+      try {
+        const { data: user } = await axios.get(API_ORIGIN + '/user/u', {
           headers: { 'x-access-token': accessToken },
-        })
-        .then(({ data: user }) => {
-          setFilteredInstitutions(user.institutions);
-          setDefaultInstitutions(
-            user.institutions.map((institution) => institution.name)
-          );
-        })
-        .catch((err) => {
-          if (getStatusCode(err) === 404) {
-            navigate(`/login`, {
-              replace: true,
-              state: { destination: pathname },
-            });
-          } else console.log(err);
         });
-    }
+
+        setFilteredInstitutions(user.institutions);
+        setDefaultInstitutions(
+          user.institutions.map((institution) => institution.name)
+        );
+        setPageStatus('active');
+      } catch (err) {
+        if (getStatusCode(err) === 404) {
+          navigate(`/login`, {
+            replace: true,
+            state: { destination: pathname },
+          });
+        } else console.log(err);
+      }
+    } else setPageStatus('active');
   });
 
   const onInstitutionsChange = (_, newValues) => {
