@@ -52,14 +52,13 @@ function FormFields({
         }}
       >
         {fields.map((field, index) => {
-          if (!field) return <></>;
+          if (!field) return <React.Fragment key='index'></React.Fragment>;
           var registration = register(field.id, field.registration);
           if (field.password) {
             registration.innerRef = registration.ref;
             registration.ref = undefined;
             registration.visibilityDisabled = field.visibilityDisabled;
           }
-          //console.log(field.registration);
 
           if (field.radio)
             return (
@@ -73,7 +72,6 @@ function FormFields({
             );
 
           const Field = field.password ? PasswordField : TextField;
-
           return (
             <Box
               sx={{
