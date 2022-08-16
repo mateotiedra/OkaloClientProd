@@ -18,9 +18,11 @@ import Loading from '../Loading/Loading';
 import { HiInformationCircle } from 'react-icons/hi';
 
 import BookLogic from './BookLogic';
+import InstitutionsField from '../../components/InstitutionsField/InstitutionsField';
 
 export default function (props) {
-  const { book, pageStatus } = BookLogic(props);
+  const { book, pageStatus, sortedBids, institutions, onInstitutionsChange } =
+    BookLogic(props);
 
   if (pageStatus === 'loading') return <Loading />;
   return (
@@ -28,36 +30,54 @@ export default function (props) {
       <Navbar coverPage />
       <SectionContainer fullPage>
         <BookSection book={book} />
-        <Typography variant='h5' mt={5}>
+        <Typography variant='h4' mt={5}>
           {book.bids.length} annonce
-          {book.bids.length && book.bids.length > 1 ? 's' : ''} pour ce livre :
+          {book.bids.length && book.bids.length > 1 ? 's' : ''} :
         </Typography>
-        <List sx={{ width: '100%' }}>
-          {book.bids.map((bid, index) => (
-            <React.Fragment key={bid.uuid}>
-              <ListItem disablePadding>
-                <ListItemButton
-                  disableGutters
-                  component={HashLink}
-                  to={'/ad/' + bid.uuid}
-                >
-                  <ListItemText
-                    primary={
-                      <>
-                        Vendu par{' '}
-                        <Link component='span'>{bid.user.username}</Link>
-                      </>
-                    }
-                    secondary={bid.customisation + ' - ' + bid.condition}
-                  />
-                  <Typography variant='body1'>CHF {bid.price}</Typography>
-                </ListItemButton>
-              </ListItem>
-              {index !== book.bids.length - 1 && <Divider component='li' />}
-            </React.Fragment>
-          ))}
-        </List>
+        <InstitutionsField
+          institutions={institutions}
+          variant='standard'
+          onChange={onInstitutionsChange}
+          sx={{ mt: 1, mb: 5 }}
+        />
+        {institutions.map(({ name }) => (
+          <React.Fragment key={name}>
+            <Divider>
+              <Typography variant='h6'>{name}</Typography>
+            </Divider>
+            <BidsList bids={sortedBids[name]} />
+          </React.Fragment>
+        ))}
       </SectionContainer>
     </>
+  );
+}
+
+function BidsList({ bids }) {
+  return (
+    <List sx={{ width: '100%', pt: 0, mb: 2 }}>
+      {bids.map((bid, index) => (
+        <React.Fragment key={bid.uuid}>
+          <ListItem disablePadding>
+            <ListItemButton
+              disableGutters
+              component={HashLink}
+              to={'/ad/' + bid.uuid}
+            >
+              <ListItemText
+                primary={
+                  <>
+                    Vendu par <Link component='span'>{bid.user.username}</Link>
+                  </>
+                }
+                secondary={bid.customisation + ' - ' + bid.condition}
+              />
+              <Typography variant='body1'>CHF {bid.price}</Typography>
+            </ListItemButton>
+          </ListItem>
+          {index !== bids.length - 1 && <Divider component='li' />}
+        </React.Fragment>
+      ))}
+    </List>
   );
 }

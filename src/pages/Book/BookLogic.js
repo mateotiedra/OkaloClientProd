@@ -23,6 +23,7 @@ export default function () {
 
   const { uuid: urlUuid } = useParams();
   const [bookData, setBookData] = useState({});
+  const [filteredInstitutions, setFilteredInstitutions] = useState([]);
 
   useLoadPage(async () => {
     // Fetch the book from its uuid
@@ -37,7 +38,17 @@ export default function () {
           setPageStatus('not found');
         } else console.log(err);
       });
+
+    // TODO : add user inst pref when page load
   });
+
+  const onInstitutionsChange = (_, newValues) => {
+    setFilteredInstitutions(
+      newValues.map((newName) => {
+        return { name: newName };
+      })
+    );
+  };
 
   const adaptedBook =
     Boolean(bookData) && Boolean(bookData.bids)
@@ -53,8 +64,35 @@ export default function () {
         }
       : bookData;
 
+  const sortBidsByInstitutions = () => {
+    const bids = adaptedBook.bids;
+    if (!Boolean(bids)) return {};
+
+    let newSortedBids = {};
+    for (const bid of bids) {
+      for (const institution of bid.user.institutions) {
+        const institutionName = institution.name;
+        if (!newSortedBids[institutionName])
+          newSortedBids[institutionName] = [];
+        newSortedBids[institutionName].push(bid);
+      }
+    }
+
+    return newSortedBids;
+  };
+
+  const sortedBids = sortBidsByInstitutions();
+
   return {
     pageStatus,
     book: adaptedBook,
+    sortedBids,
+    institutions:
+      filteredInstitutions.length > 0
+        ? filteredInstitutions
+        : Object.keys(sortedBids).map((institutionName) => {
+            return { name: institutionName };
+          }),
+    onInstitutionsChange,
   };
 }

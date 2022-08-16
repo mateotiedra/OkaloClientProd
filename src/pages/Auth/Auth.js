@@ -16,47 +16,7 @@ import FormFields from '../../components/FormFields/FormFields';
 
 import AuthLogic from './AuthLogic';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
-
-function InstitutionsField({
-  institutions = [],
-  loading,
-  onChange,
-  helperText,
-}) {
-  return (
-    <Box sx={{ width: '100%' }}>
-      <Autocomplete
-        sx={{ mt: 2, mb: 1 }}
-        multiple
-        id='tags-filled'
-        options={institutions.map((institution) => institution.name)}
-        loading={loading}
-        onChange={onChange}
-        renderTags={(value, getTagProps) =>
-          value.map((option, index) => (
-            <Chip
-              variant='outlined'
-              label={option}
-              {...getTagProps({ index })}
-            />
-          ))
-        }
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant='filled'
-            label='Établissements'
-            error={Boolean(helperText)}
-            helperText={
-              helperText ||
-              'Indique dans quel(s) établissement(s) tu es prêt à te rendre pour vendre tes livres.'
-            }
-          />
-        )}
-      />
-    </Box>
-  );
-}
+import InstitutionsField from '../../components/InstitutionsField/InstitutionsField';
 
 export default function Auth(props) {
   const {

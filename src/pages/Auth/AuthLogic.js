@@ -32,7 +32,9 @@ const AuthLogic = ({ startingMode }) => {
 
   // Institutions managment
   const [institutions, setInstitutions] = useState([]);
-  const [institutionsHelperText, setInstitutionsHelperText] = useState();
+  const [institutionsHelperText, setInstitutionsHelperText] = useState(
+    'Indique dans quel(s) établissement(s) tu es prêt à te rendre pour vendre tes livres.'
+  );
   const userInstitutions = useRef([]);
 
   useLoadPage(() => {
