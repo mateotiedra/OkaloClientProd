@@ -7,6 +7,7 @@ import { HiMailOpen } from 'react-icons/hi';
 
 import EmailSenderLogic from './EmailSenderLogic';
 import Navbar from '../../components/Navbar/Navbar';
+import SectionContainer from '../../components/SectionContainer/SectionContainer';
 
 function EmailSender(props) {
   const {
@@ -59,24 +60,24 @@ function EmailSender(props) {
     return (
       <>
         <Navbar empty coverPage />
-        <FormFields
-          page={true}
-          centered
-          title={'Nouvel email de confirmation'}
-          avatarIcon={<HiMailOpen />}
-          onSubmit={resend}
-          register={register}
-          sending={pageStatus === 'sending'}
-          buttonText={'Envoyer'}
-          errors={errors}
-          fields={[
-            {
-              id: 'email',
-              label: 'Adresse email du compte',
-              registration: { pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g },
-            },
-          ]}
-        />
+        <SectionContainer fullPage centered>
+          <FormFields
+            title={'Nouvel email de confirmation'}
+            avatarIcon={<HiMailOpen />}
+            onSubmit={resend}
+            register={register}
+            sending={pageStatus === 'sending'}
+            buttonText={'Envoyer'}
+            errors={errors}
+            fields={[
+              {
+                id: 'email',
+                label: 'Adresse email du compte',
+                registration: { pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g },
+              },
+            ]}
+          />
+        </SectionContainer>
       </>
     );
 
@@ -84,24 +85,24 @@ function EmailSender(props) {
     return (
       <>
         <Navbar empty coverPage />
-        <FormFields
-          page={true}
-          centered
-          title={'Réinitialistion du mot de passe'}
-          avatarIcon={<HiMailOpen />}
-          onSubmit={resetPassword}
-          register={register}
-          sending={pageStatus === 'sending'}
-          buttonText={'Réinitialiser le mot de passe'}
-          errors={errors}
-          fields={[
-            {
-              id: 'email',
-              label: 'Adresse email du compte',
-              registration: { pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g },
-            },
-          ]}
-        />
+        <SectionContainer fullPage centered>
+          <FormFields
+            title={'Réinitialistion du mot de passe'}
+            avatarIcon={<HiMailOpen />}
+            onSubmit={resetPassword}
+            register={register}
+            sending={pageStatus === 'sending'}
+            buttonText={'Réinitialiser le mot de passe'}
+            errors={errors}
+            fields={[
+              {
+                id: 'email',
+                label: 'Adresse email du compte',
+                registration: { pattern: /^[\w]+@([\w-]+\.)+[\w-]{2,4}$/g },
+              },
+            ]}
+          />
+        </SectionContainer>
       </>
     );
 }

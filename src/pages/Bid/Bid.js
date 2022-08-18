@@ -20,6 +20,7 @@ import FormFields from '../../components/FormFields/FormFields';
 
 import BidLogic from './BidLogic';
 import BookSection from '../../components/BookSection/BookSection';
+import AlertPage from '../../components/AlertPage/AlertPage';
 
 function Bid() {
   const {
@@ -82,6 +83,16 @@ function Bid() {
       </>
     );
   }
+
+  if (pageStatus === 'not found')
+    return (
+      <AlertPage
+        title='Oops... annonce inexistante'
+        error
+        body="Cette annonce n'existe pas ou plus..."
+        ctaButtons={[{ text: 'Retourner au menu', to: '/' }]}
+      />
+    );
 
   return (
     <>

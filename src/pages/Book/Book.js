@@ -8,15 +8,18 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-
+import { HiOutlineEmojiSad } from 'react-icons/hi';
 import { HashLink } from 'react-router-hash-link';
+
 import BookSection from '../../components/BookSection/BookSection';
 import Navbar from '../../components/Navbar/Navbar';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import Loading from '../Loading/Loading';
+import InstitutionsField from '../../components/InstitutionsField/InstitutionsField';
+import IconTitle from '../../components/IconTitle/IconTitle';
+import AlertPage from '../../components/AlertPage/AlertPage';
 
 import BookLogic from './BookLogic';
-import InstitutionsField from '../../components/InstitutionsField/InstitutionsField';
 
 export default function Book(props) {
   const {
@@ -31,35 +34,65 @@ export default function Book(props) {
 
   if (pageStatus === 'loading') return <Loading />;
 
+  if (pageStatus === 'not found')
+    return (
+      <AlertPage
+        title='Oops... livre inconnu'
+        error
+        body="Ce livre n'existe pas ou plus..."
+        ctaButtons={[{ text: 'Retourner au menu', to: '/' }]}
+      />
+    );
+
+  const bidLists = institutions
+    .map(({ name }) => {
+      if (Boolean(sortedBids[name]))
+        return (
+          <React.Fragment key={name}>
+            <Divider>
+              <Typography variant='h6'>{name}</Typography>
+            </Divider>
+            <BidsList bids={sortedBids[name]} />
+          </React.Fragment>
+        );
+    })
+    .filter((component) => Boolean(component));
+
   return (
     <>
       <Navbar coverPage />
       <SectionContainer fullPage>
         <BookSection book={book} />
-        <Typography variant='h4' mt={5} alignSelf='center'>
-          {book.bids.length} annonce
-          {book.bids.length && book.bids.length > 1 ? 's' : ''}
-        </Typography>
-        {institutionsOptions && institutionsOptions.length > 0 && (
-          <InstitutionsField
-            defaultValue={defaultInstitutions}
-            institutions={institutionsOptions}
-            variant='standard'
-            onChange={onInstitutionsChange}
-            sx={{ mt: 1, mb: 5 }}
-          />
+        {institutionsOptions && institutionsOptions.length > 0 ? (
+          <>
+            <InstitutionsField
+              defaultValue={defaultInstitutions}
+              institutions={institutionsOptions}
+              variant='standard'
+              freeSolo
+              label='Filtrer par établissements'
+              onChange={onInstitutionsChange}
+              sx={{ mt: 4, mb: 3 }}
+            />
+            {/* <Typography variant='body2' mb={4} alignSelf='flex-end'>
+              {bidLists.length} résultat
+              {book.bids.length && book.bids.length > 1 ? 's' : ''}
+            </Typography> */}
+            {bidLists.length > 0 ? (
+              bidLists
+            ) : (
+              <Typography variant='body1' textAlign='center'>
+                Personne ne vend ce livre dans les établissements mentionnés
+                ci-dessus
+              </Typography>
+            )}
+          </>
+        ) : (
+          <IconTitle icon={<HiOutlineEmojiSad />} sx={{ mt: 6 }}>
+            {'Aucune annonce'}
+            <Typography>Personne ne vend ce livre pour le moment...</Typography>
+          </IconTitle>
         )}
-        {institutions.map(({ name }) => {
-          if (Boolean(sortedBids[name]))
-            return (
-              <React.Fragment key={name}>
-                <Divider>
-                  <Typography variant='h6'>{name}</Typography>
-                </Divider>
-                <BidsList bids={sortedBids[name]} />
-              </React.Fragment>
-            );
-        })}
       </SectionContainer>
     </>
   );

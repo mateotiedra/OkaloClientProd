@@ -63,7 +63,7 @@ const EmailSenderLogic = () => {
             setError('email', {
               type: 'custom',
               message:
-                'Attends quelques minutes avant de demander un autre email de confirmation',
+                'Tu as déjà reçu un mail de confirmation à cette adresse, attends quelques minutes avant de réessayer',
             });
             break;
           default:

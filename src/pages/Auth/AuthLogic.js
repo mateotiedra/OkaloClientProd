@@ -84,7 +84,6 @@ const AuthLogic = ({ startingMode }) => {
   };
 
   const onInstitutionsChange = (_, value) => {
-    console.log(institutionsFieldStateDefault);
     institutionsFieldState &&
       setInstitutionsFieldState(institutionsFieldStateDefault);
     userInstitutions.context = value;
@@ -97,7 +96,7 @@ const AuthLogic = ({ startingMode }) => {
       if (!(userInstitutions.context && userInstitutions.context.length)) {
         setInstitutionsFieldState({
           error: true,
-          text: 'Personne ne pourra voir tes annonces si tu disponible dans aucun établissement',
+          text: 'Personne ne pourra voir tes annonces si tu es disponible dans aucun établissement',
         });
         return;
       }

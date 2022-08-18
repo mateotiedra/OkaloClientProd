@@ -72,7 +72,7 @@ function NewBid() {
             <>
               <Typography variant='body1' sx={{ mb: 2 }}>
                 Pour renseigner les informations sur ton livre automatiquement,
-                il te suffit de scanner son code-barre !
+                il te suffit de scanner son code-barre au dos (code ISBN)
               </Typography>
               <Button onClick={startScan}>
                 <Typography variant='body1'>Scanner</Typography>

@@ -54,7 +54,7 @@ const NewBidLogic = ({ fromOtherPage }) => {
       handleStep('step-1.manual');
       setAlertState({
         type: 'warning',
-        text: 'En renseignant ces champs manuellement ton livre sera mal répertorié. Fais-le uniquement si les autres méthodes ne fonctionnent pas.',
+        text: "En renseignant ces champs manuellement ton livre sera mal répertorié. Fais-le uniquement si le livre n'a pas de code ISBN ou qu'il est inconnu.",
       });
     }
   };

@@ -88,13 +88,13 @@ const BidLogic = (props) => {
     axios
       .get(API_ORIGIN + '/bid', { params: { uuid: urlUuid } })
       .then(({ data: bid }) => {
-        setBidData(bid);
-        setPageStatus('active');
+        if (bid) {
+          setBidData(bid);
+          setPageStatus('active');
+        } else setPageStatus('not found');
       })
       .catch((err) => {
-        if (getStatusCode(err) === 404) {
-          setPageStatus('not found');
-        } else console.log(err);
+        console.log(err);
       });
   };
 
@@ -146,7 +146,7 @@ const BidLogic = (props) => {
 
   return {
     pageStatus,
-    bidData: {
+    bidData: bidData && {
       ...bidData,
       customisation: customisationOptions[bidData.customisation],
       condition: conditionOptions[bidData.condition],

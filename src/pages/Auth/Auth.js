@@ -29,7 +29,7 @@ export default function Auth(props) {
   return (
     <>
       <Navbar empty coverPage />
-      <SectionContainer fullPage>
+      <SectionContainer fullPage maxWidth='sm'>
         <FormFields
           title={loginMode ? 'Connexion' : 'Inscription'}
           avatarIcon={<HiUser />}

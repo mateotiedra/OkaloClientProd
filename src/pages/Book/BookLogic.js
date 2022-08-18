@@ -31,11 +31,14 @@ export default function BookLogic() {
       const { data: book } = await axios.get(API_ORIGIN + '/book', {
         params: { uuid: urlUuid },
       });
-      setBookData(book);
-    } catch (err) {
-      if (getStatusCode(err) === 404) {
+      if (book) {
+        setBookData(book);
+      } else {
         setPageStatus('not found');
-      } else console.log(err);
+        return;
+      }
+    } catch (err) {
+      console.log(err);
     }
 
     // Add user inst pref when page load
@@ -102,7 +105,7 @@ export default function BookLogic() {
     return newSortedBids;
   };
 
-  const sortedBids = sortBidsByInstitutions();
+  const sortedBids = adaptedBook ? sortBidsByInstitutions() : [];
   const institutionsOptions = Object.keys(sortedBids).map((institutionName) => {
     return { name: institutionName };
   });

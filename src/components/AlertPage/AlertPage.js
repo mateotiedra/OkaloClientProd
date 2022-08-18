@@ -7,6 +7,7 @@ import AlertPageLogic from './AlertPageLogic';
 import Navbar from '../Navbar/Navbar';
 import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
 import LoadingButton from '@mui/lab/LoadingButton';
+import SectionContainer from '../SectionContainer/SectionContainer';
 
 function AlertPage({ title, body, ctaButtons, error, ...props }) {
   const { goHomeAction } = AlertPageLogic();
@@ -14,19 +15,7 @@ function AlertPage({ title, body, ctaButtons, error, ...props }) {
   return (
     <>
       <Navbar coverPage empty goHomeAction={goHomeAction} />
-      <Container
-        {...props}
-        maxWidth='md'
-        sx={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          py: 8,
-          px: 6,
-        }}
-      >
+      <SectionContainer fullPage centered>
         <UnderlinedTitle color={error ? 'error.main' : 'primary.main'}>
           {title}
         </UnderlinedTitle>
@@ -61,7 +50,7 @@ function AlertPage({ title, body, ctaButtons, error, ...props }) {
               );
             })}
         </Box>
-      </Container>
+      </SectionContainer>
     </>
   );
 }

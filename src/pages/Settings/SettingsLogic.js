@@ -78,6 +78,10 @@ const SettingsLogic = () => {
 
   const onSubmit = (formData) => {
     setPageStatus('sending');
+
+    for (const key of Object.keys(formData)) {
+      formData[key] = formData[key] && formData[key].toLowerCase();
+    }
     axios
       .put(API_ORIGIN + '/user', formData, {
         headers: { 'x-access-token': localStorage.accessToken },

@@ -40,7 +40,7 @@ const ProfileLogic = (props) => {
     },
     pageStatus === 'owner' && {
       text: 'Modifier mon profil',
-      to: `/user/${profileUsername}/edit#socials`,
+      to: `/user/${profileUsername}/edit`,
       icon: <HiCog />,
     },
   ];

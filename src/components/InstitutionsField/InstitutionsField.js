@@ -10,12 +10,16 @@ export default function InstitutionsField({
   sx,
   variant,
   defaultValue,
+  freeSolo,
+  placeholder,
+  label,
 }) {
   return (
     <Box sx={{ width: '100%' }}>
       <Autocomplete
         sx={{ mt: 2, mb: 1, ...sx }}
         multiple
+        freeSolo={freeSolo}
         id='tags-filled'
         options={institutions.map((institution) => institution.name)}
         defaultValue={defaultValue}
@@ -34,9 +38,10 @@ export default function InstitutionsField({
           <TextField
             {...params}
             variant={variant || 'filled'}
-            label='Établissements'
+            label={label || 'Établissements'}
             error={error}
             helperText={helperText}
+            placeholder={placeholder}
           />
         )}
       />
