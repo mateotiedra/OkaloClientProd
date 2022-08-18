@@ -55,6 +55,8 @@ export default function Book(props) {
             <BidsList bids={sortedBids[name]} />
           </React.Fragment>
         );
+
+      return undefined;
     })
     .filter((component) => Boolean(component));
 
