@@ -35,6 +35,7 @@ function Loading({ notFullPage }) {
         justifyContent: 'center',
         alignItems: 'center',
         height: !notFullPage && '100vh',
+        width: '100%',
         p: 6,
       }}
     >
