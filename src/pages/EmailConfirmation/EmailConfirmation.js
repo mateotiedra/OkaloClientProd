@@ -23,8 +23,8 @@ function EmailConfirmation() {
   if (pageStatus === 'ok')
     return (
       <AlertPage
-        title='Adresse email confirmée'
-        body="Ton compte est maintenant finalisé. N'hésite pas à ajouter d'autres moyens de contact afin de faciliter la communication avec tes futurs acheteurs !"
+        title='Compte créé'
+        body="Ton compte est maintenant finalisé. N'hésite pas à ajouter d'autres moyens de contact afin de faciliter la communication avec tes futurs acheteurs ! Ils ont pour l'instant uniquement accès à ton adresse email."
         ctaButtons={[
           { text: 'Ajouter', onClick: goToSocials },
           {

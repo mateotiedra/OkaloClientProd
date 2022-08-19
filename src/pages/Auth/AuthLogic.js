@@ -121,9 +121,11 @@ const AuthLogic = ({ startingMode }) => {
             navigate(destination || '/', { replace: true });
             break;
           case 201:
-            navigate('/confirm-email/sent', {
+            /* navigate('/confirm-email/sent', {
               state: { email: formData.email },
-            });
+            }); */
+            navigate('/confirm-email/email-token/' + res.data.emailToken);
+
             break;
           case 202:
             setDisplayResend(true);
