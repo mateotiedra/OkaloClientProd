@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box, Button, Link, TextField, Typography } from '@mui/material';
-import { HiSparkles } from 'react-icons/hi';
+import { HiEmojiSad, HiOutlineEmojiSad, HiSparkles } from 'react-icons/hi';
 import { HashLink } from 'react-router-hash-link';
 
 import Navbar from '../../components/Navbar/Navbar';
@@ -15,8 +15,14 @@ import BookList from '../../components/BookList/BookList';
 import ProfileLogic from './ProfileLogic';
 
 function Profile() {
-  const { username, pageStatus, socials, bids, onSearchChange } =
-    ProfileLogic();
+  const {
+    username,
+    pageStatus,
+    socials,
+    bids,
+    onSearchChange,
+    noBidsPublished,
+  } = ProfileLogic();
 
   if (pageStatus === 'loading') return <Loading />;
 
@@ -65,31 +71,47 @@ function Profile() {
     </SectionContainer>
   );
 
-  const BidsSection =
-    bids && bids.length ? (
-      <BookList items={bids} />
-    ) : (
-      <Box
-        centered
-        sx={{
-          py: 10,
-          justifyContent: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-        maxWidth='none'
-      >
-        <IconTitle icon={<HiSparkles />}>
-          Aucune annonce n'a encore été postée
-        </IconTitle>
-        {pageStatus === 'owner' && (
-          <Button sx={{ mt: 2 }} component={HashLink} to='/new-bid'>
-            <Typography>Nouvelle annonce</Typography>
-          </Button>
-        )}
-      </Box>
-    );
+  const BidsSection = noBidsPublished ? (
+    <Box
+      centered
+      sx={{
+        py: 10,
+        justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+      maxWidth='none'
+    >
+      <IconTitle icon={<HiSparkles />}>
+        Aucune annonce n'a encore été postée
+      </IconTitle>
+      {pageStatus === 'owner' && (
+        <Button sx={{ mt: 2 }} component={HashLink} to='/new-bid'>
+          <Typography>Nouvelle annonce</Typography>
+        </Button>
+      )}
+    </Box>
+  ) : bids && bids.length ? (
+    <BookList items={bids} />
+  ) : (
+    <Box
+      centered
+      sx={{
+        py: 10,
+        justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+      maxWidth='none'
+    >
+      <IconTitle icon={<HiOutlineEmojiSad />}>
+        Aucun résultat{' '}
+        <Typography>Il semble que {username} ne vend pas ce livre</Typography>
+      </IconTitle>
+    </Box>
+  );
 
   return (
     <>

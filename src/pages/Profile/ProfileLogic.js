@@ -5,6 +5,7 @@ import { HiMail, HiPhone, HiCog } from 'react-icons/hi';
 import { GrInstagram } from 'react-icons/gr';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
+import { UnsupportedOperationException } from '@zxing/library';
 
 const ProfileLogic = (props) => {
   const {
@@ -121,6 +122,7 @@ const ProfileLogic = (props) => {
     socials,
     bids: filterBids(),
     onSearchChange,
+    noBidsPublished: userData && userData.bids && userData.bids.length === 0,
   };
 };
 
