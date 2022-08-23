@@ -101,7 +101,12 @@ function NewBid() {
                     label: 'Code ISBN',
                     registration: {
                       required: true,
-                      pattern: /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/,
+
+                      pattern: {
+                        value: /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/,
+                        message:
+                          'Tu as mal du rentrer le code... Celui-ci ne doit pas contenir de lettre',
+                      },
                     },
                     endAdornment: isbnLoading && (
                       <InputAdornment position='end' mr={10}>
