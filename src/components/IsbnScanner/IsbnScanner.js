@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { Box, Link, Typography } from '@mui/material';
+import { Box, IconButton, Link, Typography } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
 import SectionContainer from '../SectionContainer/SectionContainer';
 
 import IsbnScannerLogic from './IsbnScannerLogic';
 import IconTitle from '../IconTitle/IconTitle';
 import { HiCamera } from 'react-icons/hi';
+import { TbCameraRotate } from 'react-icons/tb';
 
 function IsbnScanner({ switchManual, ...props }) {
-  const { videoRef } = IsbnScannerLogic(props);
+  const { videoRef, cameraLoaded, rotateCam } = IsbnScannerLogic(props);
 
   return (
     <>
@@ -30,45 +31,56 @@ function IsbnScanner({ switchManual, ...props }) {
             alignItems: 'center',
           }}
         >
-          <Typography>Chargement de la caméra...</Typography>
           <Box
             sx={{
               position: 'absolute',
               transform: 'translate(0, -50%)',
               top: '50%',
+              display: cameraLoaded ? 'block' : 'none',
             }}
           >
             <video ref={videoRef} id='videosamere' width='100%' />
           </Box>
+          {cameraLoaded && (
+            <>
+              <IconButton
+                sx={{ position: 'absolute', bottom: 3, right: 3, zIndex: 11 }}
+                onClick={rotateCam}
+              >
+                <TbCameraRotate color='white' size={30} />
+              </IconButton>
+              <Box
+                sx={{
+                  zIndex: 10,
+                  position: 'absolute',
+                  transform: 'translate(0, -50%)',
+                  top: '50%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                  height: '100%',
+                }}
+              >
+                <Box
+                  sx={{
+                    height: '100%',
+                    width: '1px',
+                    backgroundColor: 'white',
+                    mr: 8,
+                  }}
+                />
+                <Box
+                  sx={{
+                    height: '100%',
+                    width: '1px',
+                    backgroundColor: 'white',
+                  }}
+                />
+              </Box>
+            </>
+          )}
 
-          <Box
-            sx={{
-              zIndex: 10,
-              position: 'absolute',
-              transform: 'translate(0, -50%)',
-              top: '50%',
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <Box
-              sx={{
-                height: '100%',
-                width: '1px',
-                backgroundColor: 'white',
-                mr: 8,
-              }}
-            />
-            <Box
-              sx={{
-                height: '100%',
-                width: '1px',
-                backgroundColor: 'white',
-              }}
-            />
-          </Box>
+          <Typography>Chargement de la caméra...</Typography>
         </Box>
         <Typography variant='body1' sx={{ mt: 2, pb: 10 }}>
           Si cela ne marche pas essaie de :<br />
