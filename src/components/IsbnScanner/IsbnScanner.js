@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, IconButton, Link, Typography } from '@mui/material';
+import { Alert, Box, IconButton, Link, Typography } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
 import SectionContainer from '../SectionContainer/SectionContainer';
 
@@ -82,6 +82,12 @@ function IsbnScanner({ switchManual, ...props }) {
 
           <Typography>Chargement de la caméra...</Typography>
         </Box>
+        {!cameraLoaded && (
+          <Alert severity='warning' sx={{ maxWidth: 650 }}>
+            Pour le moment le scan du code-barre ne fonctionne pas sur iPhone.
+            Le problème va être reglé dès que possible !
+          </Alert>
+        )}
         <Typography variant='body1' sx={{ mt: 2, pb: 10 }}>
           Si cela ne marche pas essaie de :<br />
           1) Aligner le code-barre au lignes
