@@ -7,16 +7,31 @@ const AutocompleteBookAttrLogic = ({
   attr,
   onSelect,
   wholeBook,
+  saveSearch, // to navigate state
 }) => {
-  const { API_ORIGIN, axios } = PageLogicHelper();
+  const { API_ORIGIN, axios, pathname, navigate, location, useLoadPage } =
+    PageLogicHelper();
+
   const [booksList, setBooksList] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const lastSearchValue = useRef('kljdsklfjhsdafkldjashfkdjshajk');
   const searchTimer = useRef();
 
+  useLoadPage(() => {
+    if (
+      location.state &&
+      location.state.query &&
+      location.state.query.length > 0
+    )
+      onChange({ target: { value: location.state.query } });
+  });
+
   const onChange = ({ target }) => {
     setSearchValue(target.value || '');
+
+    saveSearch &&
+      navigate(pathname, { replace: true, state: { query: target.value } });
 
     if (
       !target.value ||
@@ -36,6 +51,7 @@ const AutocompleteBookAttrLogic = ({
           .get(API_ORIGIN + '/book/search', {
             params: {
               [attr]: target.value,
+              allMatch: true,
             },
           })
           .then(({ data }) => {
@@ -92,7 +108,7 @@ const AutocompleteBookAttrLogic = ({
         continue;
 
       for (const queryWord of queryWords) {
-        if (book[attr].toLowerCase().includes(queryWord)) {
+        if (book[attr] && book[attr].toLowerCase().includes(queryWord)) {
           return true;
         }
       }

@@ -46,6 +46,7 @@ export default function BookList(props) {
                     src={book.coverLink}
                     sx={{
                       height: 90,
+                      maxWidth: 75,
                       border: 'solid 2px',
                       borderColor: 'text.primary',
                       borderRadius: '3px',

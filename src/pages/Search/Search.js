@@ -23,6 +23,7 @@ function Search() {
           placeholder='Titre du livre'
           wholeBook
           autoFocus
+          saveSearch
           onSelect={onTitleSelect}
           sx={{ minHeight: '100vh', py: 12 }}
         >
