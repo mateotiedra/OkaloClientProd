@@ -24,6 +24,7 @@ const NewBidLogic = ({ fromOtherPage }) => {
 
   const savedIsbn = useRef();
   const [alertState, setAlertState] = useState();
+  const [isbnLoading, setIsbnLoading] = useState(false);
 
   useLoadPage(
     () => {
@@ -142,6 +143,8 @@ const NewBidLogic = ({ fromOtherPage }) => {
       return;
     }
 
+    setIsbnLoading(true);
+
     axios
       .get(API_ORIGIN + '/book/isbn', { params: { isbn: isbn } })
       .then(({ data }) => {
@@ -162,6 +165,7 @@ const NewBidLogic = ({ fromOtherPage }) => {
         }
       })
       .finally(() => {
+        setIsbnLoading(false);
         handleStep('step-1.manual');
       });
   };
@@ -201,6 +205,7 @@ const NewBidLogic = ({ fromOtherPage }) => {
     goBack,
     conditionOptions,
     customisationOptions,
+    isbnLoading,
   };
 };
 

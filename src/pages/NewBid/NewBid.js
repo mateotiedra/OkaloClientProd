@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Alert, Button, Link, Typography } from '@mui/material';
+import {
+  Alert,
+  Button,
+  CircularProgress,
+  InputAdornment,
+  Link,
+  Typography,
+} from '@mui/material';
 import { HiBookOpen } from 'react-icons/hi';
 
 import Navbar from '../../components/Navbar/Navbar';
@@ -39,6 +46,7 @@ function NewBid() {
     onSubmitBid,
     alertState,
     goBack,
+    isbnLoading,
   } = NewBidLogic({});
 
   if (pageStatus === 'loading') return <Loading />;
@@ -64,7 +72,7 @@ function NewBid() {
                 sending={pageStatus.includes('sending')}
                 buttonText={'Suivant'}
                 fields={infoFields}
-                readOnly={Boolean(alertState) && !alertState.error}
+                readOnly={Boolean(alertState) && alertState.type === 'success'}
               />
             </>
           ) : (
@@ -84,7 +92,7 @@ function NewBid() {
                 onSubmit={onSubmitISBNManu}
                 register={register}
                 errors={errors}
-                sending={pageStatus.includes('sending')}
+                sending={isbnLoading}
                 variant='outlined'
                 noAutofocus
                 fields={[
@@ -95,6 +103,11 @@ function NewBid() {
                       required: true,
                       pattern: /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/,
                     },
+                    endAdornment: isbnLoading && (
+                      <InputAdornment position='end' mr={10}>
+                        <CircularProgress size='1.5rem' />
+                      </InputAdornment>
+                    ),
                   },
                 ]}
               />

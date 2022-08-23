@@ -80,7 +80,7 @@ export default function Auth(props) {
             variant='body2'
             to='/confirm-email/reset-password'
           >
-            {loginMode && 'Mot de passe oublié ?'}
+            {loginMode && false && 'Mot de passe oublié ?'}
           </Link>
         </Box>
         <Footer />

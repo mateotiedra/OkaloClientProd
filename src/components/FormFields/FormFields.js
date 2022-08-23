@@ -98,6 +98,9 @@ function FormFields({
                 required={field.registration && field.registration.required}
                 multiline={Boolean(field.rows)}
                 rows={field.rows}
+                InputProps={{
+                  endAdornment: field.endAdornment,
+                }}
                 {...registration}
               />
               {extraComponents &&
