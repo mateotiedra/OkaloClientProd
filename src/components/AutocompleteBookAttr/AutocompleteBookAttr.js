@@ -24,6 +24,7 @@ function AutocompleteBookAttr({
     onChange,
     handleAttrSelected,
     emptySearch,
+    searchValue,
   } = AutocompleteBookAttrLogic({ wholeBook, ...props });
 
   if (wholeBook)
@@ -33,6 +34,7 @@ function AutocompleteBookAttr({
           variant='outlined'
           placeholder='Nom du livre...'
           onChange={onChange}
+          value={searchValue}
           autoFocus={autoFocus}
         />
         {loading ? (

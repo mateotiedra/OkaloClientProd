@@ -23,8 +23,10 @@ const AutocompleteBookAttrLogic = ({
       location.state &&
       location.state.query &&
       location.state.query.length > 0
-    )
+    ) {
+      setSearchValue(location.state.query);
       onChange({ target: { value: location.state.query } });
+    }
   });
 
   const onChange = ({ target }) => {
@@ -93,26 +95,15 @@ const AutocompleteBookAttrLogic = ({
 
   const checkBook = (book) => {
     const queryWords = searchValue.toLowerCase().split(' ');
-    for (const attr of Object.keys(book)) {
-      if (
-        [
-          'uuid',
-          'isbn',
-          'coverLink',
-          'createdAt',
-          'updatedAt',
-          'nbrBids',
-          'language',
-        ].includes(attr)
-      )
-        continue;
 
-      for (const queryWord of queryWords) {
-        if (book[attr] && book[attr].toLowerCase().includes(queryWord)) {
-          return true;
-        }
+    for (const queryWord of queryWords) {
+      //console.log(queryWords, queryWord);
+      if (!book[attr] || !book[attr].toLowerCase().includes(queryWord)) {
+        return false;
       }
     }
+
+    return true;
   };
 
   const emptySearch = searchValue.length === 0;
@@ -137,6 +128,7 @@ const AutocompleteBookAttrLogic = ({
     handleAttrSelected,
     loading,
     emptySearch,
+    searchValue,
   };
 };
 

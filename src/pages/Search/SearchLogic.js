@@ -21,7 +21,6 @@ const BidLogic = (props) => {
   });
 
   const onTitleSelect = (title) => {
-    console.log(title);
     setPageStatus('loading-books');
     axios
       .get(API_ORIGIN + '/book/search', {
