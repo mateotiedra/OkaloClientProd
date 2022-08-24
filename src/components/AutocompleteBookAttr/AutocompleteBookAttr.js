@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Autocomplete, Box, TextField, Typography } from '@mui/material';
+import { Alert, Autocomplete, Box, TextField, Typography } from '@mui/material';
 
 import BookList from '../BookList/BookList';
 import Loading from '../../pages/Loading/Loading';
@@ -44,17 +44,19 @@ function AutocompleteBookAttr({
         ) : emptySearch ? (
           children
         ) : (
-          <IconTitle
-            icon={emptySearch ? <HiSearch /> : <HiOutlineEmojiSad />}
-            sx={{ mt: 6 }}
-          >
-            {emptySearch ? 'Recherche' : 'Aucun résultat'}
-            <Typography>
-              {emptySearch
-                ? 'Si tu as plusieurs livres : crée une liste de recherche afin de gagner du temps'
-                : "Vérifie l'orthographe ou diminue la longueur de la recherche"}
-            </Typography>
-          </IconTitle>
+          <>
+            <Alert severity='warning' sx={{ mt: 3 }}>
+              Si tu ne trouves pas ton livres, reviens plus tard. Nous sommes
+              encore proche de la rentrée et tous les livres n'ont pas déjà été
+              mis en vente.
+            </Alert>
+            <IconTitle icon={<HiSearch />} sx={{ mt: 6 }}>
+              Recherche
+              <Typography>
+                Vérifie l'orthographe ou diminue la longueur de la recherche
+              </Typography>
+            </IconTitle>
+          </>
         )}
       </Box>
     );

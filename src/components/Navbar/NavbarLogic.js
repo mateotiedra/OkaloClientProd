@@ -10,7 +10,7 @@ const NavbarLogic = () => {
 
   const navLinksObj = [
     {
-      text: 'Acceuil',
+      text: 'Accueil',
       to: '/',
       icon: <HiHome />,
       current: pathname[pathname.length - 1] === '/',

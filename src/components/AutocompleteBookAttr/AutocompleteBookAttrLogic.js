@@ -35,13 +35,7 @@ const AutocompleteBookAttrLogic = ({
     saveSearch &&
       navigate(pathname, { replace: true, state: { query: target.value } });
 
-    if (
-      !target.value ||
-      (target.value.length > lastSearchValue.current.length &&
-        lastSearchValue.current.length) ||
-      Boolean(searchTimer.current)
-    )
-      return;
+    if (!target.value || Boolean(searchTimer.current)) return;
 
     setLoading(true);
     searchTimer.current = setTimeout(() => {
