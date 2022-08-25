@@ -13,6 +13,7 @@ import ChangePassword from './pages/ChangePassword/ChangePassword';
 import Bid from './pages/Bid/Bid';
 import Search from './pages/Search/Search';
 import Book from './pages/Book/Book';
+import Admin from './pages/Admin/Admin';
 
 // Manage routing
 function App() {
@@ -42,6 +43,8 @@ function App() {
           <Route path='/ad/:uuid' element={<Bid />} />
           <Route path='/book/:uuid' element={<Book />} />
           <Route path='/search' element={<Search />} />
+          {/* Admin Section */}
+          <Route path='/admin/clean/books/isbn' element={<Admin />} />
         </Routes>
       </ErrorHandlerWrapper>
     </Router>
