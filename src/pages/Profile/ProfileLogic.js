@@ -16,11 +16,13 @@ const ProfileLogic = (props) => {
     getStatusCode,
     navigate,
     useLoadPage,
+    location,
   } = PageLogicHelper();
 
   const { username: profileUsername } = useParams();
   const [userData, setUserData] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
+  const [copyAlertOpen, setCopyAlertOpen] = useState(false);
 
   const socials = [
     Boolean(userData.email) && {
@@ -39,11 +41,11 @@ const ProfileLogic = (props) => {
       link: 'tel:' + userData.phone,
       icon: <HiPhone />,
     },
-    pageStatus === 'owner' && {
+    /* pageStatus === 'owner' && {
       text: 'Modifier mon profil',
       to: `/user/${profileUsername}/edit`,
       icon: <HiCog />,
-    },
+    }, */
   ];
 
   useLoadPage(async () => {
@@ -116,6 +118,14 @@ const ProfileLogic = (props) => {
     );
   };
 
+  const shareUserLink = (text, result) => {
+    result && setCopyAlertOpen(true);
+  };
+
+  const closeCopyAlert = () => {
+    setCopyAlertOpen(false);
+  };
+
   return {
     username: userData.username,
     pageStatus,
@@ -123,6 +133,9 @@ const ProfileLogic = (props) => {
     bids: filterBids(),
     onSearchChange,
     noBidsPublished: userData && userData.bids && userData.bids.length === 0,
+    shareUserLink,
+    copyAlertOpen,
+    closeCopyAlert,
   };
 };
 
