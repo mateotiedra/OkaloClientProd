@@ -19,12 +19,17 @@ import IconTitle from '../../components/IconTitle/IconTitle';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import IsbnScanner from '../../components/IsbnScanner/IsbnScanner';
 
-function FetchBookAlert({ state, retry }) {
+function FetchBookAlert({ state, startScan }) {
   if (state)
     return (
       <Alert sx={{ mb: 2 }} severity={state.type}>
-        {state.text + ' '}
-        {state.error && <Link onClick={retry}>Réessayer</Link>}
+        {state.text}
+        {state.type === 'error' && (
+          <span>
+            {' '}
+            <Link onClick={startScan}>Réessayer</Link>
+          </span>
+        )}
       </Alert>
     );
   return null;
@@ -64,7 +69,7 @@ function NewBid() {
           {pageStatus.includes('manual') ? (
             // Manual
             <>
-              <FetchBookAlert state={alertState} retry={goBack} />
+              <FetchBookAlert state={alertState} startScan={startScan} />
               <FormFields
                 onSubmit={onSubmitBook}
                 register={register}
@@ -151,7 +156,6 @@ function NewBid() {
             fields={stateFields}
             setValue={setValue}
           />
-          <Footer />
         </SectionContainer>
       </>
     );

@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
@@ -13,6 +14,7 @@ const NewBidLogic = ({ fromOtherPage }) => {
     getStatusCode,
     useNavigationInterceptor,
     pathname,
+    location,
   } = PageLogicHelper();
 
   const {
@@ -28,7 +30,11 @@ const NewBidLogic = ({ fromOtherPage }) => {
 
   useLoadPage(
     () => {
-      !fromOtherPage && handleStep('step-1', true);
+      !fromOtherPage &&
+        handleStep(
+          Boolean(location.hash) ? location.hash.replace('#', '') : 'step-1',
+          true
+        );
     },
     {
       authNeeded: !Boolean(fromOtherPage),
@@ -38,13 +44,15 @@ const NewBidLogic = ({ fromOtherPage }) => {
     }
   );
 
-  useNavigationInterceptor(() => {
-    const url = window.location.href.split('#');
-    url && url[1] && setPageStatus(url[1]);
+  useNavigationInterceptor(({ location: newLocation }) => {
+    newLocation.hash && setPageStatus(newLocation.hash.replace('#', ''));
   });
 
   const handleStep = (next, replace) => {
-    navigate(pathname + '#' + next, { replace: replace });
+    const newUrl = '/new-bid' + '#' + next;
+    navigate(newUrl, {
+      replace: replace,
+    });
     setPageStatus(next);
   };
 
@@ -135,11 +143,25 @@ const NewBidLogic = ({ fromOtherPage }) => {
     handleStep('step-2');
   };
 
+  const unknownISBNError = (isbn) => (
+    <Typography component='span' variant='inherit'>
+      Le code{' '}
+      <Typography component='span' fontWeight='bold' variant='inherit'>
+        {isbn}
+      </Typography>{' '}
+      est incorrect.
+    </Typography>
+  );
+
   // Automatically, ex : 2-7654-1005-4
   const onSubmitISBN = ({ isbn }) => {
     if (!/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(isbn)) {
       handleStep('step-1.manual');
-      setAlertState({ type: 'error', text: 'Le code est incorrect' });
+      setAlertState({
+        type: 'error',
+        text: unknownISBNError(isbn),
+        retry: true,
+      });
       return;
     }
 
@@ -156,7 +178,11 @@ const NewBidLogic = ({ fromOtherPage }) => {
       })
       .catch((err) => {
         if (getStatusCode(err) === 404) {
-          setAlertState({ type: 'error', text: 'Le code ISBN est inconnu' });
+          setAlertState({
+            type: 'error',
+            text: unknownISBNError(isbn),
+            retry: true,
+          });
         } else {
           setAlertState({
             type: 'error',
@@ -202,7 +228,6 @@ const NewBidLogic = ({ fromOtherPage }) => {
     onSubmitISBNAuto: onSubmitISBN,
     onSubmitBid: handleSubmit(onSubmitBid),
     alertState,
-    goBack,
     conditionOptions,
     customisationOptions,
     isbnLoading,

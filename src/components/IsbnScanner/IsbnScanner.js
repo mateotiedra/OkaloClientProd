@@ -10,7 +10,7 @@ import { HiCamera } from 'react-icons/hi';
 import { TbCameraRotate } from 'react-icons/tb';
 
 function IsbnScanner({ switchManual, ...props }) {
-  const { videoRef, cameraLoaded, rotateCam } = IsbnScannerLogic(props);
+  const { videoRef, cameraStatus } = IsbnScannerLogic(props);
 
   return (
     <>
@@ -32,23 +32,19 @@ function IsbnScanner({ switchManual, ...props }) {
           }}
         >
           <Box
+            ref={videoRef}
             sx={{
               position: 'absolute',
               transform: 'translate(0, -50%)',
               top: '50%',
-              display: cameraLoaded ? 'block' : 'none',
+              display: cameraStatus === 'active' ? 'block' : 'none',
             }}
           >
-            <video ref={videoRef} id='videosamere' width='100%' />
+            <video src='' />
+            <canvas className='drawingBuffer' style={{ display: 'none' }} />
           </Box>
-          {cameraLoaded && (
+          {cameraStatus === 'active' && (
             <>
-              <IconButton
-                sx={{ position: 'absolute', bottom: 3, right: 3, zIndex: 11 }}
-                onClick={rotateCam}
-              >
-                <TbCameraRotate color='white' size={30} />
-              </IconButton>
               <Box
                 sx={{
                   zIndex: 10,
@@ -56,23 +52,16 @@ function IsbnScanner({ switchManual, ...props }) {
                   transform: 'translate(0, -50%)',
                   top: '50%',
                   display: 'flex',
-                  justifyContent: 'center',
+                  alignItems: 'center',
                   width: '100%',
                   height: '100%',
                 }}
               >
                 <Box
                   sx={{
-                    height: '100%',
-                    width: '1px',
-                    backgroundColor: 'white',
-                    mr: 8,
-                  }}
-                />
-                <Box
-                  sx={{
-                    height: '100%',
-                    width: '1px',
+                    width: '100%',
+                    height: '1px',
+                    mt: 10,
                     backgroundColor: 'white',
                   }}
                 />
@@ -80,17 +69,17 @@ function IsbnScanner({ switchManual, ...props }) {
             </>
           )}
 
-          <Typography>Chargement de la caméra...</Typography>
+          <Typography textAlign='center'>
+            {cameraStatus === 'loading'
+              ? 'Chargement de la caméra...'
+              : cameraStatus === 'fail'
+              ? 'Échec du chargement de la caméra... Essaie de relancer la page'
+              : ''}
+          </Typography>
         </Box>
-        {!cameraLoaded && (
-          <Alert severity='warning' sx={{ maxWidth: 650 }}>
-            Pour le moment le scan du code-barre ne fonctionne pas sur iPhone.
-            Le problème va être reglé dès que possible !
-          </Alert>
-        )}
         <Typography variant='body1' sx={{ mt: 2, pb: 10 }}>
           Si cela ne marche pas essaie de :<br />
-          1) Aligner le code-barre au lignes
+          1) Aligner le code-barre à la ligne
           <br />
           2) Avoir une image bien nette
           <br />
