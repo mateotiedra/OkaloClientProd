@@ -7,7 +7,6 @@ import Navbar from '../../components/Navbar/Navbar';
 import Loading from '../Loading/Loading';
 import SettingsLogic from './SettingsLogic';
 import FormFields from '../../components/FormFields/FormFields';
-import Footer from '../../components/Footer/Footer';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 
 function Settings(props) {
@@ -68,7 +67,6 @@ function Settings(props) {
           </Grid>
           <Grid item md></Grid>
         </Grid>
-        <Footer />
       </SectionContainer>
     </>
   );
