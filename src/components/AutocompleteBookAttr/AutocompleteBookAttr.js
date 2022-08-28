@@ -6,7 +6,7 @@ import BookList from '../BookList/BookList';
 import Loading from '../../pages/Loading/Loading';
 
 import AutocompleteBookAttrLogic from './AutocompleteBookAttrLogic';
-import { HiSearch, HiOutlineEmojiSad } from 'react-icons/hi';
+import { HiSearch } from 'react-icons/hi';
 import IconTitle from '../IconTitle/IconTitle';
 
 function AutocompleteBookAttr({

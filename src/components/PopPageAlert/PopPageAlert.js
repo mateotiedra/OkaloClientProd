@@ -1,12 +1,5 @@
-import React, { useRef, useState } from 'react';
-import {
-  Alert,
-  Box,
-  Collapse,
-  Container,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import React, { useRef } from 'react';
+import { Alert, Collapse, Container, IconButton } from '@mui/material';
 import { HiX } from 'react-icons/hi';
 
 export default function PopPageAlert({

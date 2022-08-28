@@ -13,7 +13,6 @@ const NewBidLogic = ({ fromOtherPage }) => {
     useLoadPage,
     getStatusCode,
     useNavigationInterceptor,
-    pathname,
     location,
   } = PageLogicHelper();
 
@@ -49,7 +48,7 @@ const NewBidLogic = ({ fromOtherPage }) => {
   });
 
   const handleStep = (next, replace) => {
-    const newUrl = '/new-bid' + '#' + next;
+    const newUrl = '/new-bid#' + next;
     navigate(newUrl, {
       replace: replace,
     });
@@ -231,6 +230,7 @@ const NewBidLogic = ({ fromOtherPage }) => {
     conditionOptions,
     customisationOptions,
     isbnLoading,
+    goBack,
   };
 };
 

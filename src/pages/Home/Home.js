@@ -116,6 +116,7 @@ function Home() {
         <TitleSection />
         <SectionDivider h={1} />
         <CTASection goToSearch={goToSearch} />
+        {/* <Leaderboard /> */}
         <Footer />
       </Box>
     </>

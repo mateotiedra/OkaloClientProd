@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { HiMail, HiPhone, HiCog } from 'react-icons/hi';
+import { HiMail, HiPhone } from 'react-icons/hi';
 import { GrInstagram } from 'react-icons/gr';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
-import { UnsupportedOperationException } from '@zxing/library';
 
 const ProfileLogic = (props) => {
   const {
@@ -16,7 +15,6 @@ const ProfileLogic = (props) => {
     getStatusCode,
     navigate,
     useLoadPage,
-    location,
   } = PageLogicHelper();
 
   const { username: profileUsername } = useParams();

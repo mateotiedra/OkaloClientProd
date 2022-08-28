@@ -1,13 +1,6 @@
 import React from 'react';
 
-import {
-  Box,
-  Button,
-  IconButton,
-  Link,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Link, TextField, Typography } from '@mui/material';
 import { HiCog, HiOutlineEmojiSad, HiSparkles, HiShare } from 'react-icons/hi';
 import { HashLink } from 'react-router-hash-link';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -122,7 +115,7 @@ function Profile() {
         startIcon={<HiCog />}
         size='medium'
       >
-        <Typography>{'Modifier'}</Typography>
+        <Typography>Modifier</Typography>
       </Button>
     </Box>
   );
@@ -184,12 +177,15 @@ function Profile() {
         </PopPageAlert>
         {pageStatus === 'owner' && UserActions}
         {Socials}
-        <TextField
-          sx={{ mb: 2, mt: 4 }}
-          variant='outlined'
-          placeholder={'Chercher un livre de ' + username + '...'}
-          onChange={onSearchChange}
-        />
+        {bids && bids.length > 0 && (
+          <TextField
+            sx={{ mb: 2, mt: 4 }}
+            variant='outlined'
+            placeholder={'Chercher un livre de ' + username + '...'}
+            onChange={onSearchChange}
+          />
+        )}
+
         {BidsSection}
       </SectionContainer>
     </>

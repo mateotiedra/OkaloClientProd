@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { Alert, Box, IconButton, Link, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
 import SectionContainer from '../SectionContainer/SectionContainer';
 
 import IsbnScannerLogic from './IsbnScannerLogic';
 import IconTitle from '../IconTitle/IconTitle';
 import { HiCamera } from 'react-icons/hi';
-import { TbCameraRotate } from 'react-icons/tb';
 
 function IsbnScanner({ switchManual, ...props }) {
   const { videoRef, cameraStatus } = IsbnScannerLogic(props);
