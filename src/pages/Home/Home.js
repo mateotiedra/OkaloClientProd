@@ -142,7 +142,7 @@ function Leaderboard({ bestAders, bestSellers }) {
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', sm: 'row' },
-        gap: { xs: 0, sm: 1, md: 6 },
+        gap: { xs: 2, sm: 1, md: 6 },
         mt: { xs: 2, sm: 4, md: 6 },
       }}
     >
