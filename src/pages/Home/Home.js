@@ -141,7 +141,7 @@ function Leaderboard({ bestAders, bestSellers }) {
       maxWidth='md'
       sx={{
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: { xs: 'column', sm: 'row' },
         gap: { xs: 0, sm: 1, md: 6 },
         mt: { xs: 2, sm: 4, md: 6 },
       }}
@@ -173,7 +173,7 @@ function Leaderboard({ bestAders, bestSellers }) {
                       variant='caption'
                       color='text.primary'
                       sx={{
-                        display: { xs: 'inline', sm: 'inline', md: 'none' },
+                        display: { xs: 'none', sm: 'inline', md: 'none' },
                       }}
                     >
                       {user.n_bids} livres
@@ -183,7 +183,7 @@ function Leaderboard({ bestAders, bestSellers }) {
                 <Typography
                   variant='caption'
                   color='text.primary'
-                  sx={{ display: { xs: 'none', sm: 'none', md: 'inline' } }}
+                  sx={{ display: { xs: 'inline', sm: 'none', md: 'inline' } }}
                 >
                   {user.n_bids} livres
                 </Typography>

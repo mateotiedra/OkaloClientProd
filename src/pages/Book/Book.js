@@ -45,13 +45,20 @@ export default function Book(props) {
     );
 
   const bidLists = institutions
-    .map(({ name }) => {
+    .map(({ name }, index) => {
       if (Boolean(sortedBids[name]))
         return (
           <React.Fragment key={name}>
-            <Divider>
-              <Typography variant='h6'>{name}</Typography>
-            </Divider>
+            <Typography
+              variant='h5'
+              sx={{
+                textAlign: 'center',
+                mt: 3,
+                mb: 1,
+              }}
+            >
+              {name}
+            </Typography>
             <BidsList bids={sortedBids[name]} />
           </React.Fragment>
         );

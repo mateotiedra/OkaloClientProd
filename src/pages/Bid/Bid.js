@@ -125,7 +125,11 @@ function Bid() {
           </Typography>
         )}
         <Typography variant='body1' mt={2}>
-          <Typography component='span' fontWeight='bold'>
+          <Typography
+            component='span'
+            fontWeight='bold'
+            sx={{ textDecoration: 'underline' }}
+          >
             {bidData.condition}
           </Typography>
           {' et '}
@@ -133,6 +137,7 @@ function Bid() {
             component='span'
             fontWeight='bold'
             textTransform='lowercase'
+            sx={{ textDecoration: 'underline' }}
           >
             {bidData.customisation}
           </Typography>
