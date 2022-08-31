@@ -14,14 +14,15 @@ import BookListLogic from './BookListLogic';
 import { HashLink } from 'react-router-hash-link';
 import { HiCheckCircle } from 'react-icons/hi';
 
-export default function BookList(props) {
+export default function BookList({ dense, sx, ...props }) {
   const { items } = BookListLogic(props);
+  const bookDimension = { height: 90, maxWidth: 75, width: 60, minWidth: 60 };
 
   return (
     <List
       sx={{
         width: '100%',
-        margin: 'auto',
+        ...sx,
       }}
     >
       {items &&
@@ -29,7 +30,7 @@ export default function BookList(props) {
           const isBid = Boolean(item.book);
           const book = item.book || item;
           return (
-            <React.Fragment key={item.uuid}>
+            <React.Fragment key={index}>
               <ListItemButton
                 disableRipple
                 disableGutters
@@ -45,8 +46,7 @@ export default function BookList(props) {
                     component='img'
                     src={book.coverLink}
                     sx={{
-                      height: 90,
-                      maxWidth: 75,
+                      ...bookDimension,
                       border: 'solid 2px',
                       borderColor: 'text.primary',
                       borderRadius: '3px',
@@ -55,8 +55,7 @@ export default function BookList(props) {
                 ) : (
                   <Box
                     sx={{
-                      width: 58,
-                      height: 90,
+                      ...bookDimension,
                       display: 'flex',
                       alignItems: 'center',
                       border: 'solid 2px',
@@ -80,9 +79,9 @@ export default function BookList(props) {
 
                 <ListItemText
                   primary={
-                    <>
+                    <Typography>
                       {book.title}
-                      {Boolean(book.isbn) && (
+                      {Boolean(book.isbn) && !dense && (
                         <Box
                           display='inline'
                           component={HiCheckCircle}
@@ -95,7 +94,7 @@ export default function BookList(props) {
                           }}
                         />
                       )}
-                    </>
+                    </Typography>
                   }
                   sx={{ pl: 3, pr: 2 }}
                   secondary={
@@ -108,32 +107,36 @@ export default function BookList(props) {
                     </Typography>
                   }
                 />
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-end',
-                    minWidth: 70,
-                  }}
-                >
-                  {Boolean(item.price) && (
-                    <Typography
-                      sx={{
-                        alignSelf: 'flex-end',
-                        mb: 1,
-                        textAlign: 'right',
-                      }}
-                    >
-                      CHF {item.price}
-                    </Typography>
-                  )}
-                  <Link component='span' variant='body2'>
-                    Voir plus
-                  </Link>
-                </Box>
+                {!dense && (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-end',
+                      minWidth: 70,
+                    }}
+                  >
+                    {Boolean(item.price) && (
+                      <Typography
+                        sx={{
+                          alignSelf: 'flex-end',
+                          mb: 1,
+                          textAlign: 'right',
+                        }}
+                      >
+                        CHF {item.price}
+                      </Typography>
+                    )}
+                    <Link component='span' variant='body2'>
+                      Voir plus
+                    </Link>
+                  </Box>
+                )}
               </ListItemButton>
-              {index !== items.length - 1 && <Divider component='li' />}
+              {index !== items.length - 1 && !dense && (
+                <Divider component='li' />
+              )}
             </React.Fragment>
           );
         })}

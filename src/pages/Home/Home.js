@@ -1,13 +1,30 @@
 import React from 'react';
 
-import { HashLink as RouterLink } from 'react-router-hash-link';
-import { Typography, Box, TextField, Container, Button } from '@mui/material';
+import { HashLink, HashLink as RouterLink } from 'react-router-hash-link';
+import {
+  Typography,
+  Box,
+  TextField,
+  Container,
+  Button,
+  Link,
+  Avatar,
+  CircularProgress,
+  ListItem,
+  ListItemAvatar,
+  List,
+  ListItemText,
+  ListItemButton,
+  Skeleton,
+} from '@mui/material';
 
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import SectionDivider from '../../components/SectionDivider/SectionDivider';
+import SectionContainer from '../../components/SectionContainer/SectionContainer';
 
 import HomeLogic from './HomeLogic';
+import BookList from '../../components/BookList/BookList';
 
 function TitleSection() {
   return (
@@ -75,7 +92,7 @@ function TitleSection() {
 
 function CTASection({ goToSearch }) {
   return (
-    <Container maxWidth='sm' sx={{ px: 4 }}>
+    <Container maxWidth='sm' sx={{ px: 4, py: 6 }}>
       <TextField
         placeholder='Chercher un livre, un auteur, ...'
         variant='outlined'
@@ -98,25 +115,130 @@ function CTASection({ goToSearch }) {
   );
 }
 
+function LoadingList({
+  avatarShape = 'circular',
+  number = 3,
+  avatarDimensions = { width: 40, height: 40 },
+}) {
+  const list = new Array(number).fill(0);
+  return list.map((_, index) => (
+    <Box
+      sx={{ display: 'flex', flexDirection: 'row', gap: 3, mb: 2 }}
+      key={index}
+    >
+      <Skeleton variant={avatarShape} {...avatarDimensions} />
+      <Skeleton variant='text' width={210} />
+    </Box>
+  ));
+}
+
+function Leaderboard({ bestAders, bestSellers }) {
+  const categoryBoxStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    alignItems: 'center',
+  };
+
+  return (
+    <Container
+      maxWidth='md'
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        gap: { xs: 0, sm: 1, md: 6 },
+        mt: { xs: 2, sm: 4, md: 6 },
+      }}
+    >
+      <Box sx={categoryBoxStyle}>
+        <Typography variant='h5' textAlign='center' pb={1} px={2}>
+          Meilleurs vendeurs
+        </Typography>
+        {Boolean(bestAders) ? (
+          <List sx={{ width: '100%' }}>
+            {bestAders.map((user, index) => (
+              <ListItemButton
+                key={user.username}
+                component={HashLink}
+                to={'/user/' + user.username}
+              >
+                <ListItemAvatar>
+                  <Avatar>{user.username[0]}</Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <Link variant='body1' py={1} component='span'>
+                      {/* {index + 1 + '. '} */}
+                      {user.username}
+                    </Link>
+                  }
+                  secondary={
+                    <Typography
+                      variant='caption'
+                      color='text.primary'
+                      sx={{
+                        display: { xs: 'inline', sm: 'inline', md: 'none' },
+                      }}
+                    >
+                      {user.n_bids} livres
+                    </Typography>
+                  }
+                />
+                <Typography
+                  variant='caption'
+                  color='text.primary'
+                  sx={{ display: { xs: 'none', sm: 'none', md: 'inline' } }}
+                >
+                  {user.n_bids} livres
+                </Typography>
+              </ListItemButton>
+            ))}
+          </List>
+        ) : (
+          <LoadingList number={5} />
+        )}
+      </Box>
+      <Box sx={categoryBoxStyle}>
+        <Typography
+          variant='h5'
+          textAlign='center'
+          sx={{ pb: { xs: 3, sm: 2, md: 1 } }}
+        >
+          Best sellers
+        </Typography>
+        {Boolean(bestSellers) ? (
+          <BookList items={bestSellers} dense sx={{ pl: 2 }} />
+        ) : (
+          <LoadingList
+            avatarShape='rectangular'
+            avatarDimensions={{ width: 70, height: 90 }}
+          />
+        )}
+      </Box>
+    </Container>
+  );
+}
+
 function Home() {
-  const { goToSearch } = HomeLogic();
+  const { goToSearch, bestAders, bestSellers } = HomeLogic();
 
   return (
     <>
       <Navbar coverPage />
       <Box
         sx={{
-          height: '100vh',
+          minHeight: '100vh',
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          pt: { xs: 0, sm: 0, md: 20 },
+          mt: { xs: 20, sm: 20, md: 0 },
         }}
       >
         <TitleSection />
-        <SectionDivider h={1} />
         <CTASection goToSearch={goToSearch} />
-        {/* <Leaderboard /> */}
+        <Leaderboard bestAders={bestAders} bestSellers={bestSellers} />
         <Footer />
       </Box>
     </>
