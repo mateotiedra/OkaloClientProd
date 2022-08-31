@@ -9,8 +9,6 @@ import {
   Button,
   Link,
   Avatar,
-  CircularProgress,
-  ListItem,
   ListItemAvatar,
   List,
   ListItemText,
@@ -20,8 +18,6 @@ import {
 
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
-import SectionDivider from '../../components/SectionDivider/SectionDivider';
-import SectionContainer from '../../components/SectionContainer/SectionContainer';
 
 import HomeLogic from './HomeLogic';
 import BookList from '../../components/BookList/BookList';
