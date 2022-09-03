@@ -160,7 +160,7 @@ function Leaderboard({ bestAders, bestSellers }) {
                   to={'/user/' + user.username}
                 >
                   <ListItemAvatar>
-                    <Avatar>{user.username[0]}</Avatar>
+                    <Avatar>{user.username && user.username[0]}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={
