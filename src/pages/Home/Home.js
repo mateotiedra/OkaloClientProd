@@ -152,43 +152,44 @@ function Leaderboard({ bestAders, bestSellers }) {
         </Typography>
         {Boolean(bestAders) ? (
           <List sx={{ width: '100%' }}>
-            {bestAders.map((user, index) => (
-              <ListItemButton
-                key={user.username}
-                component={HashLink}
-                to={'/user/' + user.username}
-              >
-                <ListItemAvatar>
-                  <Avatar>{user.username[0]}</Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
-                    <Link variant='body1' py={1} component='span'>
-                      {/* {index + 1 + '. '} */}
-                      {user.username}
-                    </Link>
-                  }
-                  secondary={
-                    <Typography
-                      variant='caption'
-                      color='text.primary'
-                      sx={{
-                        display: { xs: 'none', sm: 'inline', md: 'none' },
-                      }}
-                    >
-                      {user.n_bids} livres
-                    </Typography>
-                  }
-                />
-                <Typography
-                  variant='caption'
-                  color='text.primary'
-                  sx={{ display: { xs: 'inline', sm: 'none', md: 'inline' } }}
+            {bestAders &&
+              bestAders.map((user, index) => (
+                <ListItemButton
+                  key={user.username}
+                  component={HashLink}
+                  to={'/user/' + user.username}
                 >
-                  {user.n_bids} livres
-                </Typography>
-              </ListItemButton>
-            ))}
+                  <ListItemAvatar>
+                    <Avatar>{user.username[0]}</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <Link variant='body1' py={1} component='span'>
+                        {/* {index + 1 + '. '} */}
+                        {user.username}
+                      </Link>
+                    }
+                    secondary={
+                      <Typography
+                        variant='caption'
+                        color='text.primary'
+                        sx={{
+                          display: { xs: 'none', sm: 'inline', md: 'none' },
+                        }}
+                      >
+                        {user.n_bids} livres
+                      </Typography>
+                    }
+                  />
+                  <Typography
+                    variant='caption'
+                    color='text.primary'
+                    sx={{ display: { xs: 'inline', sm: 'none', md: 'inline' } }}
+                  >
+                    {user.n_bids} livres
+                  </Typography>
+                </ListItemButton>
+              ))}
           </List>
         ) : (
           <LoadingList number={5} />
