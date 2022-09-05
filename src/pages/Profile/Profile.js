@@ -13,6 +13,7 @@ import Loading from '../Loading/Loading';
 import IconTitle from '../../components/IconTitle/IconTitle';
 import BookList from '../../components/BookList/BookList';
 import PopPageAlert from '../../components/PopPageAlert/PopPageAlert';
+import AlertPage from '../../components/AlertPage/AlertPage';
 
 import ProfileLogic from './ProfileLogic';
 
@@ -30,6 +31,15 @@ function Profile() {
   } = ProfileLogic();
 
   if (pageStatus === 'loading') return <Loading />;
+
+  if (pageStatus === 'not found')
+    return (
+      <AlertPage
+        title='Utilisateur introuvable'
+        body="Cet utilisateur n'existe pas ou plus."
+        ctaButtons={[{ text: "Retourner à l'acceuil", to: '/' }]}
+      />
+    );
 
   const Title = (
     <Box
@@ -177,7 +187,7 @@ function Profile() {
         </PopPageAlert>
         {pageStatus === 'owner' && UserActions}
         {Socials}
-        {bids && bids.length > 0 && (
+        {!noBidsPublished && (
           <TextField
             sx={{ mb: 2, mt: 4 }}
             variant='outlined'
