@@ -14,6 +14,7 @@ import Bid from './pages/Bid/Bid';
 import Search from './pages/Search/Search';
 import Book from './pages/Book/Book';
 import Admin from './pages/Admin/Admin';
+import FullPresentation from './pages/FullPresentation/FullPresentation';
 
 // Manage routing
 function App() {
@@ -45,6 +46,8 @@ function App() {
           <Route path='/search' element={<Search />} />
           {/* Admin Section */}
           <Route path='/admin/clean/books/isbn' element={<Admin />} />
+          {/*Landing page*/}
+          <Route path='/presentation' element={<FullPresentation />} />
         </Routes>
       </ErrorHandlerWrapper>
     </Router>
