@@ -19,6 +19,7 @@ import { HashLink as RouterLink } from 'react-router-hash-link';
 import Navbar from '../../components/Navbar/Navbar';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import Footer from '../../components/Footer/Footer';
+import PageButton from '../../components/PageButton/PageButton';
 import SectionDivider from '../../components/SectionDivider/SectionDivider';
 
 import {
@@ -29,8 +30,15 @@ import {
 import genevaStudentsChart from '../../assets/images/geneva-students-chart.svg';
 import lausanneStudentsChart from '../../assets/images/lausanne-students-chart.svg';
 import tomChart from '../../assets/images/tom-chart.svg';
+import { LoadingButton } from '@mui/lab';
+
+import FullPresentationLogic from './FullPresentationLogic';
+import FormFields from '../../components/FormFields/FormFields';
 
 export default function FullPresentation(props) {
+  const { register, errors, onSubmit, pageStatus, fields } =
+    FullPresentationLogic(props);
+
   function TableOfContents() {
     const createData = (primary, to) => {
       return { primary, to };
@@ -217,8 +225,8 @@ export default function FullPresentation(props) {
             books they no longer need and want to get rid of
           </NumberWithText>
           <NumberWithText number={3}>
-            Students are lazy and not inclined to make any effort, such as going
-            to the bookshop, to grab their books
+            Students may be lazy and not inclined to make any effort, such as
+            going to the bookshop, to grab their books
           </NumberWithText>
         </Box>
       </SectionContainer>
@@ -257,14 +265,14 @@ export default function FullPresentation(props) {
               Released in 2022
             </Typography>
             <Typography variant='body1' mb={1} sx={{}}>
-              An online marketplace connecting students looking to sell with
-              those wanting to buy. The buyer contacts the seller, and together,
-              they coordinate a meeting to exchange the book. The money is
-              directly passing from a student to another without passing through
-              the platform.
+              An online marketplace connecting students looking to sell to those
+              wanting to buy. The buyer contacts the seller, and together, they
+              coordinate a meeting to exchange the book. The money is directly
+              passing from a student to another without going through the
+              platform.
             </Typography>
             <List sx={{ width: '100%', mt: 2 }}>
-              <PlusMinusListElem>Books come at a lower cost</PlusMinusListElem>
+              <PlusMinusListElem>Books sell at a lower cost</PlusMinusListElem>
               <PlusMinusListElem>
                 Students can sell their old books
               </PlusMinusListElem>
@@ -274,7 +282,7 @@ export default function FullPresentation(props) {
               </PlusMinusListElem>
               <PlusMinusListElem minus>
                 It can be tedious to acquire multiple books from different
-                sellers, especially if none offers them all bundled together
+                sellers, especially if nobody offers them all bundled together
               </PlusMinusListElem>
             </List>
           </Box>
@@ -299,7 +307,7 @@ export default function FullPresentation(props) {
               feature: users will be able to order and pay all their books
               directly on the website. The platform will take care of contacting
               the sellers, buying the books and have them delivered directly to
-              the buyers’ place. The money will be passing through the platform
+              the buyers’ place. The money will be moving through the platform
               for every transaction.
             </Typography>
             <List sx={{ width: '100%', mt: 2 }}>
@@ -331,10 +339,9 @@ export default function FullPresentation(props) {
         <Typography>
           The business model relies heavily on a marketplace structure. In the
           upcoming V2, the website will charge a commission of 10% on every
-          transaction, the exchange in person and the order and delivered. The
-          commission will be deducted from the seller, a strategic decision that
-          emerged from our observation in V1, where we identified a surplus of
-          offers compared to demand.
+          transaction. The commission will be deducted from the seller, a
+          strategic decision that emerged from our observation in V1, where we
+          identified a surplus of offers compared to demand.
         </Typography>
       </SectionContainer>
     );
@@ -447,7 +454,7 @@ export default function FullPresentation(props) {
           >
             <img src={genevaStudentsChart} alt='Geneva students chart' />
             <Typography variant='subtitle2' sx={{ mt: 2, textAlign: 'center' }}>
-              Number of students in Geneva depending on their type of studies
+              Number of students in Geneva per category
             </Typography>
           </Box>
           <Box
@@ -461,7 +468,7 @@ export default function FullPresentation(props) {
             <img src={lausanneStudentsChart} alt='Vaud students chart' />
 
             <Typography variant='subtitle2' sx={{ mt: 2, textAlign: 'center' }}>
-              Number of students in Vaud depending on their type of studies
+              Number of students in Vaud per category
             </Typography>
           </Box>
         </Box>
@@ -781,11 +788,11 @@ export default function FullPresentation(props) {
             createCompet('Physical bookstore', 'Payot, Fnac', [
               'Expensive books',
               'Not eco-friendly',
-              'Cannot sell books on it',
+              'Cannot sell used books',
             ]),
             createCompet('Online Bookstores', 'Amazon, Decitre.fr', [
               'Not eco-friendly',
-              'Cannot sell books on it',
+              'Cannot sell used books',
             ]),
             createCompet(
               'Classified Ad Websites',
@@ -949,10 +956,11 @@ export default function FullPresentation(props) {
               evenly spread across all high schools in Geneva.
             </Typography>
             <Typography mt={2}>
-              Not any marketing has been done in September 2023, and the website
-              was even shut down because we thought not many people were using
-              it. But once it was down, we got tons of messages from users
-              asking what happened and really wanting it to come back.
+              Not any marketing has been done since September 2022, and the
+              website was even shut down in September 2023 because we thought
+              not many people were using it. But once it was down, we got tons
+              of messages from users asking what happened and really wanting it
+              to come back.
             </Typography>
           </Box>
         </Box>
@@ -1046,7 +1054,7 @@ export default function FullPresentation(props) {
           team ? You want to know more about the project ? You want to give
           feedbacks or advice ?{' '}
           <Typography component='span' fontWeight='bold'>
-            Do not hesitate to contact us !
+            Do not hesitate to contact us!
           </Typography>
         </Typography>
         <Container maxWidth='sm' sx={{ py: 6 }}>
@@ -1059,15 +1067,42 @@ export default function FullPresentation(props) {
           >
             Contact us
           </Button>
-          {/* <TextField
-            placeholder='Join the contributors mailing list'
-            variant='outlined'
-            sx={{ width: '100%' }}
-            inputProps={{
-              sx: { fontSize: { xs: 18, sm: 21, md: 20 }, textAlign: 'center' },
-            }}
-          /> */}
         </Container>
+        {/* <Typography variant='body1'>
+          Hesitant to contribute because you think the project is still in its
+          early stages? Curious about its future development? Sign up for the
+          project's mailing list to stay informed and engaged!{' '}
+          <Typography component='span' fontWeight='bold'>
+            Sign up for the project's mailing list to stay informed and engaged!
+          </Typography>
+        </Typography>
+        <Container maxWidth='sm' sx={{ py: 6 }}>
+          <Box component='form' noValidate onSubmit={onSubmit}>
+            <TextField
+              id={fields[0].id}
+              label={fields[0].label}
+              autoComplete={fields[0].id}
+              helperText={errors[fields[0].id] && errors[fields[0].id].message}
+              error={errors[fields[0].id] !== undefined}
+              disabled={fields[0].disabled}
+              inputProps={{
+                ...fields[0].inputProps,
+              }}
+              variant='outlined'
+              required={true}
+              multiline={Boolean(fields[0].rows)}
+              rows={fields[0].rows}
+              InputProps={{
+                endAdornment: fields[0].endAdornment,
+              }}
+              {...register(fields[0].id, fields[0].registration)}
+            />
+          </Box>
+          <Alert severity='info' sx={{ mt: 2 }}>
+            Rest assured, no spam! You'll only receive a few emails when
+            significant milestones are achieved.
+          </Alert>
+        </Container> */}
       </SectionContainer>
     );
   }
@@ -1095,6 +1130,9 @@ export default function FullPresentation(props) {
       <NextMilestones />
       <SectionDivider id='cta' />
       <CallToActionSection />
+      <PageButton component='a' href='mailto:contact@okalo.ch'>
+        Contact Us
+      </PageButton>
       <Footer />
     </>
   );
